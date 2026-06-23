@@ -1,0 +1,42 @@
+﻿@model IEnumerable<DurjoyBDNews24.Application.DTOs.Category.CategoryDto>
+@{
+    ViewData["Title"] = "বিভাগ ম্যানেজমেন্ট";
+}
+
+<div class="page-header">
+    <h2>সব বিভাগ</h2>
+    <a asp-action="Create" class="btn-primary">+ নতুন বিভাগ</a>
+</div>
+
+<table class="data-table">
+    <thead>
+        <tr>
+            <th>বাংলা নাম</th>
+            <th>English Name</th>
+            <th>Slug</th>
+            <th>Sub-category</th>
+            <th>একশন</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var cat in Model)
+        {
+            <tr>
+                <td><strong>@cat.NameBn</strong></td>
+                <td>@cat.Name</td>
+                <td>@cat.Slug</td>
+                <td>@cat.Children.Count() টি</td>
+                <td class="action-buttons">
+                    <form asp-action="Delete"
+                          asp-route-id="@cat.Id"
+                          method="post"
+                          onsubmit="return confirm('মুছে ফেলবেন?')">
+                        <button type="submit" class="btn-sm red">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

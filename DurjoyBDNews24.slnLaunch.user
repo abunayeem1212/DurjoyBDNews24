@@ -1,0 +1,19 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "DurjoyBDNews24.API\\DurjoyBDNews24.API.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "DurjoyBDNews24.Web\\DurjoyBDNews24.Web.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "DurjoyBDNews24.Admin\\DurjoyBDNews24.Admin.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

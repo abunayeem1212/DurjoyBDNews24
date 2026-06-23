@@ -1,0 +1,67 @@
+﻿@model IEnumerable<DurjoyBDNews24.Domain.Entities.AdZone>
+@{
+    ViewData["Title"] = "Ad Zones";
+}
+
+<div class="page-header">
+    <h2>Ad Zones</h2>
+</div>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+    <div>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>নাম</th>
+                    <th>Position</th>
+                    <th>Size</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var zone in Model)
+                {
+                    <tr>
+                        <td>@zone.Name</td>
+                        <td>@zone.Position</td>
+                        <td>@zone.Size</td>
+                        <td>
+                            <span class="badge @(zone.IsActive ? "green" : "gray")">
+                                @(zone.IsActive ? "Active" : "Inactive")
+                            </span>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="form-card">
+        <h3>নতুন Zone</h3>
+        <form asp-action="CreateZone" method="post">
+            <div class="form-group">
+                <label>Zone নাম *</label>
+                <input type="text" name="name" required
+                       placeholder="Header Banner" />
+            </div>
+            <div class="form-group">
+                <label>Position *</label>
+                <select name="position" required>
+                    <option value="0">Header Banner</option>
+                    <option value="1">Sidebar Top</option>
+                    <option value="2">Sidebar Bottom</option>
+                    <option value="3">In Article</option>
+                    <option value="4">Footer Banner</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Size</label>
+                <input type="text" name="size"
+                       placeholder="728x90" />
+            </div>
+            <button type="submit" class="btn-primary">
+                Zone তৈরি করুন
+            </button>
+        </form>
+    </div>
+</div>

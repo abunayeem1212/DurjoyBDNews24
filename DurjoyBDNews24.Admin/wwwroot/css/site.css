@@ -1,0 +1,86 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+@media (max-width: 1024px) {
+    .home-layout,
+    .detail-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .sidebar {
+        display: none;
+    }
+}
+
+
+
+@media (max-width: 768px) {
+    .container {
+        padding: 0 12px;
+    }
+
+    .article-title {
+        font-size: 20px;
+    }
+
+    .article-content {
+        font-size: 16px;
+        line-height: 1.8;
+    }
+
+    .related-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .featured-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .article-detail {
+        padding: 16px;
+    }
+
+    .article-meta-bar {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .header-search {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .article-title {
+        font-size: 18px;
+    }
+
+    .breaking-bar .container {
+        gap: 8px;
+    }
+
+    .breaking-label {
+        font-size: 11px;
+        padding: 2px 8px;
+    }
+}

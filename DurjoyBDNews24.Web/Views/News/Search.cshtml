@@ -1,0 +1,103 @@
+﻿@model DurjoyBDNews24.Web.Models.SearchViewModel
+@{
+    ViewData["Title"] = $"'{Model.Query}' সার্চ ফলাফল";
+}
+
+<div class="home-layout">
+    <div class="main-col">
+        <div style="background:white;border-radius:8px;padding:20px 24px;margin-bottom:20px;border:0.5px solid #e0e0e0;">
+            <h1 style="font-size:20px;color:#1a1a1a;">
+                '@Model.Query' সার্চ ফলাফল
+            </h1>
+            <p style="font-size:14px;color:#888;margin-top:4px;">
+                @Model.TotalCount টি সংবাদ পাওয়া গেছে
+            </p>
+        </div>
+
+        @if (!Model.Articles.Any())
+        {
+            <div style="background:white;border-radius:8px;padding:40px;text-align:center;border:0.5px solid #e0e0e0;">
+                <p style="font-size:18px;color:#888;">কোনো সংবাদ পাওয়া যায়নি</p>
+                <a asp-controller="Home" asp-action="Index"
+                   style="display:inline-block;margin-top:12px;color:#c0392b;">
+                    প্রচ্ছদে ফিরুন
+                </a>
+            </div>
+        }
+        else
+        {
+            <div class="news-list">
+                @foreach (var article in Model.Articles)
+                {
+                    <article class="news-card horizontal">
+                        @if (!string.IsNullOrEmpty(article.ThumbnailUrl))
+                        {
+                            <img src="@article.ThumbnailUrl"
+                                 alt="@article.TitleBn" />
+                        }
+                        else
+                        {
+                            <div class="no-image">
+                                <span>@article.CategoryNameBn</span>
+                            </div>
+                        }
+                        <div class="card-body">
+                            <span class="category-badge">
+                                @article.CategoryNameBn
+                            </span>
+                            <h3>
+                                <a asp-controller="News"
+                                   asp-action="Detail"
+                                   asp-route-slug="@article.Slug">
+                                    @article.TitleBn
+                                </a>
+                            </h3>
+                            <p class="summary">@article.SummaryBn</p>
+                            <div class="card-meta">
+                                <span>@article.AuthorNameBn</span>
+                                <span>
+                                    @article.PublishedAt?.ToString("dd MMM yyyy")
+                                </span>
+                                <span>@article.ViewCount বার পঠিত</span>
+                            </div>
+                        </div>
+                    </article>
+                }
+            </div>
+
+            @if (Model.TotalPages > 1)
+            {
+                <div class="pagination">
+                    @for (int i = 1; i <= Model.TotalPages; i++)
+                    {
+                        <a asp-action="Search"
+                           asp-route-q="@Model.Query"
+                           asp-route-page="@i"
+                           class="@(i == Model.CurrentPage ? "active" : "")">
+                            @i
+                        </a>
+                    }
+                </div>
+            }
+        }
+    </div>
+
+    <aside class="sidebar">
+        <div class="widget">
+            <h3 class="widget-title">বিভাগ</h3>
+            <ul class="category-list">
+                @foreach (var cat in Model.Categories)
+                {
+                    <li>
+                        <a asp-controller="Category"
+                           asp-action="Index"
+                           asp-route-slug="@cat.Slug">
+                            <i class="fas fa-chevron-right"></i>
+                            @cat.NameBn
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </aside>
+</div>

@@ -1,0 +1,438 @@
+2026-04-16 00:07:08.849 +06:00 [WRN] Entity 'Article' has a global query filter defined and is the required end of a relationship with the entity 'ArticleTag'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-04-16 00:07:09.042 +06:00 [WRN] Entity 'Article' has a global query filter defined and is the required end of a relationship with the entity 'Comment'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-04-16 00:07:09.358 +06:00 [WRN] No store type was specified for the decimal property 'Price' on entity type 'PressRelease'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-16 00:07:09.363 +06:00 [WRN] No store type was specified for the decimal property 'Amount' on entity type 'Subscription'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-16 00:07:19.267 +06:00 [INF] Start installing Hangfire SQL objects...
+2026-04-16 00:07:20.157 +06:00 [INF] Hangfire SQL objects installed.
+2026-04-16 00:07:25.058 +06:00 [INF] Starting Hangfire Server using job storage: 'SQL Server: NAYEEM\SQL2022@DurjoyBDNews24'
+2026-04-16 00:07:25.080 +06:00 [INF] Using the following options for SQL Server job storage: Queue poll interval: 00:00:00.
+2026-04-16 00:07:25.096 +06:00 [INF] Using the following options for Hangfire Server:
+    Worker count: 2
+    Listening queues: 'default', 'critical'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2026-04-16 00:07:25.328 +06:00 [INF] Server nayeem:376:e47cfb82 successfully announced in 64.7903 ms
+2026-04-16 00:07:25.351 +06:00 [INF] Server nayeem:376:e47cfb82 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, SqlServerHeartbeatProcess, ExpirationManager, CountersAggregator, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2026-04-16 00:07:25.510 +06:00 [INF] Server nayeem:376:e47cfb82 all the dispatchers started
+2026-04-16 00:07:26.087 +06:00 [INF] HTTP GET /weatherforecast responded 404 in 173.8285 ms
+2026-04-16 00:07:27.359 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 1691.7585 ms
+2026-04-16 00:07:46.918 +06:00 [INF] HTTP GET /weatherforecast responded 404 in 8.6612 ms
+2026-04-16 00:07:51.903 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 898.7076 ms
+2026-04-16 00:07:51.903 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 802.1955 ms
+2026-04-16 00:07:52.090 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 62.7744 ms
+2026-04-16 00:07:52.279 +06:00 [INF] HTTP GET /api/v1/news/featured responded 200 in 251.1626 ms
+2026-04-16 00:07:52.950 +06:00 [INF] HTTP GET /api/v1/news responded 200 in 628.4953 ms
+2026-04-16 00:07:53.551 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 38.5822 ms
+2026-04-16 00:08:27.316 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 48.4289 ms
+2026-04-16 00:08:27.385 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 40.6648 ms
+2026-04-16 00:08:28.312 +06:00 [INF] HTTP GET /api/v1/news/টেসলার-নতুন-প্রস্তাবে-বিশ্বের-প্রথম-ট্রিলিয়নিয়ার-হওয়ার-পথে-মাস্ক responded 200 in 1020.5975 ms
+2026-04-16 00:08:28.405 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 35.0432 ms
+2026-04-16 00:08:28.454 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 19.6510 ms
+2026-04-16 00:08:29.313 +06:00 [INF] HTTP GET /api/v1/comment/article/20 responded 200 in 606.9000 ms
+2026-04-16 00:08:32.434 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 20.7048 ms
+2026-04-16 00:08:32.461 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 30.6188 ms
+2026-04-16 00:08:32.532 +06:00 [INF] HTTP GET /api/v1/news/featured responded 200 in 19.8228 ms
+2026-04-16 00:08:32.550 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 67.3953 ms
+2026-04-16 00:08:32.622 +06:00 [INF] HTTP GET /api/v1/news responded 200 in 9.3551 ms
+2026-04-16 00:08:32.692 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 32.0057 ms
+2026-04-16 00:10:21.045 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 16.2992 ms
+2026-04-16 00:10:21.093 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 53.5922 ms
+2026-04-16 00:10:21.115 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 25.1198 ms
+2026-04-16 00:10:21.181 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 10.5434 ms
+2026-04-16 00:10:21.206 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 8.5966 ms
+2026-04-16 00:10:21.256 +06:00 [INF] HTTP GET /api/v1/news/featured responded 200 in 6.9456 ms
+2026-04-16 00:10:21.271 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 42.5223 ms
+2026-04-16 00:10:21.325 +06:00 [INF] HTTP GET /api/v1/news responded 200 in 3.7071 ms
+2026-04-16 00:10:21.395 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 41.3564 ms
+2026-04-16 00:11:12.164 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 6.6023 ms
+2026-04-16 00:11:12.188 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 12.8652 ms
+2026-04-16 00:11:12.265 +06:00 [INF] HTTP GET /api/v1/news/featured responded 200 in 12.7684 ms
+2026-04-16 00:11:12.283 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 41.3530 ms
+2026-04-16 00:11:12.314 +06:00 [INF] HTTP GET /api/v1/news responded 200 in 1.3392 ms
+2026-04-16 00:11:12.394 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 45.1283 ms
+2026-04-16 00:23:52.090 +06:00 [WRN] Entity 'Article' has a global query filter defined and is the required end of a relationship with the entity 'ArticleTag'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-04-16 00:23:52.456 +06:00 [WRN] Entity 'Article' has a global query filter defined and is the required end of a relationship with the entity 'Comment'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-04-16 00:23:53.066 +06:00 [WRN] No store type was specified for the decimal property 'Price' on entity type 'PressRelease'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-16 00:23:53.080 +06:00 [WRN] No store type was specified for the decimal property 'Amount' on entity type 'Subscription'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-16 00:24:05.125 +06:00 [INF] Start installing Hangfire SQL objects...
+2026-04-16 00:24:06.177 +06:00 [INF] Hangfire SQL objects installed.
+2026-04-16 00:24:10.050 +06:00 [INF] Starting Hangfire Server using job storage: 'SQL Server: NAYEEM\SQL2022@DurjoyBDNews24'
+2026-04-16 00:24:10.096 +06:00 [INF] Using the following options for SQL Server job storage: Queue poll interval: 00:00:00.
+2026-04-16 00:24:10.106 +06:00 [INF] Using the following options for Hangfire Server:
+    Worker count: 2
+    Listening queues: 'default', 'critical'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2026-04-16 00:24:10.640 +06:00 [INF] Server nayeem:17524:04e98613 successfully announced in 228.2716 ms
+2026-04-16 00:24:10.674 +06:00 [INF] Server nayeem:17524:04e98613 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, SqlServerHeartbeatProcess, ExpirationManager, CountersAggregator, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2026-04-16 00:24:10.881 +06:00 [INF] Server nayeem:17524:04e98613 all the dispatchers started
+2026-04-16 00:24:11.023 +06:00 [INF] HTTP GET /weatherforecast responded 404 in 92.3627 ms
+2026-04-16 00:24:12.979 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 2733.7690 ms
+2026-04-16 00:24:15.285 +06:00 [INF] HTTP OPTIONS /hubs/news/negotiate responded 204 in 10.6238 ms
+2026-04-16 00:24:18.287 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 777.0358 ms
+2026-04-16 00:24:18.287 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 700.4573 ms
+2026-04-16 00:24:18.476 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 54.8878 ms
+2026-04-16 00:24:18.627 +06:00 [INF] HTTP GET /api/v1/news/featured responded 200 in 208.0238 ms
+2026-04-16 00:24:19.482 +06:00 [INF] HTTP GET /api/v1/news responded 200 in 782.9063 ms
+2026-04-16 00:24:19.582 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 39.1872 ms
+2026-04-16 00:24:20.225 +06:00 [INF] HTTP OPTIONS /hubs/news/negotiate responded 204 in 1.2842 ms
+2026-04-16 00:24:25.400 +06:00 [INF] HTTP OPTIONS /hubs/news/negotiate responded 204 in 0.1489 ms
+2026-04-16 00:24:30.424 +06:00 [INF] HTTP OPTIONS /hubs/news/negotiate responded 204 in 0.4362 ms
+2026-04-16 00:24:35.442 +06:00 [INF] HTTP OPTIONS /hubs/news/negotiate responded 204 in 0.1039 ms
+2026-04-16 00:24:40.461 +06:00 [INF] HTTP OPTIONS /hubs/news/negotiate responded 204 in 0.0995 ms
+2026-04-16 00:24:45.477 +06:00 [INF] HTTP OPTIONS /hubs/news/negotiate responded 204 in 0.5716 ms
+2026-04-16 00:24:50.503 +06:00 [INF] HTTP OPTIONS /hubs/news/negotiate responded 204 in 0.1477 ms
+2026-04-16 00:24:55.520 +06:00 [INF] HTTP OPTIONS /hubs/news/negotiate responded 204 in 0.1246 ms
+2026-04-16 00:25:00.544 +06:00 [INF] HTTP OPTIONS /hubs/news/negotiate responded 204 in 0.1060 ms
+2026-04-16 00:25:05.573 +06:00 [INF] HTTP OPTIONS /hubs/news/negotiate responded 204 in 0.1244 ms
+2026-04-16 00:25:09.131 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 57.4105 ms
+2026-04-16 00:25:09.194 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 30.3131 ms
+2026-04-16 00:25:10.000 +06:00 [INF] HTTP GET /api/v1/news/টেসলার-নতুন-প্রস্তাবে-বিশ্বের-প্রথম-ট্রিলিয়নিয়ার-হওয়ার-পথে-মাস্ক responded 200 in 899.0587 ms
+2026-04-16 00:25:10.076 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 29.1529 ms
+2026-04-16 00:25:10.143 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 21.2758 ms
+2026-04-16 00:25:10.331 +06:00 [INF] HTTP OPTIONS /hubs/news/negotiate responded 204 in 0.1969 ms
+2026-04-16 00:25:10.606 +06:00 [INF] HTTP GET /api/v1/comment/article/20 responded 200 in 260.7051 ms
+2026-04-16 00:25:15.967 +06:00 [INF] HTTP OPTIONS /hubs/news/negotiate responded 204 in 0.1323 ms
+2026-04-16 00:25:17.514 +06:00 [INF] HTTP OPTIONS /hubs/news/negotiate responded 204 in 0.0882 ms
+2026-04-16 00:25:22.532 +06:00 [INF] HTTP OPTIONS /hubs/news/negotiate responded 204 in 0.0962 ms
+2026-04-16 00:25:27.553 +06:00 [INF] HTTP OPTIONS /hubs/news/negotiate responded 204 in 0.0779 ms
+2026-04-16 00:25:32.567 +06:00 [INF] HTTP OPTIONS /hubs/news/negotiate responded 204 in 0.0923 ms
+2026-04-16 00:25:37.590 +06:00 [INF] HTTP OPTIONS /hubs/news/negotiate responded 204 in 0.1185 ms
+2026-04-16 00:29:11.524 +06:00 [WRN] Entity 'Article' has a global query filter defined and is the required end of a relationship with the entity 'ArticleTag'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-04-16 00:29:11.740 +06:00 [WRN] Entity 'Article' has a global query filter defined and is the required end of a relationship with the entity 'Comment'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-04-16 00:29:11.998 +06:00 [WRN] No store type was specified for the decimal property 'Price' on entity type 'PressRelease'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-16 00:29:12.005 +06:00 [WRN] No store type was specified for the decimal property 'Amount' on entity type 'Subscription'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-16 00:29:19.496 +06:00 [INF] Start installing Hangfire SQL objects...
+2026-04-16 00:29:20.297 +06:00 [INF] Hangfire SQL objects installed.
+2026-04-16 00:29:25.188 +06:00 [INF] Starting Hangfire Server using job storage: 'SQL Server: NAYEEM\SQL2022@DurjoyBDNews24'
+2026-04-16 00:29:25.213 +06:00 [INF] Using the following options for SQL Server job storage: Queue poll interval: 00:00:00.
+2026-04-16 00:29:25.217 +06:00 [INF] Using the following options for Hangfire Server:
+    Worker count: 2
+    Listening queues: 'default', 'critical'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2026-04-16 00:29:25.416 +06:00 [INF] Server nayeem:5984:0d83c9f3 successfully announced in 62.5652 ms
+2026-04-16 00:29:25.460 +06:00 [INF] Server nayeem:5984:0d83c9f3 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, SqlServerHeartbeatProcess, ExpirationManager, CountersAggregator, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2026-04-16 00:29:25.649 +06:00 [INF] Server nayeem:5984:0d83c9f3 all the dispatchers started
+2026-04-16 00:29:26.460 +06:00 [INF] HTTP GET /weatherforecast responded 404 in 298.1776 ms
+2026-04-16 00:29:28.362 +06:00 [INF] HTTP GET /api/v1/news responded 200 in 2899.1820 ms
+2026-04-16 00:29:28.994 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 481.2321 ms
+2026-04-16 00:29:37.428 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 105.6258 ms
+2026-04-16 00:29:37.428 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 155.9495 ms
+2026-04-16 00:29:37.565 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 46.5877 ms
+2026-04-16 00:29:37.609 +06:00 [INF] HTTP GET /api/v1/news/featured responded 200 in 122.8663 ms
+2026-04-16 00:29:37.646 +06:00 [INF] HTTP GET /api/v1/news responded 200 in 10.8044 ms
+2026-04-16 00:29:37.731 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 39.4092 ms
+2026-04-16 00:30:50.599 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 60.8398 ms
+2026-04-16 00:30:50.984 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 46.5091 ms
+2026-04-16 00:31:40.763 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 31.2494 ms
+2026-04-16 00:31:40.764 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 32.0798 ms
+2026-04-16 00:31:40.846 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 31.8663 ms
+2026-04-16 00:31:40.962 +06:00 [INF] HTTP GET /api/v1/news/category/international responded 200 in 132.7834 ms
+2026-04-16 00:31:41.004 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 9.8010 ms
+2026-04-16 00:31:46.092 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 17.7796 ms
+2026-04-16 00:31:46.145 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 53.1114 ms
+2026-04-16 00:31:46.210 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 38.6445 ms
+2026-04-16 00:31:46.235 +06:00 [INF] HTTP GET /api/v1/news/category/national responded 200 in 38.2302 ms
+2026-04-16 00:31:46.282 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 18.1288 ms
+2026-04-16 00:31:54.967 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 5.6703 ms
+2026-04-16 00:31:55.072 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 50.7729 ms
+2026-04-16 00:31:55.907 +06:00 [INF] HTTP GET /api/v1/news/ইরান-ইস্যুতে-আলোচনার-জন্য-পাকিস্তানের-পথে-জেডি-ভ্যান্সসহ-মার্কিন-প্রতিনিধিদল responded 200 in 899.8269 ms
+2026-04-16 00:31:55.990 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 32.4412 ms
+2026-04-16 00:31:56.025 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 4.4950 ms
+2026-04-16 00:31:56.438 +06:00 [INF] HTTP GET /api/v1/comment/article/14 responded 200 in 238.5050 ms
+2026-04-16 00:32:45.648 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 6.9988 ms
+2026-04-16 00:32:45.678 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 11.6931 ms
+2026-04-16 00:32:45.763 +06:00 [INF] HTTP GET /api/v1/news/featured responded 200 in 30.4196 ms
+2026-04-16 00:32:45.769 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 46.5716 ms
+2026-04-16 00:32:45.817 +06:00 [INF] HTTP GET /api/v1/news responded 200 in 3.1480 ms
+2026-04-16 00:32:45.894 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 45.8134 ms
+2026-04-16 00:40:19.954 +06:00 [WRN] Entity 'Article' has a global query filter defined and is the required end of a relationship with the entity 'ArticleTag'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-04-16 00:40:20.317 +06:00 [WRN] Entity 'Article' has a global query filter defined and is the required end of a relationship with the entity 'Comment'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-04-16 00:40:20.687 +06:00 [WRN] No store type was specified for the decimal property 'Price' on entity type 'PressRelease'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-16 00:40:20.717 +06:00 [WRN] No store type was specified for the decimal property 'Amount' on entity type 'Subscription'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-16 00:40:28.961 +06:00 [INF] Start installing Hangfire SQL objects...
+2026-04-16 00:40:29.730 +06:00 [INF] Hangfire SQL objects installed.
+2026-04-16 00:40:32.995 +06:00 [INF] Starting Hangfire Server using job storage: 'SQL Server: NAYEEM\SQL2022@DurjoyBDNews24'
+2026-04-16 00:40:32.999 +06:00 [INF] Using the following options for SQL Server job storage: Queue poll interval: 00:00:00.
+2026-04-16 00:40:33.004 +06:00 [INF] Using the following options for Hangfire Server:
+    Worker count: 2
+    Listening queues: 'default', 'critical'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2026-04-16 00:40:33.407 +06:00 [INF] Server nayeem:14072:319a2b11 successfully announced in 209.9339 ms
+2026-04-16 00:40:33.444 +06:00 [INF] Server nayeem:14072:319a2b11 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, SqlServerHeartbeatProcess, ExpirationManager, CountersAggregator, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2026-04-16 00:40:33.677 +06:00 [INF] Server nayeem:14072:319a2b11 all the dispatchers started
+2026-04-16 00:40:34.219 +06:00 [INF] HTTP GET /weatherforecast responded 404 in 76.8205 ms
+2026-04-16 00:40:35.952 +06:00 [INF] HTTP GET /api/v1/news responded 200 in 2427.5022 ms
+2026-04-16 00:40:36.522 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 426.5343 ms
+2026-04-16 00:42:39.122 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 254.1327 ms
+2026-04-16 00:42:39.122 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 261.0507 ms
+2026-04-16 00:42:39.221 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 44.5337 ms
+2026-04-16 00:42:39.303 +06:00 [INF] HTTP GET /api/v1/news/featured responded 200 in 123.2809 ms
+2026-04-16 00:42:39.354 +06:00 [INF] HTTP GET /api/v1/news responded 200 in 13.2543 ms
+2026-04-16 00:42:39.419 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 34.2232 ms
+2026-04-16 00:42:49.858 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 49.8367 ms
+2026-04-16 00:42:49.940 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 37.3732 ms
+2026-04-16 00:42:50.794 +06:00 [INF] HTTP GET /api/v1/news/টেসলার-নতুন-প্রস্তাবে-বিশ্বের-প্রথম-ট্রিলিয়নিয়ার-হওয়ার-পথে-মাস্ক responded 200 in 961.5099 ms
+2026-04-16 00:42:50.874 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 35.5134 ms
+2026-04-16 00:42:50.927 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 28.0069 ms
+2026-04-16 00:42:51.320 +06:00 [INF] HTTP GET /api/v1/comment/article/20 responded 200 in 244.7447 ms
+2026-04-16 00:43:45.189 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 21.7490 ms
+2026-04-16 00:43:45.206 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 23.5542 ms
+2026-04-16 00:43:45.264 +06:00 [INF] HTTP GET /api/v1/news/featured responded 200 in 12.6749 ms
+2026-04-16 00:43:45.280 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 51.7174 ms
+2026-04-16 00:43:45.309 +06:00 [INF] HTTP GET /api/v1/news responded 200 in 1.7489 ms
+2026-04-16 00:43:45.442 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 102.8430 ms
+2026-04-16 01:06:29.493 +06:00 [WRN] Entity 'Article' has a global query filter defined and is the required end of a relationship with the entity 'ArticleTag'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-04-16 01:06:29.726 +06:00 [WRN] Entity 'Article' has a global query filter defined and is the required end of a relationship with the entity 'Comment'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-04-16 01:06:30.092 +06:00 [WRN] No store type was specified for the decimal property 'Price' on entity type 'PressRelease'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-16 01:06:30.100 +06:00 [WRN] No store type was specified for the decimal property 'Amount' on entity type 'Subscription'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-16 01:06:38.602 +06:00 [INF] Start installing Hangfire SQL objects...
+2026-04-16 01:06:39.467 +06:00 [INF] Hangfire SQL objects installed.
+2026-04-16 01:06:44.845 +06:00 [INF] Starting Hangfire Server using job storage: 'SQL Server: NAYEEM\SQL2022@DurjoyBDNews24'
+2026-04-16 01:06:44.852 +06:00 [INF] Using the following options for SQL Server job storage: Queue poll interval: 00:00:00.
+2026-04-16 01:06:44.855 +06:00 [INF] Using the following options for Hangfire Server:
+    Worker count: 2
+    Listening queues: 'default', 'critical'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2026-04-16 01:06:45.078 +06:00 [INF] Server nayeem:5324:659b956e successfully announced in 101.8956 ms
+2026-04-16 01:06:45.095 +06:00 [INF] Server nayeem:5324:659b956e is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, SqlServerHeartbeatProcess, ExpirationManager, CountersAggregator, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2026-04-16 01:06:45.333 +06:00 [INF] Server nayeem:5324:659b956e all the dispatchers started
+2026-04-16 01:06:45.447 +06:00 [INF] HTTP GET /weatherforecast responded 404 in 439.7085 ms
+2026-04-16 01:06:47.234 +06:00 [INF] HTTP GET /api/v1/news responded 200 in 2255.6504 ms
+2026-04-16 01:06:47.858 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 468.5885 ms
+2026-04-16 01:06:51.808 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 76.0370 ms
+2026-04-16 01:06:51.808 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 138.3261 ms
+2026-04-16 01:06:51.972 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 31.1819 ms
+2026-04-16 01:06:52.018 +06:00 [INF] HTTP GET /api/v1/news/featured responded 200 in 116.8895 ms
+2026-04-16 01:06:52.073 +06:00 [INF] HTTP GET /api/v1/news responded 200 in 13.1752 ms
+2026-04-16 01:06:52.155 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 42.2046 ms
+2026-04-16 01:07:39.826 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 78.7032 ms
+2026-04-16 01:07:39.898 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 40.2862 ms
+2026-04-16 01:07:40.680 +06:00 [INF] HTTP GET /api/v1/news/টেসলার-নতুন-প্রস্তাবে-বিশ্বের-প্রথম-ট্রিলিয়নিয়ার-হওয়ার-পথে-মাস্ক responded 200 in 894.0893 ms
+2026-04-16 01:07:40.771 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 35.2275 ms
+2026-04-16 01:07:40.821 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 21.1888 ms
+2026-04-16 01:07:41.485 +06:00 [INF] HTTP GET /api/v1/comment/article/20 responded 200 in 257.2143 ms
+2026-04-16 01:08:03.409 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 14.9259 ms
+2026-04-16 01:08:03.480 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 41.1075 ms
+2026-04-16 01:08:06.065 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 21.3578 ms
+2026-04-16 01:08:06.073 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 9.6788 ms
+2026-04-16 01:08:06.203 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 49.4451 ms
+2026-04-16 01:08:06.206 +06:00 [INF] HTTP GET /api/v1/news/featured responded 200 in 23.9476 ms
+2026-04-16 01:08:06.248 +06:00 [INF] HTTP GET /api/v1/news responded 200 in 1.4557 ms
+2026-04-16 01:08:06.311 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 29.2455 ms
+2026-04-16 01:10:00.243 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 33.4465 ms
+2026-04-16 01:10:00.243 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 34.1678 ms
+2026-04-16 01:10:00.371 +06:00 [INF] HTTP GET /api/v1/news/featured responded 200 in 23.6418 ms
+2026-04-16 01:10:00.414 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 68.8731 ms
+2026-04-16 01:10:00.454 +06:00 [INF] HTTP GET /api/v1/news responded 200 in 2.0197 ms
+2026-04-16 01:10:00.531 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 36.4343 ms
+2026-04-16 01:10:56.303 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 8.3497 ms
+2026-04-16 01:10:56.410 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 61.4607 ms
+2026-04-16 01:10:56.532 +06:00 [INF] HTTP GET /api/v1/news/নারায়ণগঞ্জে-পানি-ড্রেনেজ-ও-সবুজায়নে-বড়-প্রকল্প responded 200 in 214.9411 ms
+2026-04-16 01:10:56.595 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 33.4714 ms
+2026-04-16 01:10:56.639 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 7.0350 ms
+2026-04-16 01:10:56.943 +06:00 [INF] HTTP GET /api/v1/comment/article/18 responded 200 in 140.4394 ms
+2026-04-16 01:11:10.066 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 8.4240 ms
+2026-04-16 01:11:10.084 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 10.9411 ms
+2026-04-16 01:11:10.143 +06:00 [INF] HTTP GET /api/v1/news/featured responded 200 in 11.7674 ms
+2026-04-16 01:11:10.166 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 45.1671 ms
+2026-04-16 01:11:10.186 +06:00 [INF] HTTP GET /api/v1/news responded 200 in 0.8118 ms
+2026-04-16 01:11:10.228 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 10.9030 ms
+2026-04-16 09:49:04.969 +06:00 [WRN] Entity 'Article' has a global query filter defined and is the required end of a relationship with the entity 'ArticleTag'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-04-16 09:49:05.168 +06:00 [WRN] Entity 'Article' has a global query filter defined and is the required end of a relationship with the entity 'Comment'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-04-16 09:49:05.431 +06:00 [WRN] No store type was specified for the decimal property 'Price' on entity type 'PressRelease'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-16 09:49:05.443 +06:00 [WRN] No store type was specified for the decimal property 'Amount' on entity type 'Subscription'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-16 09:49:11.906 +06:00 [INF] Start installing Hangfire SQL objects...
+2026-04-16 09:49:12.692 +06:00 [INF] Hangfire SQL objects installed.
+2026-04-16 09:49:18.123 +06:00 [INF] Starting Hangfire Server using job storage: 'SQL Server: NAYEEM\SQL2022@DurjoyBDNews24'
+2026-04-16 09:49:18.129 +06:00 [INF] Using the following options for SQL Server job storage: Queue poll interval: 00:00:00.
+2026-04-16 09:49:18.132 +06:00 [INF] Using the following options for Hangfire Server:
+    Worker count: 2
+    Listening queues: 'default', 'critical'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2026-04-16 09:49:18.342 +06:00 [INF] Server nayeem:10336:13646bec successfully announced in 87.6092 ms
+2026-04-16 09:49:18.381 +06:00 [INF] Server nayeem:10336:13646bec is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, SqlServerHeartbeatProcess, ExpirationManager, CountersAggregator, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2026-04-16 09:49:18.571 +06:00 [INF] Server nayeem:10336:13646bec all the dispatchers started
+2026-04-16 09:49:19.015 +06:00 [INF] HTTP GET /weatherforecast responded 404 in 177.4152 ms
+2026-04-16 09:49:21.391 +06:00 [INF] HTTP GET /api/v1/news responded 200 in 3019.9750 ms
+2026-04-16 09:49:22.132 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 588.4380 ms
+2026-04-16 09:52:32.556 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 484.0122 ms
+2026-04-16 09:52:32.556 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 483.8097 ms
+2026-04-16 09:52:32.780 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 75.3569 ms
+2026-04-16 09:52:32.860 +06:00 [INF] HTTP GET /api/v1/news/featured responded 200 in 151.6110 ms
+2026-04-16 09:52:32.980 +06:00 [INF] HTTP GET /api/v1/news responded 200 in 95.6272 ms
+2026-04-16 09:52:33.049 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 36.6710 ms
+2026-04-16 09:55:11.911 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 102.4794 ms
+2026-04-16 09:55:11.978 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 35.0926 ms
+2026-04-16 09:55:12.999 +06:00 [INF] HTTP GET /api/v1/news/পহেলা-বৈশাখ-উদযাপন-ইসলাম-কী-বলে responded 200 in 1111.4674 ms
+2026-04-16 09:55:13.091 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 30.6490 ms
+2026-04-16 09:55:13.141 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 20.4410 ms
+2026-04-16 09:55:13.671 +06:00 [INF] HTTP GET /api/v1/comment/article/19 responded 200 in 299.4225 ms
+2026-04-16 09:55:25.255 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 21.1991 ms
+2026-04-16 09:55:25.273 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 23.7538 ms
+2026-04-16 09:55:25.333 +06:00 [INF] HTTP GET /api/v1/news/featured responded 200 in 13.4019 ms
+2026-04-16 09:55:25.346 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 36.7812 ms
+2026-04-16 09:55:25.449 +06:00 [INF] HTTP GET /api/v1/news responded 200 in 72.8304 ms
+2026-04-16 09:55:25.504 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 26.1218 ms
+2026-04-16 09:55:58.071 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 6.8831 ms
+2026-04-16 09:55:58.088 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 5.2652 ms
+2026-04-16 09:55:58.206 +06:00 [INF] HTTP GET /api/v1/news/featured responded 200 in 16.6928 ms
+2026-04-16 09:55:58.222 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 38.8773 ms
+2026-04-16 09:55:58.246 +06:00 [INF] HTTP GET /api/v1/news responded 200 in 2.4656 ms
+2026-04-16 09:55:58.282 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 10.2222 ms
+2026-04-16 09:56:03.574 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 5.3304 ms
+2026-04-16 09:56:03.656 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 49.9929 ms
+2026-04-16 09:56:06.819 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 4.0129 ms
+2026-04-16 09:56:06.881 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 35.1645 ms
+2026-04-16 09:56:08.377 +06:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 1456.4103 ms
+2026-04-16 09:56:08.479 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 4.5208 ms
+2026-04-16 09:56:08.507 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 4.5673 ms
+2026-04-16 09:56:08.559 +06:00 [INF] HTTP GET /api/v1/news/featured responded 200 in 11.5628 ms
+2026-04-16 09:56:08.582 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 35.3787 ms
+2026-04-16 09:56:08.594 +06:00 [INF] HTTP GET /api/v1/news responded 200 in 0.7653 ms
+2026-04-16 09:56:08.632 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 10.0283 ms
+2026-04-16 09:56:11.861 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 6.8674 ms
+2026-04-16 09:56:12.183 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 275.0124 ms
+2026-04-16 09:56:12.340 +06:00 [INF] HTTP GET /api/v1/payment/my-subscription responded 200 in 446.2523 ms
+2026-04-16 09:56:12.391 +06:00 [INF] HTTP GET /api/v1/comment/my responded 405 in 3.0225 ms
+2026-04-16 09:56:25.225 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 6.8793 ms
+2026-04-16 09:56:25.259 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 7.2960 ms
+2026-04-16 09:56:25.309 +06:00 [INF] HTTP GET /api/v1/news/featured responded 200 in 4.5767 ms
+2026-04-16 09:56:25.326 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 36.4231 ms
+2026-04-16 09:56:25.352 +06:00 [INF] HTTP GET /api/v1/news responded 200 in 0.7999 ms
+2026-04-16 09:56:25.418 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 36.0231 ms
+2026-04-16 10:13:10.636 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 434.9937 ms
+2026-04-16 10:13:10.637 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 434.9940 ms
+2026-04-16 10:13:10.831 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 56.3970 ms
+2026-04-16 10:13:10.842 +06:00 [INF] HTTP GET /api/v1/news/featured responded 200 in 67.5858 ms
+2026-04-16 10:13:11.102 +06:00 [INF] HTTP GET /api/v1/news responded 200 in 148.6243 ms
+2026-04-16 10:13:11.191 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 43.0644 ms
+2026-04-16 10:17:35.872 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 11.7490 ms
+2026-04-16 10:17:35.873 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 16.6517 ms
+2026-04-16 10:17:35.952 +06:00 [INF] HTTP GET /api/v1/news/featured responded 200 in 11.5565 ms
+2026-04-16 10:17:35.989 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 46.9105 ms
+2026-04-16 10:17:35.990 +06:00 [INF] HTTP GET /api/v1/news responded 200 in 4.0731 ms
+2026-04-16 10:17:36.063 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 31.8207 ms
+2026-04-16 10:17:39.050 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 10.0259 ms
+2026-04-16 10:17:39.121 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 33.1685 ms
+2026-04-16 10:17:39.237 +06:00 [INF] HTTP GET /api/v1/news/যুক্তরাষ্ট্রের-অবরোধের-হুমকি-তোয়াক্কা-না-করে-হরমুজ-পার-হলো-ইরানি-সুপার-ট্যাংকার responded 200 in 161.8602 ms
+2026-04-16 10:17:39.301 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 34.7561 ms
+2026-04-16 10:17:39.330 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 5.1261 ms
+2026-04-16 10:17:39.547 +06:00 [INF] HTTP GET /api/v1/comment/article/21 responded 200 in 97.0809 ms
+2026-04-16 10:23:38.056 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 120.9790 ms
+2026-04-16 10:23:38.058 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 122.5464 ms
+2026-04-16 10:23:38.210 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 72.6532 ms
+2026-04-16 10:23:38.227 +06:00 [INF] HTTP GET /api/v1/news/featured responded 200 in 60.1351 ms
+2026-04-16 10:23:38.659 +06:00 [INF] HTTP GET /api/v1/news responded 200 in 133.8430 ms
+2026-04-16 10:23:38.716 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 25.4478 ms
+2026-04-16 10:23:58.235 +06:00 [INF] HTTP GET /api/v1/comment/article/21 responded 200 in 80.8670 ms
+2026-04-16 10:23:58.488 +06:00 [INF] HTTP GET /favicon.ico responded 404 in 131.7970 ms
+2026-04-16 10:24:51.320 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 11.6622 ms
+2026-04-16 10:24:51.628 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 20.7649 ms
+2026-04-16 10:24:51.651 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 286.5230 ms
+2026-04-16 10:24:51.688 +06:00 [INF] HTTP GET /api/v1/news/featured responded 200 in 7.4148 ms
+2026-04-16 10:24:51.740 +06:00 [INF] HTTP GET /api/v1/news responded 200 in 3.7898 ms
+2026-04-16 10:24:51.791 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 26.5177 ms
+2026-04-16 10:25:34.611 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 4.9453 ms
+2026-04-16 10:25:34.693 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 32.1941 ms
+2026-04-16 10:25:35.002 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 31.2691 ms
+2026-04-16 10:25:35.320 +06:00 [INF] HTTP GET /api/v1/news/category/national responded 200 in 255.8227 ms
+2026-04-16 10:25:35.353 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 6.3973 ms
+2026-04-16 10:25:39.197 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 12.7060 ms
+2026-04-16 10:25:39.226 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 42.9787 ms
+2026-04-16 10:25:39.275 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 35.7165 ms
+2026-04-16 10:25:39.297 +06:00 [INF] HTTP GET /api/v1/news/category/international responded 200 in 36.9957 ms
+2026-04-16 10:25:39.331 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 4.8123 ms
+2026-04-16 10:25:41.481 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 4.5172 ms
+2026-04-16 10:25:41.547 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 41.2523 ms
+2026-04-16 10:25:41.560 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 31.6319 ms
+2026-04-16 10:25:41.620 +06:00 [INF] HTTP GET /api/v1/news/category/politics responded 200 in 33.4733 ms
+2026-04-16 10:25:41.672 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 6.1549 ms
+2026-04-16 10:25:42.460 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 5.1237 ms
+2026-04-16 10:25:42.522 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 43.8275 ms
+2026-04-16 10:25:42.538 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 32.5431 ms
+2026-04-16 10:25:42.599 +06:00 [INF] HTTP GET /api/v1/news/category/sports responded 200 in 40.0870 ms
+2026-04-16 10:25:42.628 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 5.0088 ms
+2026-04-16 10:25:43.265 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 4.9931 ms
+2026-04-16 10:25:43.330 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 32.6028 ms
+2026-04-16 10:25:43.346 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 29.8191 ms
+2026-04-16 10:25:43.409 +06:00 [INF] HTTP GET /api/v1/news/category/technology responded 200 in 35.9168 ms
+2026-04-16 10:25:43.442 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 4.3747 ms
+2026-04-16 10:25:44.114 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 5.5575 ms
+2026-04-16 10:25:44.186 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 46.9964 ms
+2026-04-16 10:25:44.202 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 33.5995 ms
+2026-04-16 10:25:44.278 +06:00 [INF] HTTP GET /api/v1/news/category/entertainment responded 200 in 46.0964 ms
+2026-04-16 10:25:44.312 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 4.0319 ms
+2026-04-16 10:25:45.004 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 7.6292 ms
+2026-04-16 10:25:45.074 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 39.6545 ms
+2026-04-16 10:25:45.084 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 31.0683 ms
+2026-04-16 10:25:45.138 +06:00 [INF] HTTP GET /api/v1/news/category/business responded 200 in 30.0646 ms
+2026-04-16 10:25:45.183 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 6.2625 ms
+2026-04-16 10:25:46.088 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 5.6612 ms
+2026-04-16 10:25:46.146 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 41.1765 ms
+2026-04-16 10:25:46.176 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 43.5736 ms
+2026-04-16 10:25:46.212 +06:00 [INF] HTTP GET /api/v1/news/category/religion responded 200 in 39.2722 ms
+2026-04-16 10:25:46.250 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 4.4542 ms
+2026-04-16 10:25:47.869 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 5.6202 ms
+2026-04-16 10:25:47.923 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 32.6639 ms
+2026-04-16 10:25:47.946 +06:00 [INF] HTTP GET /api/v1/news/category/national responded 200 in 0.5175 ms
+2026-04-16 10:25:47.957 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 50.2852 ms
+2026-04-16 10:25:47.989 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 5.0461 ms
+2026-04-16 10:25:48.694 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 4.8437 ms
+2026-04-16 10:25:48.718 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 4.8494 ms
+2026-04-16 10:25:48.765 +06:00 [INF] HTTP GET /api/v1/news/featured responded 200 in 5.8208 ms
+2026-04-16 10:25:48.778 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 35.5955 ms
+2026-04-16 10:25:48.805 +06:00 [INF] HTTP GET /api/v1/news responded 200 in 1.6840 ms
+2026-04-16 10:25:48.861 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 30.2682 ms
+2026-04-16 10:38:39.707 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 170.2636 ms
+2026-04-16 10:38:39.710 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 170.6339 ms
+2026-04-16 10:38:39.830 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 48.8887 ms
+2026-04-16 10:38:39.834 +06:00 [INF] HTTP GET /api/v1/news/featured responded 200 in 82.7005 ms
+2026-04-16 10:38:40.026 +06:00 [INF] HTTP GET /api/v1/news responded 200 in 130.0493 ms
+2026-04-16 10:38:40.123 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 49.5300 ms
+2026-04-16 16:56:36.129 +06:00 [WRN] Entity 'Article' has a global query filter defined and is the required end of a relationship with the entity 'ArticleTag'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-04-16 16:56:36.492 +06:00 [WRN] Entity 'Article' has a global query filter defined and is the required end of a relationship with the entity 'Comment'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-04-16 16:56:36.837 +06:00 [WRN] No store type was specified for the decimal property 'Price' on entity type 'PressRelease'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-16 16:56:36.842 +06:00 [WRN] No store type was specified for the decimal property 'Amount' on entity type 'Subscription'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-16 16:56:47.954 +06:00 [INF] Start installing Hangfire SQL objects...
+2026-04-16 16:56:48.941 +06:00 [INF] Hangfire SQL objects installed.
+2026-04-16 16:56:58.589 +06:00 [INF] Starting Hangfire Server using job storage: 'SQL Server: NAYEEM\SQL2022@DurjoyBDNews24'
+2026-04-16 16:56:58.747 +06:00 [INF] Using the following options for SQL Server job storage: Queue poll interval: 00:00:00.
+2026-04-16 16:56:58.813 +06:00 [INF] Using the following options for Hangfire Server:
+    Worker count: 2
+    Listening queues: 'default', 'critical'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2026-04-16 16:56:59.056 +06:00 [INF] Server nayeem:9428:70d5d4bd successfully announced in 81.3156 ms
+2026-04-16 16:56:59.169 +06:00 [INF] Server nayeem:9428:70d5d4bd is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, SqlServerHeartbeatProcess, ExpirationManager, CountersAggregator, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2026-04-16 16:56:59.467 +06:00 [INF] Server nayeem:9428:70d5d4bd all the dispatchers started
+2026-04-16 16:57:05.093 +06:00 [INF] HTTP GET /weatherforecast responded 404 in 5567.9205 ms
+2026-04-16 16:57:08.158 +06:00 [INF] HTTP GET /api/v1/news responded 200 in 9017.0136 ms
+2026-04-16 16:57:08.988 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 580.4733 ms
+2026-04-16 16:57:12.398 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 75.8761 ms
+2026-04-16 16:57:12.398 +06:00 [INF] HTTP GET /api/v1/news/breaking responded 200 in 147.2600 ms
+2026-04-16 16:57:12.674 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 67.5140 ms
+2026-04-16 16:57:12.747 +06:00 [INF] HTTP GET /api/v1/news/featured responded 200 in 235.6934 ms
+2026-04-16 16:57:12.839 +06:00 [INF] HTTP GET /api/v1/news responded 200 in 18.5658 ms
+2026-04-16 16:57:13.057 +06:00 [INF] HTTP GET /api/v1/category responded 200 in 101.8529 ms
+2026-04-16 18:04:03.500 +06:00 [WRN] Entity 'Article' has a global query filter defined and is the required end of a relationship with the entity 'ArticleTag'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-04-16 18:04:03.731 +06:00 [WRN] Entity 'Article' has a global query filter defined and is the required end of a relationship with the entity 'Comment'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-04-16 18:04:04.057 +06:00 [WRN] No store type was specified for the decimal property 'Price' on entity type 'PressRelease'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-16 18:04:04.062 +06:00 [WRN] No store type was specified for the decimal property 'Amount' on entity type 'Subscription'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-16 18:04:11.651 +06:00 [INF] Start installing Hangfire SQL objects...
+2026-04-16 18:04:12.482 +06:00 [INF] Hangfire SQL objects installed.
+2026-04-16 18:04:20.490 +06:00 [INF] Starting Hangfire Server using job storage: 'SQL Server: NAYEEM\SQL2022@DurjoyBDNews24'
+2026-04-16 18:04:20.495 +06:00 [INF] Using the following options for SQL Server job storage: Queue poll interval: 00:00:00.
+2026-04-16 18:04:20.499 +06:00 [INF] Using the following options for Hangfire Server:
+    Worker count: 2
+    Listening queues: 'default', 'critical'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2026-04-16 18:04:20.678 +06:00 [INF] Server nayeem:19464:bb24080d successfully announced in 65.4183 ms
+2026-04-16 18:04:20.709 +06:00 [INF] Server nayeem:19464:bb24080d is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, SqlServerHeartbeatProcess, ExpirationManager, CountersAggregator, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2026-04-16 18:04:20.833 +06:00 [INF] Server nayeem:19464:bb24080d all the dispatchers started
+2026-04-16 18:04:25.758 +06:00 [INF] HTTP GET /weatherforecast responded 404 in 4680.5659 ms

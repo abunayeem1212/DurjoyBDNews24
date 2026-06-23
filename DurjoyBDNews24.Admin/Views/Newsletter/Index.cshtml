@@ -1,0 +1,46 @@
+﻿@model IEnumerable<DurjoyBDNews24.Domain.Entities.NewsletterSubscriber>
+@{
+    ViewData["Title"] = "Newsletter Subscribers";
+}
+
+<div class="page-header">
+    <h2>
+        Subscribers
+        <span class="badge green" style="margin-left:8px;">
+            @ViewBag.TotalCount জন
+        </span>
+    </h2>
+    <a asp-action="Send" class="btn-primary">
+        <i class="fas fa-paper-plane"></i> Newsletter পাঠান
+    </a>
+</div>
+
+<table class="data-table">
+    <thead>
+        <tr>
+            <th>ইমেইল</th>
+            <th>নাম</th>
+            <th>তারিখ</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var sub in Model)
+        {
+            <tr>
+                <td style="font-size:13px;">@sub.Email</td>
+                <td style="font-size:13px;">
+                    @(sub.Name ?? "—")
+                </td>
+                <td style="font-size:13px;color:#888;">
+                    @sub.SubscribedAt.ToString("dd MMM yyyy")
+                </td>
+                <td>
+                    <span class="badge @(sub.IsActive ? "green" : "gray")">
+                        @(sub.IsActive ? "Active" : "Unsubscribed")
+                    </span>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,54 @@
+﻿@model IEnumerable<DurjoyBDNews24.Application.DTOs.Video.VideoNewsDto>
+@{
+    ViewData["Title"] = "ভিডিও নিউজ";
+}
+
+<div class="page-header">
+    <h2>ভিডিও নিউজ</h2>
+    <div style="display:flex;gap:8px;">
+        <a asp-action="LiveTV" class="btn-sm blue">
+            <i class="fas fa-tv"></i> Live TV
+        </a>
+        <a asp-action="Create" class="btn-primary">
+            + ভিডিও যোগ করুন
+        </a>
+    </div>
+</div>
+
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+    @foreach (var video in Model)
+    {
+        <div style="background:white;border-radius:8px;overflow:hidden;border:0.5px solid #e0e0e0;">
+            <div style="position:relative;">
+                <img src="@video.ThumbnailUrl"
+                     alt="@video.TitleBn"
+                     style="width:100%;height:140px;object-fit:cover;display:block;" />
+                <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:36px;height:36px;background:rgba(192,57,43,0.85);border-radius:50%;display:flex;align-items:center;justify-content:center;">
+                    <i class="fas fa-play" style="color:white;font-size:12px;margin-left:2px;"></i>
+                </div>
+                @if (video.IsFeatured)
+                {
+                    <span style="position:absolute;top:8px;left:8px;background:#f39c12;color:white;font-size:11px;padding:2px 8px;border-radius:3px;">ফিচার</span>
+                }
+            </div>
+            <div style="padding:12px;">
+                <p style="font-size:13px;font-weight:500;margin:0 0 8px;color:#1a1a1a;line-height:1.4;">
+                    @video.TitleBn
+                </p>
+                <div style="display:flex;justify-content:space-between;align-items:center;">
+                    <span style="font-size:12px;color:#888;">
+                        <i class="fas fa-eye"></i> @video.ViewCount
+                    </span>
+                    <form asp-action="Delete"
+                          asp-route-id="@video.Id"
+                          method="post"
+                          onsubmit="return confirm('মুছে ফেলবেন?')">
+                        <button type="submit" class="btn-sm red">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    }
+</div>

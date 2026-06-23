@@ -1,0 +1,152 @@
+﻿
+
+@model IEnumerable<DurjoyBDNews24.Application.DTOs.Comment.CommentDto>
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Antiforgery
+@{
+    ViewData["Title"] = "মন্তব্য অনুমোদন";
+    bool autoApprove = ViewBag.AutoApprove ?? false;
+}
+
+<div class="page-header">
+    <h2>অপেক্ষমান মন্তব্য</h2>
+    <span class="badge gray">@Model.Count() টি বাকি</span>
+</div>
+
+<!-- ✅ REPLACED SETTINGS CARD -->
+<div style="background:white;border-radius:8px;padding:16px 20px;margin-bottom:20px;border:0.5px solid #e0e0e0;display:flex;align-items:center;justify-content:space-between;">
+    <div>
+        <p style="font-size:15px;font-weight:500;margin:0;">মন্তব্য সেটিংস</p>
+        <p style="font-size:13px;color:#888;margin:6px 0 0;">
+            Auto Approve
+            <strong id="auto-status"
+                    style="color:@(autoApprove ? "#27ae60" : "#e74c3c")">
+                @(autoApprove ? "চালু আছে" : "বন্ধ আছে")
+            </strong>
+        </p>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;">
+        <span id="auto-badge"
+              style="padding:4px 14px;border-radius:20px;font-size:13px;font-weight:500;background:@(autoApprove ? "#d4edda" : "#fde8e8");color:@(autoApprove ? "#155724" : "#c0392b");">
+            @(autoApprove ? "ON" : "OFF")
+        </span>
+        <button id="toggle-btn"
+                onclick="toggleAutoApprove()"
+                style="padding:8px 20px;border-radius:6px;border:none;cursor:pointer;font-size:14px;font-family:inherit;background:@(autoApprove ? "#fde8e8" : "#d4edda");color:@(autoApprove ? "#c0392b" : "#155724");">
+            @(autoApprove ? "বন্ধ করুন" : "চালু করুন")
+        </button>
+    </div>
+</div>
+
+@if (!Model.Any())
+{
+    <div style="background:white;border-radius:8px;padding:40px;text-align:center;color:#888;border:0.5px solid #e0e0e0;">
+        কোনো অপেক্ষমান মন্তব্য নেই
+    </div>
+}
+else
+{
+    <div style="display:flex;flex-direction:column;gap:12px;">
+        @foreach (var comment in Model)
+        {
+            <div style="background:white;border-radius:8px;padding:16px;border:0.5px solid #e0e0e0;">
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;">
+
+                    <div style="flex:1;">
+                        <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+                            <div style="width:38px;height:38px;border-radius:50%;background:#c0392b;color:white;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:600;flex-shrink:0;">
+                                @((comment.UserNameBn?.Length > 0
+                                                        ? comment.UserNameBn[0].ToString()
+                                                        : "প"))
+                                                           </div>
+                                                           <div>
+                                                               <p style="font-size:14px;font-weight:500;margin:0;color:#222;">
+                                    @(string.IsNullOrEmpty(comment.UserNameBn)
+                                                                ? "পাঠক"
+                                                                : comment.UserNameBn)
+                        </p>
+                        <span style="font-size:11px;color:#aaa;">Guest</span>
+                        <p style="font-size:12px;color:#999;margin:2px 0 0;">
+                            @comment.CreatedAt.ToString("dd MMM yyyy, hh:mm tt")
+                        </p>
+                    </div>
+                        </div>
+
+                        <p style="font-size:14px;color:#333;line-height:1.6;background:#f9f9f9;padding:12px;border-radius:6px;margin:0;">
+                            @comment.Content
+                        </p>
+                    </div>
+
+                    <div style="display:flex;flex-direction:column;gap:8px;flex-shrink:0;">
+                        <form asp-action="Approve"
+                              asp-route-id="@comment.Id"
+                              method="post">
+                            <button type="submit" class="btn-sm green" style="width:100%;">
+                                <i class="fas fa-check"></i> অনুমোদন
+                            </button>
+                        </form>
+
+                        <form asp-action="Delete"
+                              asp-route-id="@comment.Id"
+                              method="post"
+                              onsubmit="return confirm('মুছে ফেলবেন?')">
+                            <button type="submit" class="btn-sm red" style="width:100%;">
+                                <i class="fas fa-trash"></i> মুছুন
+                            </button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        }
+    </div>
+}
+
+@section Scripts {
+    <script>
+        async function toggleAutoApprove() {
+            const btn = document.getElementById('toggle-btn');
+            const badge = document.getElementById('auto-badge');
+            const status = document.getElementById('auto-status');
+
+                const token = document.querySelector(
+        'input[name="__RequestVerificationToken"]')?.value
+        || '@Antiforgery.GetAndStoreTokens(Context).RequestToken';
+
+
+            btn.disabled = true;
+            btn.textContent = 'পরিবর্তন হচ্ছে...';
+
+            try {
+                const res = await fetch('/Comment/ToggleAutoApprove', {
+                    method: 'POST',
+                    headers: {
+                        'RequestVerificationToken': document
+                            .querySelector('input[name="__RequestVerificationToken"]')
+                            ?.value || ''
+                    }
+                });
+
+                const data = await res.json();
+
+                if (data.success) {
+                    const isOn = data.autoApprove;
+
+                    status.textContent = isOn ? 'চালু আছে' : 'বন্ধ আছে';
+                    status.style.color = isOn ? '#27ae60' : '#e74c3c';
+
+                    badge.textContent = isOn ? 'ON' : 'OFF';
+                    badge.style.background = isOn ? '#d4edda' : '#fde8e8';
+                    badge.style.color = isOn ? '#155724' : '#c0392b';
+
+                    btn.textContent = isOn ? 'বন্ধ করুন' : 'চালু করুন';
+                    btn.style.background = isOn ? '#fde8e8' : '#d4edda';
+                    btn.style.color = isOn ? '#c0392b' : '#155724';
+                }
+            } catch(e) {
+                alert('পরিবর্তন করা যায়নি');
+            } finally {
+                btn.disabled = false;
+            }
+        }
+    </script>
+}

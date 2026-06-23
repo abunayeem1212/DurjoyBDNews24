@@ -1,0 +1,76 @@
+﻿@{
+    ViewData["Title"] = "Channel যোগ করুন";
+}
+
+<div style="max-width:600px;">
+    <div class="form-card">
+        <h3>নতুন TV Channel</h3>
+        <form asp-action="AddChannel" method="post">
+            <div class="form-group">
+                <label>বাংলা নাম *</label>
+                <input type="text" name="nameBn" required
+                       placeholder="চ্যানেলের বাংলা নাম" />
+            </div>
+            <div class="form-group">
+                <label>English Name</label>
+                <input type="text" name="name"
+                       placeholder="Channel name in English" />
+            </div>
+            <div class="form-group">
+                <label>বিবরণ</label>
+                <input type="text" name="description"
+                       placeholder="চ্যানেলের বিবরণ" />
+            </div>
+            <div class="form-group">
+                <label>YouTube Live Stream ID</label>
+                <input type="text" name="youtubeStreamId"
+                       id="yt-stream-id"
+                       placeholder="YouTube Live Video ID" />
+                <small style="font-size:12px;color:#888;margin-top:4px;display:block;">
+                    YouTube Live URL থেকে video ID দিন
+                </small>
+            </div>
+            <div class="form-group">
+                <label>Stream URL (m3u8 বা অন্য)</label>
+                <input type="text" name="streamUrl"
+                       placeholder="https://..." />
+            </div>
+            <div class="form-group">
+                <label>Thumbnail URL</label>
+                <input type="url" name="thumbnailUrl"
+                       id="thumb-url"
+                       placeholder="https://..." />
+                <div id="thumb-preview"
+                     style="margin-top:8px;"></div>
+            </div>
+            <div class="form-group">
+                <label>Sort Order</label>
+                <input type="number" name="sortOrder" value="0" />
+            </div>
+            <button type="submit" class="btn-primary btn-block">
+                Channel তৈরি করুন
+            </button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.getElementById('thumb-url')
+            ?.addEventListener('input', function() {
+            const preview = document.getElementById('thumb-preview');
+            preview.innerHTML = this.value
+                ? `<img src="${this.value}"
+                        style="width:100%;height:80px;object-fit:cover;border-radius:6px;"/>`
+                : '';
+        });
+
+        document.getElementById('yt-stream-id')
+            ?.addEventListener('input', function() {
+            const url = document.querySelector('[name="streamUrl"]');
+            if (this.value && url)
+                url.value =
+                    `https://www.youtube.com/embed/${this.value}?autoplay=1`;
+        });
+    </script>
+}

@@ -1,0 +1,189 @@
+﻿@model DurjoyBDNews24.Admin.Models.ArticleFormViewModel
+@{
+    ViewData["Title"] = "নিউজ সম্পাদনা";
+}
+
+<form asp-controller="Reporter" asp-action="Edit" method="post">
+    <input asp-for="Id" type="hidden" />
+
+    <div class="form-layout">
+        <div class="form-main">
+            <div class="form-card">
+                <div class="form-group">
+                    <label>বাংলা শিরোনাম *</label>
+                    <input asp-for="TitleBn"
+                           placeholder="বাংলায় শিরোনাম লিখুন" />
+                </div>
+                <div class="form-group">
+                    <label>English Title</label>
+                    <input asp-for="Title" placeholder="English title" />
+                </div>
+                <div class="form-group">
+                    <label>বাংলা সারসংক্ষেপ</label>
+                    <textarea asp-for="SummaryBn"
+                              rows="3"
+                              placeholder="সংক্ষিপ্ত বিবরণ"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>বাংলা বিষয়বস্তু *</label>
+                    <textarea asp-for="ContentBn"
+                              rows="15"
+                              id="content-bn"
+                              placeholder="নিউজের বিষয়বস্তু লিখুন"></textarea>
+                </div>
+            </div>
+
+            <div class="form-card">
+                <h3>SEO Settings</h3>
+                <div class="form-group">
+                    <label>Meta Title</label>
+                    <input asp-for="MetaTitle" />
+                </div>
+                <div class="form-group">
+                    <label>Meta Description</label>
+                    <textarea asp-for="MetaDescription" rows="2"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Keywords</label>
+                    <input asp-for="MetaKeywords"
+                           placeholder="keyword1, keyword2" />
+                </div>
+            </div>
+        </div>
+
+        <div class="form-sidebar">
+            <div class="form-card">
+                <h3>প্রকাশনা</h3>
+                <div class="form-group">
+                    <label>বিভাগ *</label>
+                    <select asp-for="CategoryId">
+                        <option value="">বিভাগ নির্বাচন করুন</option>
+                        @foreach (var cat in Model.Categories)
+                        {
+                            <option value="@cat.Id"
+                                    selected="@(cat.Id == Model.CategoryId)">
+                                @cat.NameBn
+                            </option>
+                        }
+                    </select>
+                </div>
+                <div class="form-check">
+                    <input asp-for="IsPublished" type="checkbox" />
+                    <label>প্রকাশিত</label>
+                </div>
+                <div class="form-check">
+                    <input asp-for="IsBreaking" type="checkbox" />
+                    <label>ব্রেকিং নিউজ</label>
+                </div>
+                <div class="form-check">
+                    <input asp-for="IsFeatured" type="checkbox" />
+                    <label>ফিচার নিউজ</label>
+                </div>
+                <button type="submit" class="btn-primary btn-block">
+                    আপডেট করুন
+                </button>
+                <a asp-action="Index"
+                   class="btn-sm"
+                   style="display:block;text-align:center;margin-top:8px">
+                    বাতিল
+                </a>
+            </div>
+
+            <div class="form-card">
+                <h3>থাম্বনেইল ছবি</h3>
+                <div class="form-group">
+                    <label>ছবি upload করুন</label>
+                    <input type="file"
+                           id="image-file"
+                           accept="image/*"
+                           style="padding:6px" />
+                    <button type="button"
+                            id="upload-btn"
+                            class="btn-primary"
+                            style="margin-top:8px;width:100%">
+                        upload করুন
+                    </button>
+                    <div id="upload-status"
+                         style="font-size:13px;margin-top:6px"></div>
+                </div>
+                <div class="form-group">
+                    <label>অথবা URL দিন</label>
+                    <input asp-for="ThumbnailUrl"
+                           id="thumbnail-url"
+                           placeholder="https://..." />
+                </div>
+                <div id="thumbnail-preview">
+                    @if (!string.IsNullOrEmpty(Model.ThumbnailUrl))
+                    {
+                        <img src="@Model.ThumbnailUrl"
+                             style="width:100%;border-radius:6px;margin-top:8px" />
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <script>
+        const apiBase = 'https://localhost:7001/api/v1/';
+        const adminToken = '@Context.Session.GetString("AdminToken")';
+
+        document.getElementById('upload-btn')
+            ?.addEventListener('click', async function () {
+            const fileInput = document.getElementById('image-file');
+            const status = document.getElementById('upload-status');
+            const urlInput = document.getElementById('thumbnail-url');
+            const preview = document.getElementById('thumbnail-preview');
+
+            if (!fileInput.files.length) {
+                status.textContent = 'ফাইল নির্বাচন করুন';
+                status.style.color = 'red';
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('file', fileInput.files[0]);
+
+            status.textContent = 'upload হচ্ছে...';
+            status.style.color = '#888';
+            this.disabled = true;
+
+            try {
+                const res = await fetch(
+                    `${apiBase}media/upload?folder=articles`, {
+                    method: 'POST',
+                    headers: { 'Authorization': `Bearer ${adminToken}` },
+                    body: formData
+                });
+
+                const data = await res.json();
+                if (data.success) {
+                    urlInput.value = data.data;
+                    preview.innerHTML =
+                        `<img src="${data.data}"
+                              style="width:100%;border-radius:6px"/>`;
+                    status.textContent = 'upload সফল';
+                    status.style.color = 'green';
+                } else {
+                    status.textContent = data.message;
+                    status.style.color = 'red';
+                }
+            } catch {
+                status.textContent = 'upload ব্যর্থ হয়েছে';
+                status.style.color = 'red';
+            } finally {
+                this.disabled = false;
+            }
+        });
+
+        document.getElementById('thumbnail-url')
+            ?.addEventListener('input', function () {
+            const preview = document.getElementById('thumbnail-preview');
+            preview.innerHTML = this.value
+                ? `<img src="${this.value}"
+                        style="width:100%;border-radius:6px"/>`
+                : '';
+        });
+    </script>
+}

@@ -1,0 +1,110 @@
+﻿@{
+    ViewData["Title"] = "নতুন বিজ্ঞাপন";
+    var zones = ViewBag.Zones as List<DurjoyBDNews24.Domain.Entities.AdZone>;
+}
+
+<div style="max-width:700px;">
+    <form asp-action="Create" method="post">
+        <div class="form-card">
+            <h3>বিজ্ঞাপনের তথ্য</h3>
+
+            <div class="form-group">
+                <label>বিজ্ঞাপনের শিরোনাম *</label>
+                <input type="text" name="title" required
+                       placeholder="বিজ্ঞাপনের নাম" />
+            </div>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+                <div class="form-group">
+                    <label>Advertiser নাম *</label>
+                    <input type="text" name="advertiserName" required
+                           placeholder="কোম্পানির নাম" />
+                </div>
+                <div class="form-group">
+                    <label>Advertiser ইমেইল</label>
+                    <input type="email" name="advertiserEmail"
+                           placeholder="email@company.com" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>ছবির URL *</label>
+                <input type="url" name="imageUrl" required
+                       id="ad-image-url"
+                       placeholder="https://..." />
+            </div>
+
+            <div id="ad-preview" style="margin-bottom:16px;display:none;">
+                <img id="ad-preview-img"
+                     style="max-width:100%;border-radius:6px;" />
+            </div>
+
+            <div class="form-group">
+                <label>Target URL *</label>
+                <input type="url" name="targetUrl" required
+                       placeholder="https://advertiser-website.com" />
+            </div>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;">
+                <div class="form-group">
+                    <label>Ad Zone *</label>
+                    <select name="zoneId" required>
+                        <option value="">Zone বেছে নিন</option>
+                        @if (zones != null)
+                        {
+                            @foreach (var zone in zones)
+                            {
+                                <option value="@zone.Id">
+                                    @zone.Name (@zone.Size)
+                                </option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>দৈনিক মূল্য (৳)</label>
+                    <input type="number" name="dailyRate"
+                           value="500" min="0" />
+                </div>
+                <div class="form-group">
+                    <label>Daily Cap</label>
+                    <input type="number" name="dailyCap"
+                           value="10000" min="1" />
+                </div>
+            </div>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+                <div class="form-group">
+                    <label>শুরু তারিখ *</label>
+                    <input type="date" name="startDate" required
+                           value="@DateTime.Today.ToString("yyyy-MM-dd")" />
+                </div>
+                <div class="form-group">
+                    <label>শেষ তারিখ *</label>
+                    <input type="date" name="endDate" required
+                           value="@DateTime.Today.AddMonths(1).ToString("yyyy-MM-dd")" />
+                </div>
+            </div>
+
+            <button type="submit" class="btn-primary">
+                বিজ্ঞাপন তৈরি করুন
+            </button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        document.getElementById('ad-image-url')
+            ?.addEventListener('input', function() {
+            const preview = document.getElementById('ad-preview');
+            const img = document.getElementById('ad-preview-img');
+            if (this.value) {
+                img.src = this.value;
+                preview.style.display = 'block';
+            } else {
+                preview.style.display = 'none';
+            }
+        });
+    </script>
+}

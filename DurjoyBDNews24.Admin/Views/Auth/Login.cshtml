@@ -1,0 +1,45 @@
+﻿@model DurjoyBDNews24.Admin.Models.LoginViewModel
+@{
+    Layout = null;
+    ViewData["Title"] = "লগইন";
+}
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Login — দুর্জয় বিডি নিউজ ২৪</title>
+    <link rel="stylesheet" href="~/css/admin.css" />
+</head>
+<body class="login-page">
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <h1>দুর্জয় বিডি নিউজ ২৪</h1>
+                <p>Admin Panel</p>
+            </div>
+
+            @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+            {
+                <div class="alert alert-error">@Model.ErrorMessage</div>
+            }
+
+            <form asp-action="Login" method="post">
+                <div class="form-group">
+                    <label>ইমেইল</label>
+                    <input asp-for="Email" type="email"
+                           placeholder="admin@durjoybdnews24.com" />
+                </div>
+                <div class="form-group">
+                    <label>পাসওয়ার্ড</label>
+                    <input asp-for="Password" type="password"
+                           placeholder="পাসওয়ার্ড দিন" />
+                </div>
+                <button type="submit" class="btn-primary btn-block">
+                    লগইন করুন
+                </button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

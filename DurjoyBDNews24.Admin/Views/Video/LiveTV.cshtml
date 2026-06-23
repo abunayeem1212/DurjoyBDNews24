@@ -1,0 +1,97 @@
+﻿@model IEnumerable<DurjoyBDNews24.Application.DTOs.Video.LiveTVDto>
+@{
+    ViewData["Title"] = "Live TV Management";
+}
+
+<div class="page-header">
+    <h2>Live TV Channels</h2>
+    <a asp-action="AddChannel" class="btn-primary">
+        + Channel যোগ করুন
+    </a>
+</div>
+
+<table class="data-table">
+    <thead>
+        <tr>
+            <th>Channel</th>
+            <th>Stream URL</th>
+            <th>Status</th>
+            <th>Live</th>
+            <th>একশন</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var channel in Model)
+        {
+            <tr>
+                <td>
+                    <div style="display:flex;align-items:center;gap:10px;">
+                        @if (!string.IsNullOrEmpty(channel.ThumbnailUrl))
+                        {
+                            <img src="@channel.ThumbnailUrl"
+                                 style="width:48px;height:32px;object-fit:cover;border-radius:4px;" />
+                        }
+                        <div>
+                            <p style="font-size:14px;font-weight:500;margin:0;">
+                                @channel.NameBn
+                            </p>
+                            <p style="font-size:12px;color:#888;margin:0;">
+                                @channel.Name
+                            </p>
+                        </div>
+                    </div>
+                </td>
+                <td style="font-size:12px;color:#888;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">
+                    @channel.StreamUrl
+                </td>
+                <td>
+                    <span class="badge @(channel.IsActive ? "green" : "gray")">
+                        @(channel.IsActive ? "Active" : "Inactive")
+                    </span>
+                </td>
+                <td>
+                    <button onclick="toggleLive(@channel.Id, @channel.IsLive.ToString().ToLower(), this)"
+                            style="padding:4px 12px;border-radius:20px;border:none;cursor:pointer;font-size:12px;font-weight:500;background:@(channel.IsLive ? "#fde8e8" : "#d4edda");color:@(channel.IsLive ? "#c0392b" : "#155724");">
+                        @(channel.IsLive ? "Live বন্ধ করুন" : "Live করুন")
+                    </button>
+                </td>
+                <td>
+                    <form asp-action="DeleteChannel"
+                          asp-route-id="@channel.Id"
+                          method="post"
+                          onsubmit="return confirm('মুছে ফেলবেন?')">
+                        <button type="submit" class="btn-sm red">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script>
+        async function toggleLive(id, isLive, btn) {
+            const newValue = !isLive;
+            const res = await fetch('/Video/SetLive', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id, value: newValue })
+            });
+            const data = await res.json();
+            if (data.success) {
+                btn.textContent = newValue
+                    ? 'Live বন্ধ করুন'
+                    : 'Live করুন';
+                btn.style.background = newValue ? '#fde8e8' : '#d4edda';
+                btn.style.color = newValue ? '#c0392b' : '#155724';
+                btn.setAttribute(
+                    'onclick',
+                    `toggleLive(${id}, ${newValue}, this)`);
+
+                alert(data.message);
+            }
+        }
+    </script>
+}

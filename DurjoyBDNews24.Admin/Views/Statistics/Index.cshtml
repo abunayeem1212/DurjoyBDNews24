@@ -1,0 +1,130 @@
+﻿@{
+    ViewData["Title"] = "পরিসংখ্যান";
+    var topArticles = ViewBag.TopArticles as List<DurjoyBDNews24.Application.DTOs.Article.ArticleDto>;
+    var categoryStats = ViewBag.CategoryStats as dynamic;
+    var dailyStats = ViewBag.DailyStats as dynamic;
+}
+
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px;">
+    <div class="stat-card">
+        <div class="stat-icon red"><i class="fas fa-eye"></i></div>
+        <div class="stat-body">
+            <h3>@ViewBag.TotalViews?.ToString("N0")</h3>
+            <p>মোট ভিউ</p>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon green"><i class="fas fa-newspaper"></i></div>
+        <div class="stat-body">
+            <h3>@ViewBag.TotalArticles</h3>
+            <p>মোট নিউজ</p>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon blue"><i class="fas fa-calendar-day"></i></div>
+        <div class="stat-body">
+            <h3>@ViewBag.TodayArticles</h3>
+            <p>আজকের নিউজ</p>
+        </div>
+    </div>
+</div>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px;">
+    <div style="background:white;border-radius:8px;padding:20px;border:0.5px solid #e0e0e0;">
+        <h3 style="font-size:15px;margin:0 0 16px;border-bottom:2px solid #c0392b;padding-bottom:8px;">
+            সবচেয়ে বেশি পঠিত নিউজ
+        </h3>
+        @if (topArticles != null)
+        {
+            @foreach (var (article, i) in topArticles.Select((a, i) => (a, i + 1)))
+            {
+                <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:0.5px solid #f5f5f5;">
+                    <span style="min-width:28px;height:28px;border-radius:50%;background:@(i <= 3 ? "#c0392b" : "#f0f0f0");color:@(i <= 3 ? "white" : "#888");display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;">
+                        @i
+                    </span>
+                    <div style="flex:1;overflow:hidden;">
+                        <p style="font-size:13px;font-weight:500;margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
+                            @article.TitleBn
+                        </p>
+                        <span style="font-size:12px;color:#888;">
+                            @article.CategoryNameBn
+                        </span>
+                    </div>
+                    <span style="font-size:13px;font-weight:600;color:#c0392b;white-space:nowrap;">
+                        @article.ViewCount.ToString("N0")
+                    </span>
+                </div>
+            }
+        }
+    </div>
+
+    <div style="background:white;border-radius:8px;padding:20px;border:0.5px solid #e0e0e0;">
+        <h3 style="font-size:15px;margin:0 0 16px;border-bottom:2px solid #c0392b;padding-bottom:8px;">
+            বিভাগ অনুযায়ী ভিউ
+        </h3>
+        @if (categoryStats != null)
+        {
+            var maxViews = (long)categoryStats[0].Views;
+            @foreach (var cat in categoryStats)
+            {
+                var percent = maxViews > 0
+                ? (int)((long)cat.Views * 100 / maxViews)
+                : 0;
+                <div style="margin-bottom:12px;">
+                    <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px;">
+                        <span>@cat.Name</span>
+                        <span style="color:#888;">@cat.Views.ToString("N0") ভিউ</span>
+                    </div>
+                    <div style="height:8px;background:#f0f0f0;border-radius:4px;overflow:hidden;">
+                        <div style="height:100%;width:@(percent)%;background:#c0392b;border-radius:4px;transition:width .5s;"></div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
+
+<div style="background:white;border-radius:8px;padding:20px;border:0.5px solid #e0e0e0;">
+    <h3 style="font-size:15px;margin:0 0 16px;border-bottom:2px solid #c0392b;padding-bottom:8px;">
+        গত ৩০ দিনের নিউজ প্রকাশ
+    </h3>
+    <canvas id="daily-chart" height="100"></canvas>
+</div>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+    <script>
+        const dailyStats = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(ViewBag.DailyStats));
+
+        if (dailyStats?.length) {
+            const ctx = document.getElementById('daily-chart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: dailyStats.map(d => d.Date),
+                    datasets: [{
+                        label: 'নিউজ প্রকাশ',
+                        data: dailyStats.map(d => d.Count),
+                        backgroundColor: '#c0392b',
+                        borderRadius: 4
+                    }, {
+                        label: 'ভিউ (হাজার)',
+                        data: dailyStats.map(d =>
+                            Math.round(d.Views / 1000)),
+                        backgroundColor: '#e8c4c0',
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { position: 'top' }
+                    },
+                    scales: {
+                        y: { beginAtZero: true }
+                    }
+                }
+            });
+        }
+    </script>
+}

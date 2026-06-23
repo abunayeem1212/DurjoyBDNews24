@@ -1,0 +1,1565 @@
+﻿@model DurjoyBDNews24.Web.Models.ArticleDetailViewModel
+@{
+    ViewData["Title"] = Model.Article.TitleBn;
+    ViewData["MetaDescription"] = Model.Article.MetaDescription ?? Model.Article.SummaryBn;
+    ViewData["MetaKeywords"] = Model.Article.MetaKeywords;
+    ViewData["OgType"] = "article";
+    ViewData["OgImage"] = Model.Article.ThumbnailUrl;
+}
+
+
+<style>
+
+    /* Base responsive fixes */
+    html {
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+    }
+
+    * {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+
+    body {
+        overflow-x: hidden;
+    }
+
+    /* Article Detail Page Styles */
+    .article-container {
+        max-width: 1320px;
+        margin: 0 auto;
+    }
+
+    .breadcrumb {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 24px;
+        padding: 12px 0;
+        font-size: 14px;
+        color: #718096;
+        border-bottom: 1px solid #e2e8f0;
+    }
+
+        .breadcrumb a {
+            color: #e74c3c;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+            .breadcrumb a:hover {
+                color: #c0392b;
+                text-decoration: underline;
+            }
+
+        .breadcrumb i {
+            font-size: 10px;
+            color: #cbd5e0;
+            margin: 0 4px;
+        }
+
+        .breadcrumb span {
+            color: #4a5568;
+            font-weight: 500;
+        }
+
+    .article-layout {
+        display: grid;
+        grid-template-columns: 1fr 320px;
+        gap: 32px;
+        margin-bottom: 40px;
+    }
+
+    /* Main Article */
+    .article-main {
+        background: white;
+        border-radius: 16px;
+        padding: 32px;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+        border: 1px solid #edf2f7;
+    }
+
+    .article-category {
+        display: inline-block;
+        background: #fef2f2;
+        color: #e74c3c;
+        padding: 5px 16px;
+        border-radius: 30px;
+        font-size: 13px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 16px;
+    }
+
+    .article-title {
+        font-size: 32px;
+        font-weight: 800;
+        color: #1a202c;
+        line-height: 1.4;
+        margin-bottom: 20px;
+    }
+
+    .article-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        padding-bottom: 20px;
+        margin-bottom: 24px;
+        border-bottom: 2px solid #f0f4f8;
+        font-size: 14px;
+        color: #718096;
+    }
+
+    .article-meta-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+        .article-meta-item i {
+            color: #e74c3c;
+            font-size: 15px;
+            width: 18px;
+        }
+
+    .article-thumbnail {
+        width: 100%;
+        border-radius: 12px;
+        margin-bottom: 28px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+
+    .article-thumbnail-placeholder {
+        width: 100%;
+        height: 400px;
+        background: linear-gradient(135deg, #f7fafc, #edf2f7);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 28px;
+    }
+
+    .article-content {
+        font-size: 17px;
+        line-height: 1.9;
+        color: #2d3748;
+    }
+
+        .article-content p {
+            margin-bottom: 24px;
+        }
+
+        .article-content h2,
+        .article-content h3 {
+            margin: 32px 0 16px;
+            color: #1a202c;
+            font-weight: 700;
+        }
+
+        .article-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+    /* Share Section */
+    .share-section {
+        margin-top: 40px;
+        padding-top: 24px;
+        border-top: 1px solid #e2e8f0;
+    }
+
+    .share-title {
+        font-size: 16px;
+        font-weight: 600;
+        color: #4a5568;
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .share-buttons {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+
+    .share-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 12px 24px;
+        border-radius: 40px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.25s ease;
+        border: none;
+        font-family: inherit;
+    }
+
+        .share-btn i {
+            font-size: 16px;
+        }
+
+        .share-btn.facebook {
+            background: #1877f2;
+            color: white;
+        }
+
+            .share-btn.facebook:hover {
+                background: #0d63d8;
+                transform: translateY(-2px);
+                box-shadow: 0 6px 15px rgba(24,119,242,0.3);
+            }
+
+        .share-btn.twitter {
+            background: #1da1f2;
+            color: white;
+        }
+
+            .share-btn.twitter:hover {
+                background: #0c8de0;
+                transform: translateY(-2px);
+                box-shadow: 0 6px 15px rgba(29,161,242,0.3);
+            }
+
+        .share-btn.copy {
+            background: #4a5568;
+            color: white;
+        }
+
+            .share-btn.copy:hover {
+                background: #2d3748;
+                transform: translateY(-2px);
+                box-shadow: 0 6px 15px rgba(74,85,104,0.3);
+            }
+
+    /* Tags */
+    .tags-section {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 12px;
+        margin-top: 24px;
+    }
+
+    .tags-label {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        color: #718096;
+        font-size: 14px;
+    }
+
+    .tags-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .tag {
+        background: #f7fafc;
+        color: #4a5568;
+        padding: 6px 16px;
+        border-radius: 30px;
+        font-size: 13px;
+        font-weight: 500;
+        transition: all 0.2s;
+        border: 1px solid #e2e8f0;
+    }
+
+        .tag:hover {
+            background: #e74c3c;
+            color: white;
+            border-color: #e74c3c;
+        }
+
+    /* Comments Section */
+    .comments-section {
+        margin-top: 40px;
+        background: white;
+        border-radius: 16px;
+        padding: 28px;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+        border: 1px solid #edf2f7;
+    }
+
+    .comments-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 20px;
+        font-weight: 700;
+        color: #1a202c;
+        margin-bottom: 24px;
+        padding-bottom: 16px;
+        border-bottom: 3px solid #e74c3c;
+    }
+
+        .comments-header i {
+            color: #e74c3c;
+        }
+
+    .comment-form {
+        margin-bottom: 32px;
+    }
+
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        margin-bottom: 16px;
+    }
+
+    .form-group {
+        margin-bottom: 16px;
+    }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 14px;
+            font-family: inherit;
+            outline: none;
+            transition: all 0.2s;
+            background: #fafbfc;
+        }
+
+            .form-group input:focus,
+            .form-group textarea:focus {
+                border-color: #e74c3c;
+                background: white;
+                box-shadow: 0 0 0 3px rgba(231,76,60,0.1);
+            }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+    .form-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .form-note {
+        font-size: 13px;
+        color: #718096;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .btn-submit {
+        padding: 12px 32px;
+        background: #e74c3c;
+        color: white;
+        border: none;
+        border-radius: 40px;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-family: inherit;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+        .btn-submit:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(231,76,60,0.3);
+        }
+
+        .btn-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+    .comment-message {
+        margin-top: 16px;
+        padding: 12px 16px;
+        border-radius: 10px;
+        font-size: 14px;
+        display: none;
+    }
+
+        .comment-message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .comment-message.error {
+            background: #fde8e8;
+            color: #c0392b;
+            border: 1px solid #f5c6cb;
+        }
+
+    .comments-list {
+        margin-top: 24px;
+    }
+
+    .comments-count {
+        font-size: 15px;
+        color: #4a5568;
+        margin-bottom: 20px;
+        font-weight: 500;
+    }
+
+    .comment-item {
+        padding: 20px 0;
+        border-bottom: 1px solid #edf2f7;
+    }
+
+        .comment-item:last-child {
+            border-bottom: none;
+        }
+
+    .comment-avatar {
+        width: 48px;
+        height: 48px;
+        background: linear-gradient(135deg, #e74c3c, #c0392b);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 18px;
+        font-weight: 700;
+        flex-shrink: 0;
+    }
+
+    .comment-body {
+        display: flex;
+        gap: 16px;
+    }
+
+    .comment-content {
+        flex: 1;
+    }
+
+    .comment-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 6px;
+    }
+
+    .comment-author {
+        font-weight: 600;
+        color: #1a202c;
+        font-size: 15px;
+    }
+
+    .comment-time {
+        font-size: 12px;
+        color: #a0aec0;
+    }
+
+    .comment-text {
+        font-size: 15px;
+        color: #4a5568;
+        line-height: 1.7;
+        margin: 0;
+    }
+
+    .comment-replies {
+        margin: 16px 0 0 64px;
+        padding-left: 20px;
+        border-left: 2px solid #e74c3c;
+    }
+
+    .reply-item {
+        background: #fafbfc;
+        padding: 14px 18px;
+        border-radius: 10px;
+        margin-bottom: 10px;
+    }
+
+    .reply-author {
+        font-weight: 600;
+        color: #2d3748;
+        font-size: 14px;
+        margin-bottom: 4px;
+    }
+
+    .reply-text {
+        font-size: 14px;
+        color: #4a5568;
+        line-height: 1.6;
+        margin: 0;
+    }
+
+    .no-comments {
+        text-align: center;
+        padding: 40px 20px;
+        color: #a0aec0;
+    }
+
+        .no-comments i {
+            font-size: 48px;
+            opacity: 0.3;
+            display: block;
+            margin-bottom: 12px;
+        }
+
+        .no-comments p {
+            font-size: 15px;
+            margin: 0;
+        }
+
+    /* Related Articles */
+    .related-section {
+        margin-top: 40px;
+    }
+
+    .related-header {
+        font-size: 22px;
+        font-weight: 700;
+        color: #1a202c;
+        margin-bottom: 24px;
+        padding-bottom: 12px;
+        border-bottom: 3px solid #e74c3c;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+        .related-header i {
+            color: #e74c3c;
+        }
+
+    .related-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+    }
+
+    .related-card {
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        transition: all 0.2s;
+        border: 1px solid #edf2f7;
+    }
+
+        .related-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+
+        .related-card a {
+            text-decoration: none;
+            display: block;
+        }
+
+    .related-img {
+        width: 100%;
+        height: 160px;
+        object-fit: cover;
+    }
+
+    .related-img-placeholder {
+        width: 100%;
+        height: 160px;
+        background: linear-gradient(135deg, #f7fafc, #edf2f7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #a0aec0;
+    }
+
+    .related-content {
+        padding: 16px;
+    }
+
+    .related-title {
+        font-size: 15px;
+        font-weight: 600;
+        color: #1a202c;
+        line-height: 1.5;
+        margin-bottom: 8px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .related-meta {
+        font-size: 12px;
+        color: #a0aec0;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    /* Sidebar */
+    .sidebar {
+        position: sticky;
+        top: 100px;
+        height: fit-content;
+    }
+
+    .sidebar-widget {
+        background: white;
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 24px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        border: 1px solid #edf2f7;
+    }
+
+    .widget-title {
+        font-size: 18px;
+        font-weight: 700;
+        color: #1a202c;
+        margin-bottom: 18px;
+        padding-bottom: 12px;
+        border-bottom: 2px solid #e74c3c;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+        .widget-title i {
+            color: #e74c3c;
+        }
+
+    .breaking-list {
+        list-style: none;
+    }
+
+    .breaking-item {
+        padding: 12px 0;
+        border-bottom: 1px solid #f0f4f8;
+    }
+
+        .breaking-item:last-child {
+            border-bottom: none;
+        }
+
+    .breaking-link {
+        text-decoration: none;
+        display: block;
+    }
+
+    .breaking-title {
+        font-size: 14px;
+        font-weight: 500;
+        color: #2d3748;
+        line-height: 1.5;
+        margin-bottom: 6px;
+        transition: color 0.2s;
+    }
+
+    .breaking-link:hover .breaking-title {
+        color: #e74c3c;
+    }
+
+    .breaking-time {
+        font-size: 12px;
+        color: #a0aec0;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    .category-list {
+        list-style: none;
+    }
+
+    .category-item {
+        border-bottom: 1px solid #f0f4f8;
+    }
+
+        .category-item:last-child {
+            border-bottom: none;
+        }
+
+    .category-link {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px 0;
+        text-decoration: none;
+        color: #4a5568;
+        font-size: 14px;
+        font-weight: 500;
+        transition: all 0.2s;
+    }
+
+        .category-link:hover {
+            color: #e74c3c;
+            padding-left: 6px;
+        }
+
+        .category-link i {
+            color: #e74c3c;
+            font-size: 10px;
+        }
+
+    /* Responsive */
+    @@media (max-width: 968px) {
+        .article-layout {
+            grid-template-columns: 1fr;
+        }
+
+        .sidebar {
+            position: static;
+        }
+
+        .related-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .article-title {
+            font-size: 26px;
+        }
+    }
+
+    @@media (max-width: 640px) {
+        .article-main {
+            padding: 20px;
+        }
+
+        .article-title {
+            font-size: 22px;
+        }
+
+        .form-row {
+            grid-template-columns: 1fr;
+        }
+
+        .form-footer {
+            flex-direction: column;
+            gap: 16px;
+            align-items: stretch;
+        }
+
+        .btn-submit {
+            justify-content: center;
+        }
+
+        .related-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .comment-body {
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .comment-avatar {
+            width: 40px;
+            height: 40px;
+            font-size: 16px;
+        }
+
+        .comment-replies {
+            margin-left: 20px;
+        }
+
+        .share-buttons {
+            flex-direction: column;
+        }
+
+        .share-btn {
+            justify-content: center;
+        }
+    }
+</style>
+
+<div class="article-container">
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <a asp-controller="Home" asp-action="Index"><i class="fas fa-home"></i> প্রচ্ছদ</a>
+        <i class="fas fa-chevron-left"></i>
+        <a asp-controller="Category" asp-action="Index" asp-route-slug="@Model.Article.CategorySlug">
+            @Model.Article.CategoryNameBn
+        </a>
+        <i class="fas fa-chevron-left"></i>
+        <span>@Model.Article.TitleBn</span>
+    </div>
+
+    <div class="article-layout">
+        <!-- Main Content -->
+        <div>
+            <article class="article-main">
+                
+@* 
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;">
+                    <span style="font-size:13px;color:#888;">ভাষা:</span>
+                    <div style="display:flex;background:#f5f5f5;border-radius:20px;padding:3px;">
+                        <button id="btn-bn"
+                                onclick="switchLang('bn')"
+                                style="padding:5px 14px;border-radius:16px;border:none;cursor:pointer;font-size:13px;font-family:inherit;background:#c0392b;color:white;transition:all .2s;">
+                            বাংলা
+                        </button>
+                        <button id="btn-en"
+                                onclick="switchLang('en')"
+                                style="padding:5px 14px;border-radius:16px;border:none;cursor:pointer;font-size:13px;font-family:inherit;background:transparent;color:#888;transition:all .2s;">
+                            English
+                        </button>
+                    </div>
+                </div> *@
+
+                <div id="article-body-bn">
+                    <h1 class="article-title">@Model.Article.TitleBn</h1>
+                    @if (!string.IsNullOrEmpty(Model.Article.SummaryBn))
+                    {
+                        <p class="article-summary">@Model.Article.SummaryBn</p>
+                    }
+                    <div class="article-content">
+                        @Html.Raw(Model.Article.ContentBn
+                                                ?.Replace("\n\n", "</p><p>")
+                                                ?.Replace("\n", "<br/>") is string s
+                                                ? $"<p>{s}</p>"
+                                                : Model.Article.ContentBn)
+                    </div>
+                </div>
+
+                <div id="article-body-en" style="display:none;">
+                    <h1 class="article-title">
+                        @(string.IsNullOrEmpty(Model.Article.Title)
+                                                ? Model.Article.TitleBn : Model.Article.Title)
+                    </h1>
+                    @if (!string.IsNullOrEmpty(Model.Article.Summary))
+                    {
+                        <p class="article-summary">@Model.Article.Summary</p>
+                    }
+                    <div class="article-content">
+                        @Html.Raw((Model.Article.Content ?? Model.Article.ContentBn ?? "")
+                                                .Replace("\n\n", "</p><p>")
+                                                .Replace("\n", "<br/>") is string se
+                                                ? $"<p>{se}</p>"
+                                                : "")
+                    </div>
+                </div>
+
+
+                <span class="article-category">@Model.Article.CategoryNameBn</span>
+
+                <h1 class="article-title">@Model.Article.TitleBn</h1>
+
+                <div class="article-meta">
+                    <div class="article-meta-item">
+                        <i class="fas fa-user-circle"></i>
+                        <span>@Model.Article.AuthorNameBn</span>
+                    </div>
+                    <div class="article-meta-item">
+                        <i class="far fa-calendar-alt"></i>
+                        <span>@Model.Article.PublishedAt?.ToString("dd MMMM yyyy, hh:mm tt")</span>
+                    </div>
+                    <div class="article-meta-item">
+                        <i class="far fa-eye"></i>
+                        <span>@Model.Article.ViewCount বার পঠিত</span>
+                    </div>
+                </div>
+
+                @if (!string.IsNullOrEmpty(Model.Article.ThumbnailUrl))
+                {
+                    <img src="@Model.Article.ThumbnailUrl" alt="@Model.Article.TitleBn" class="article-thumbnail">
+                }
+                else
+                {
+                    <div class="article-thumbnail-placeholder">
+                        <i class="fas fa-newspaper" style="font-size: 48px; color: #cbd5e0;"></i>
+                    </div>
+                }
+
+                @* <div class="article-content" id="article-main-content">
+                    @Html.Raw(Model.Article.ContentBn
+                                        ?.Replace("\n\n", "</p><p>")
+                                        ?.Replace("\n", "<br/>") is string s
+                                        ? $"<p>{s}</p>"
+                                        : Model.Article.ContentBn)
+                </div> *@
+
+                <!-- Tags -->
+                @if (Model.Article.Tags != null && Model.Article.Tags.Any())
+                {
+                    <div class="tags-section">
+                        <div class="tags-label">
+                            <i class="fas fa-tags"></i>
+                            <span>ট্যাগ:</span>
+                        </div>
+                        <div class="tags-list">
+                            @foreach (var tag in Model.Article.Tags)
+                            {
+                                <span class="tag">#@tag</span>
+                            }
+                        </div>
+                    </div>
+                }
+
+
+                <div style="background:white;border-radius:8px;padding:20px;border:0.5px solid #e0e0e0;margin-top:20px;">
+                    <h3 style="font-size:16px;margin:0 0 16px;display:flex;align-items:center;gap:8px;">
+                        <i class="fas fa-image" style="color:#c0392b;"></i>
+                        ফটোকার্ড তৈরি করুন
+                    </h3>
+
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+                        <div>
+                            <canvas id="photocard-canvas"
+                                    width="600" height="400"
+                                    style="width:100%;border-radius:8px;border:0.5px solid #e0e0e0;cursor:pointer;"
+                                    onclick="downloadPhotocard()">
+                            </canvas>
+                            <p style="font-size:12px;color:#aaa;margin:6px 0 0;text-align:center;">
+                                ক্লিক করে ডাউনলোড করুন
+                            </p>
+                        </div>
+
+                        <div style="display:flex;flex-direction:column;gap:12px;">
+                            <div>
+                                <label style="font-size:13px;color:#555;display:block;margin-bottom:6px;">
+                                    Style
+                                </label>
+                                <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                                    <button onclick="setStyle('red')"
+                                            id="style-red"
+                                            style="padding:6px 14px;border-radius:20px;border:none;background:#c0392b;color:white;cursor:pointer;font-size:12px;">
+                                        Red
+                                    </button>
+                                    <button onclick="setStyle('dark')"
+                                            id="style-dark"
+                                            style="padding:6px 14px;border-radius:20px;border:0.5px solid #ddd;background:white;color:#333;cursor:pointer;font-size:12px;">
+                                        Dark
+                                    </button>
+                                    <button onclick="setStyle('light')"
+                                            id="style-light"
+                                            style="padding:6px 14px;border-radius:20px;border:0.5px solid #ddd;background:white;color:#333;cursor:pointer;font-size:12px;">
+                                        Light
+                                    </button>
+                                    <button onclick="setStyle('blue')"
+                                            id="style-blue"
+                                            style="padding:6px 14px;border-radius:20px;border:0.5px solid #ddd;background:white;color:#333;cursor:pointer;font-size:12px;">
+                                        Blue
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label style="font-size:13px;color:#555;display:block;margin-bottom:6px;">
+                                    Share করুন
+                                </label>
+                                <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                                    <button onclick="shareToFacebook()"
+                                            style="padding:8px 16px;background:#1877f2;color:white;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-family:inherit;">
+                                        <i class="fab fa-facebook-f"></i> Facebook
+                                    </button>
+                                    <button onclick="downloadPhotocard()"
+                                            style="padding:8px 16px;background:#27ae60;color:white;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-family:inherit;">
+                                        <i class="fas fa-download"></i> Download
+                                    </button>
+                                    <button onclick="copyNewsLink()"
+                                            id="copy-link-btn"
+                                            style="padding:8px 16px;background:#f5f5f5;color:#333;border:0.5px solid #ddd;border-radius:6px;cursor:pointer;font-size:13px;font-family:inherit;">
+                                        <i class="fas fa-link"></i> Link Copy
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div style="background:#f9f9f9;border-radius:6px;padding:12px;font-size:12px;color:#888;line-height:1.6;">
+                                <i class="fas fa-info-circle" style="color:#c0392b;margin-right:4px;"></i>
+                                ফটোকার্ড download করে Facebook, WhatsApp এ শেয়ার করুন।
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Share Buttons -->
+                <div class="share-section">
+                    <div class="share-title">
+                        <i class="fas fa-share-alt"></i>
+                        <span>শেয়ার করুন</span>
+                    </div>
+                    <div class="share-buttons">
+                        <button class="share-btn facebook" onclick="shareOnFacebook()">
+                            <i class="fab fa-facebook-f"></i>
+                            ফেসবুক
+                        </button>
+                        <button class="share-btn twitter" onclick="shareOnTwitter()">
+                            <i class="fab fa-twitter"></i>
+                            টুইটার
+                        </button>
+                        <button class="share-btn copy" onclick="copyLink()">
+                            <i class="fas fa-link"></i>
+                            লিংক কপি
+                        </button>
+
+                        <button onclick="window.print()"
+                                style="padding:8px 16px;border-radius:6px;border:0.5px solid #ddd;background:#f5f5f5;color:#555;cursor:pointer;font-size:13px;font-family:inherit;">
+                            <i class="fas fa-print"></i> প্রিন্ট
+                        </button>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Comments Section -->
+            <div class="comments-section">
+                <div class="comments-header">
+                    <i class="fas fa-comments"></i>
+                    <span>মন্তব্য</span>
+                </div>
+
+                <div class="comment-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <input type="text" id="comment-name" placeholder="আপনার নাম *" autocomplete="off" />
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="comment-email" placeholder="ইমেইল (প্রকাশিত হবে না)" autocomplete="off" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="comment-content" placeholder="আপনার মন্তব্য লিখুন... (সর্বনিম্ন ৫ অক্ষর)"></textarea>
+                    </div>
+                    <div class="form-footer">
+                        <div class="form-note">
+                            <i class="fas fa-info-circle"></i>
+                            <span>মন্তব্য অনুমোদনের পর প্রকাশিত হবে</span>
+                        </div>
+                        <button class="btn-submit" id="comment-submit-btn" onclick="submitComment()">
+                            <i class="fas fa-paper-plane"></i>
+                            মন্তব্য পাঠান
+                        </button>
+                    </div>
+                    <div id="comment-message" class="comment-message"></div>
+                </div>
+
+                <div id="comments-list" class="comments-list">
+                    <div style="text-align: center; padding: 20px; color: #a0aec0;">
+                        <i class="fas fa-spinner fa-spin"></i> লোড হচ্ছে...
+                    </div>
+                </div>
+            </div>
+
+            <!-- Related Articles -->
+            @if (Model.Article.RelatedArticles != null && Model.Article.RelatedArticles.Any())
+            {
+                <div class="related-section">
+                    <div class="related-header">
+                        <i class="fas fa-newspaper"></i>
+                        <span>সম্পর্কিত সংবাদ</span>
+                    </div>
+                    <div class="related-grid">
+                        @foreach (var related in Model.Article.RelatedArticles.Take(3))
+                        {
+                            <div class="related-card">
+                                <a asp-controller="News" asp-action="Detail" asp-route-slug="@related.Slug">
+                                    @if (!string.IsNullOrEmpty(related.ThumbnailUrl))
+                                    {
+                                        <img src="@related.ThumbnailUrl" alt="@related.TitleBn" class="related-img" loading="lazy" />
+                                    }
+                                    else
+                                    {
+                                        <div class="related-img-placeholder">
+                                            <i class="fas fa-image" style="font-size: 32px;"></i>
+                                        </div>
+                                    }
+                                    <div class="related-content">
+                                        <h4 class="related-title">@related.TitleBn</h4>
+                                        <div class="related-meta">
+                                            <i class="far fa-clock"></i>
+                                            <span>@related.PublishedAt?.ToString("dd MMM yyyy")</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+
+            @{
+                ViewBag.AdPosition = 1;
+            }
+            @await Html.PartialAsync("_AdWidget")
+
+            <!-- Breaking News -->
+            @if (Model.BreakingNews != null && Model.BreakingNews.Any())
+            {
+                <div class="sidebar-widget">
+                    <h3 class="widget-title">
+                        <i class="fas fa-bolt"></i>
+                        ব্রেকিং নিউজ
+                    </h3>
+                    <ul class="breaking-list">
+                        @foreach (var news in Model.BreakingNews.Take(5))
+                        {
+                            <li class="breaking-item">
+                                <a asp-controller="News" asp-action="Detail" asp-route-slug="@news.Slug" class="breaking-link">
+                                    <div class="breaking-title">@news.TitleBn</div>
+                                    <div class="breaking-time">
+                                        <i class="far fa-clock"></i>
+                                        @news.PublishedAt?.ToString("hh:mm tt")
+                                    </div>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            }
+
+           
+
+            <!-- Categories -->
+            <div class="sidebar-widget">
+                <h3 class="widget-title">
+                    <i class="fas fa-folder-open"></i>
+                    বিভাগসমূহ
+                </h3>
+                <ul class="category-list">
+                    @foreach (var cat in Model.Categories)
+                    {
+                        <li class="category-item">
+                            <a asp-controller="Category" asp-action="Index" asp-route-slug="@cat.Slug" class="category-link">
+                                <span><i class="fas fa-chevron-left" style="font-size: 10px; margin-left: 6px;"></i> @cat.NameBn</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+
+            @{
+                ViewBag.AdPosition = 1;
+            }
+            @await Html.PartialAsync("_AdWidget")
+
+        </aside>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+
+                function switchLang(lang) {
+            const bnView = document.getElementById('content-bn-view');
+            const enView = document.getElementById('content-en-view');
+            const contentDiv = document.getElementById('article-main-content');
+            const btnBn = document.getElementById('btn-bn');
+            const btnEn = document.getElementById('btn-en');
+
+            if (lang === 'bn') {
+                bnView.style.display = 'block';
+                enView.style.display = 'none';
+                if (contentDiv) {
+                    contentDiv.innerHTML = `@Html.Raw(
+                                            (Model.Article.ContentBn ?? "")
+                                            .Replace("\n\n", "</p><p>")
+                                            .Replace("\"", "\\\"")
+                                            .Replace("\n", "<br/>"))`;
+            }
+            btnBn.style.background = '#c0392b';
+            btnBn.style.color = 'white';
+            btnEn.style.background = 'transparent';
+            btnEn.style.color = '#888';
+        } else {
+            bnView.style.display = 'none';
+            enView.style.display = 'block';
+            if (contentDiv) {
+                contentDiv.innerHTML = `@Html.Raw(
+                                        (Model.Article.Content ?? Model.Article.ContentBn ?? "")
+                                        .Replace("\n\n", "</p><p>")
+                                        .Replace("\"", "\\\"")
+                                        .Replace("\n", "<br/>"))`;
+            }
+            btnBn.style.background = 'transparent';
+            btnBn.style.color = '#888';
+            btnEn.style.background = '#c0392b';
+            btnEn.style.color = 'white';
+        }
+        localStorage.setItem('preferredLang', lang);
+    }
+
+        const savedLang = localStorage.getItem('preferredLang') || 'bn';
+        if (savedLang === 'en') switchLang('en');
+
+        const apiBase = 'https://localhost:7001/api/v1/';
+        const articleId = @Model.Article.Id;
+
+        // Share functions
+                function shareFacebook() {
+            fetch(`${apiBase}news/@Model.Article.Id/share`,
+                { method: 'PATCH' });
+            const url = encodeURIComponent(window.location.href);
+            window.open(
+                `https://www.facebook.com/sharer/sharer.php?u=${url}`,
+                '_blank', 'width=600,height=400');
+        }
+
+        function shareOnTwitter() {
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent('@Html.Raw(Model.Article.TitleBn)');
+            window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank', 'width=600,height=400');
+        }
+
+        function copyLink() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                const btn = event.target.closest('.share-btn.copy');
+                const originalHtml = btn.innerHTML;
+                btn.innerHTML = '<i class="fas fa-check"></i> কপি হয়েছে!';
+                setTimeout(() => {
+                    btn.innerHTML = originalHtml;
+                }, 2000);
+            }).catch(() => {
+                alert('লিংক কপি করা যায়নি');
+            });
+        }
+
+        // Load comments
+        async function loadComments() {
+            const list = document.getElementById('comments-list');
+            if (!list) return;
+
+            try {
+                const res = await fetch(`${apiBase}comment/article/${articleId}`);
+                const data = await res.json();
+
+                if (!data.success || !data.data?.length) {
+                    list.innerHTML = `
+                        <div class="no-comments">
+                            <i class="fas fa-comments"></i>
+                            <p>এখনো কোনো মন্তব্য নেই। প্রথম মন্তব্য করুন!</p>
+                        </div>`;
+                    return;
+                }
+
+                const commentsHtml = data.data.map(c => renderComment(c)).join('');
+                list.innerHTML = `
+                    <div class="comments-count">
+                        <i class="far fa-comment-dots"></i> ${data.data.length} টি মন্তব্য
+                    </div>
+                    ${commentsHtml}`;
+            } catch(e) {
+                console.error('Comment load error:', e);
+                list.innerHTML = '<div class="no-comments"><p>মন্তব্য লোড করা যায়নি</p></div>';
+            }
+        }
+
+
+                       const articleData = {
+            titleBn: `@Html.Raw((Model.Article.TitleBn ?? "").Replace("`", "").Replace("\n", " "))`,
+            titleEn: `@Html.Raw((Model.Article.Title ?? Model.Article.TitleBn ?? "").Replace("`", "").Replace("\n", " "))`,
+            source: 'দুর্জয় বিডি নিউজ ২৪',
+            category: '@Model.Article.CategoryNameBn',
+            date: '@Model.Article.PublishedAt?.ToString("dd MMMM yyyy")',
+            url: window.location.href,
+            thumbnail: '@Model.Article.ThumbnailUrl'
+        };
+
+        const styles = {
+            red: { bg: '#c0392b', overlay: 'rgba(192,57,43,0.75)', text: '#fff', sub: 'rgba(255,255,255,0.85)', footer: '#922b21' },
+            dark: { bg: '#1a1a2e', overlay: 'rgba(26,26,46,0.80)', text: '#fff', sub: 'rgba(255,255,255,0.75)', footer: '#c0392b' },
+            light: { bg: '#f5f5f5', overlay: 'rgba(255,255,255,0.85)', text: '#1a1a1a', sub: '#555', footer: '#c0392b' },
+            blue: { bg: '#1877f2', overlay: 'rgba(24,119,242,0.80)', text: '#fff', sub: 'rgba(255,255,255,0.85)', footer: '#1251aa' }
+        };
+
+        let currentStyle = 'red';
+        let bgImage = null;
+
+        function setStyle(style) {
+            currentStyle = style;
+            document.querySelectorAll('[id^="style-"]').forEach(b => {
+                b.style.opacity = '0.5';
+                b.style.transform = 'scale(0.95)';
+            });
+            const btn = document.getElementById(`style-${style}`);
+            if (btn) {
+                btn.style.opacity = '1';
+                btn.style.transform = 'scale(1)';
+            }
+            drawPhotocard();
+        }
+
+        function wrapText(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+            const chars = text.split('');
+            let currentLine = '';
+            let lines = [];
+
+            for (let i = 0; i < chars.length; i++) {
+                const testLine = currentLine + chars[i];
+                if (ctx.measureText(testLine).width > maxWidth && currentLine) {
+                    lines.push(currentLine);
+                    currentLine = chars[i];
+                    if (lines.length >= maxLines) break;
+                } else {
+                    currentLine = testLine;
+                }
+            }
+            if (lines.length < maxLines) lines.push(currentLine);
+
+            lines.forEach((line, i) => {
+                ctx.fillText(line, x, y + i * lineHeight);
+            });
+            return lines.length;
+        }
+
+        function drawPhotocard() {
+            const canvas = document.getElementById('photocard-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const s = styles[currentStyle];
+            const W = 600, H = 400;
+
+            ctx.clearRect(0, 0, W, H);
+
+            if (bgImage) {
+                ctx.drawImage(bgImage, 0, 0, W, H);
+                ctx.fillStyle = s.overlay;
+                ctx.fillRect(0, 0, W, H);
+            } else {
+                ctx.fillStyle = s.bg;
+                ctx.fillRect(0, 0, W, H);
+            }
+
+            ctx.fillStyle = s.footer;
+            ctx.fillRect(0, 0, W, 6);
+
+            const logoX = 24, logoY = 28;
+            ctx.fillStyle = 'rgba(255,255,255,0.15)';
+            ctx.beginPath();
+            ctx.roundRect(logoX - 8, logoY - 16, 220, 36, 6);
+            ctx.fill();
+
+            ctx.fillStyle = s.text;
+            ctx.font = 'bold 17px "Hind Siliguri", Arial, sans-serif';
+            ctx.fillText('দুর্জয় বিডি নিউজ ২৪', logoX, logoY);
+
+            ctx.fillStyle = s.sub;
+            ctx.font = '13px Arial';
+            ctx.fillText(articleData.category + '  ·  ' + articleData.date, 24, 60);
+
+            ctx.fillStyle = s.footer;
+            ctx.fillRect(24, 76, 4, 100);
+
+            const lang = localStorage.getItem('lang') || 'bn';
+            const title = lang === 'bn'
+                ? articleData.titleBn
+                : articleData.titleEn;
+
+            ctx.fillStyle = s.text;
+            ctx.font = 'bold 24px "Hind Siliguri", Arial, sans-serif';
+            wrapText(ctx, title, 36, 108, W - 60, 36, 4);
+
+            ctx.fillStyle = s.footer;
+            ctx.fillRect(0, H - 56, W, 56);
+
+            ctx.fillStyle = s.text;
+            ctx.font = 'bold 14px "Hind Siliguri", Arial';
+            ctx.fillText('দুর্জয় বিডি নিউজ ২৪', 20, H - 30);
+
+            ctx.fillStyle = 'rgba(255,255,255,0.7)';
+            ctx.font = '12px Arial';
+            ctx.fillText('DurjoyBDNews24.com', 20, H - 12);
+
+            const shortUrl = articleData.url
+                .replace('https://', '')
+                .substring(0, 45);
+            ctx.textAlign = 'right';
+            ctx.fillStyle = 'rgba(255,255,255,0.8)';
+            ctx.font = '11px Arial';
+            ctx.fillText('🔗 ' + shortUrl, W - 16, H - 16);
+            ctx.textAlign = 'left';
+        }
+
+        function downloadPhotocard() {
+            const canvas = document.getElementById('photocard-canvas');
+            if (!canvas) return;
+            const link = document.createElement('a');
+            link.download = `durjoybdnews-${Date.now()}.png`;
+            link.href = canvas.toDataURL('image/png', 1.0);
+            link.click();
+        }
+
+        function shareToFacebook() {
+            const url = encodeURIComponent(window.location.href);
+            window.open(
+                `https://www.facebook.com/sharer/sharer.php?u=${url}`,
+                '_blank', 'width=600,height=400');
+        }
+
+        function copyNewsLink() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                const btn = document.getElementById('copy-link-btn');
+                if (!btn) return;
+                btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                btn.style.background = '#d4edda';
+                btn.style.color = '#155724';
+                setTimeout(() => {
+                    btn.innerHTML = '<i class="fas fa-link"></i> Link Copy';
+                    btn.style.background = '#f5f5f5';
+                    btn.style.color = '#333';
+                }, 2000);
+            });
+        }
+
+        if (articleData.thumbnail) {
+            const img = new Image();
+            img.crossOrigin = 'Anonymous';
+            img.onload = () => { bgImage = img; drawPhotocard(); };
+            img.onerror = () => drawPhotocard();
+            img.src = articleData.thumbnail;
+        } else {
+            drawPhotocard();
+        }
+
+        setStyle('red');
+
+        window.addEventListener('storage', e => {
+            if (e.key === 'lang') drawPhotocard();
+        });
+
+
+
+        function renderComment(c) {
+            const initial = c.userNameBn?.[0] || c.userName?.[0] || 'প';
+            const name = c.userNameBn || c.userName || 'পাঠক';
+            const date = c.createdAt ? new Date(c.createdAt).toLocaleDateString('bn-BD', {
+                year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'
+            }) : '';
+
+            const repliesHtml = c.replies?.length ? `
+                <div class="comment-replies">
+                    ${c.replies.map(r => `
+                        <div class="reply-item">
+                            <div class="reply-author">${r.userNameBn || r.userName || 'পাঠক'}</div>
+                            <p class="reply-text">${r.content}</p>
+                        </div>
+                    `).join('')}
+                </div>` : '';
+
+            return `
+                <div class="comment-item">
+                    <div class="comment-body">
+                        <div class="comment-avatar">${initial}</div>
+                        <div class="comment-content">
+                            <div class="comment-header">
+                                <span class="comment-author">${name}</span>
+                                <span class="comment-time">${date}</span>
+                            </div>
+                            <p class="comment-text">${c.content}</p>
+                            ${repliesHtml}
+                        </div>
+                    </div>
+                </div>`;
+        }
+
+        // Submit comment
+        async function submitComment() {
+            const content = document.getElementById('comment-content')?.value?.trim();
+            const name = document.getElementById('comment-name')?.value?.trim();
+            const email = document.getElementById('comment-email')?.value?.trim();
+            const btn = document.getElementById('comment-submit-btn');
+            const msgDiv = document.getElementById('comment-message');
+
+            if (!name) {
+                showMessage('আপনার নাম দিন', 'error');
+                return;
+            }
+
+            if (!content || content.length < 5) {
+                showMessage('কমপক্ষে ৫ অক্ষরের মন্তব্য লিখুন', 'error');
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> পাঠানো হচ্ছে...';
+
+            try {
+                const res = await fetch(`${apiBase}comment/guest`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        articleId: articleId,
+                        content: content,
+                        guestName: name,
+                        guestEmail: email || ''
+                    })
+                });
+
+                const data = await res.json();
+
+                if (data.success) {
+                    document.getElementById('comment-content').value = '';
+                    document.getElementById('comment-name').value = '';
+                    document.getElementById('comment-email').value = '';
+                    showMessage('মন্তব্য পাঠানো হয়েছে। অনুমোদনের পর প্রকাশিত হবে।', 'success');
+                    setTimeout(loadComments, 2000);
+                } else {
+                    showMessage(data.message || 'মন্তব্য পাঠানো যায়নি', 'error');
+                }
+            } catch(e) {
+                console.error('Submit error:', e);
+                showMessage('সংযোগ সমস্যা। আবার চেষ্টা করুন।', 'error');
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-paper-plane"></i> মন্তব্য পাঠান';
+            }
+        }
+
+
+        //
+                function applyLangToArticle(lang) {
+            const bn = document.getElementById('article-body-bn');
+            const en = document.getElementById('article-body-en');
+            if (!bn || !en) return;
+            if (lang === 'bn') {
+                bn.style.display = 'block';
+                en.style.display = 'none';
+            } else {
+                bn.style.display = 'none';
+                en.style.display = 'block';
+            }
+        }
+
+        const lang = localStorage.getItem('lang') || 'bn';
+        applyLangToArticle(lang);
+
+        const origSetGlobalLang = window.setGlobalLang;
+        window.setGlobalLang = function(l) {
+            if (origSetGlobalLang) origSetGlobalLang(l);
+            applyLangToArticle(l);
+        };
+
+
+        function showMessage(text, type) {
+            const msgDiv = document.getElementById('comment-message');
+            if (!msgDiv) return;
+
+            msgDiv.textContent = text;
+            msgDiv.className = `comment-message ${type}`;
+            msgDiv.style.display = 'block';
+
+            setTimeout(() => {
+                msgDiv.style.display = 'none';
+            }, 5000);
+        }
+
+        document.addEventListener('DOMContentLoaded', loadComments);
+    </script>
+}

@@ -1,0 +1,128 @@
+﻿@{
+    ViewData["Title"] = (ViewBag.Video as DurjoyBDNews24.Application.DTOs.Video.VideoNewsDto)?.TitleBn ?? "ভিডিও";
+    var video = ViewBag.Video as DurjoyBDNews24.Application.DTOs.Video.VideoNewsDto;
+    var related = ViewBag.RelatedVideos as IEnumerable<DurjoyBDNews24.Application.DTOs.Video.VideoNewsDto>;
+}
+
+@if (video != null)
+{
+    <div style="display:grid;grid-template-columns:1fr 320px;gap:24px;">
+        <div>
+            <div style="background:#000;border-radius:10px;overflow:hidden;margin-bottom:20px;position:relative;padding-top:56.25%;">
+                <iframe src="@video.EmbedUrl"
+                        title="@video.TitleBn"
+                        style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;"
+                        allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"
+                        allowfullscreen>
+                </iframe>
+            </div>
+
+            <div style="background:white;border-radius:8px;padding:20px;border:0.5px solid #e0e0e0;">
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+                    <span style="background:#fde8e8;color:#c0392b;font-size:12px;padding:3px 10px;border-radius:10px;">
+                        @video.CategoryNameBn
+                    </span>
+                    <span style="font-size:12px;color:#aaa;">
+                        <i class="fas fa-eye"></i> @video.ViewCount ভিউ
+                    </span>
+                    <span style="font-size:12px;color:#aaa;">
+                        @video.PublishedAt?.ToString("dd MMM yyyy")
+                    </span>
+                </div>
+
+                <h1 style="font-size:22px;color:#1a1a1a;line-height:1.4;margin:0 0 12px;">
+                    @video.TitleBn
+                </h1>
+
+                <div style="display:flex;align-items:center;justify-content:space-between;padding-top:12px;border-top:0.5px solid #f0f0f0;">
+                    <div style="display:flex;align-items:center;gap:10px;">
+                        <div style="width:36px;height:36px;border-radius:50%;background:#c0392b;color:white;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;">
+                            @(video.AuthorNameBn?.Length > 0
+                                                    ? video.AuthorNameBn[0].ToString() : "র")
+                    </div>
+                    <span style="font-size:14px;font-weight:500;color:#333;">
+                        @video.AuthorNameBn
+                    </span>
+                </div>
+                <div style="display:flex;gap:8px;">
+                    <button onclick="shareVideo()"
+                            style="padding:8px 16px;background:#1877f2;color:white;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-family:inherit;">
+                        <i class="fab fa-facebook-f"></i> শেয়ার
+                    </button>
+                    <button onclick="copyVideoLink()"
+                            id="copy-video-btn"
+                            style="padding:8px 16px;background:#f5f5f5;color:#333;border:0.5px solid #ddd;border-radius:6px;cursor:pointer;font-size:13px;font-family:inherit;">
+                        <i class="fas fa-link"></i> কপি
+                    </button>
+                </div>
+            </div>
+
+            @if (!string.IsNullOrEmpty(video.DescriptionBn))
+                {
+                    <div style="margin-top:16px;padding-top:16px;border-top:0.5px solid #f0f0f0;">
+                        <h3 style="font-size:15px;margin:0 0 8px;">বিবরণ</h3>
+                        <p style="font-size:15px;color:#555;line-height:1.8;margin:0;">
+                            @video.DescriptionBn
+                        </p>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <aside>
+            <div style="background:white;border-radius:8px;padding:16px;border:0.5px solid #e0e0e0;">
+                <h3 style="font-size:15px;margin:0 0 14px;border-bottom:2px solid #c0392b;padding-bottom:8px;">
+                    আরো ভিডিও
+                </h3>
+                @if (related?.Any() == true)
+                {
+                    @foreach (var rv in related)
+                    {
+                        <a href="/video/watch/@rv.Id"
+                           style="display:flex;gap:10px;margin-bottom:12px;text-decoration:none;">
+                            <div style="position:relative;width:100px;flex-shrink:0;">
+                                <img src="@rv.ThumbnailUrl"
+                                     alt="@rv.TitleBn"
+                                     style="width:100%;height:60px;object-fit:cover;border-radius:6px;display:block;" />
+                                <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:22px;height:22px;background:rgba(192,57,43,0.85);border-radius:50%;display:flex;align-items:center;justify-content:center;">
+                                    <i class="fas fa-play" style="color:white;font-size:7px;margin-left:2px;"></i>
+                                </div>
+                            </div>
+                            <div style="flex:1;">
+                                <p style="font-size:12px;font-weight:500;color:#1a1a1a;line-height:1.4;margin:0 0 4px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">
+                                    @rv.TitleBn
+                                </p>
+                                <span style="font-size:11px;color:#888;">
+                                    @rv.ViewCount ভিউ
+                                </span>
+                            </div>
+                        </a>
+                    }
+                }
+            </div>
+        </aside>
+    </div>
+}
+
+@section Scripts {
+    <script>
+        function shareVideo() {
+            const url = encodeURIComponent(window.location.href);
+            window.open(
+                `https://www.facebook.com/sharer/sharer.php?u=${url}`,
+                '_blank', 'width=600,height=400');
+        }
+
+        function copyVideoLink() {
+            navigator.clipboard.writeText(window.location.href)
+                .then(() => {
+                    const btn = document.getElementById(
+                        'copy-video-btn');
+                    btn.innerHTML = '<i class="fas fa-check"></i> কপি হয়েছে';
+                    setTimeout(() => {
+                        btn.innerHTML = '<i class="fas fa-link"></i> কপি';
+                    }, 2000);
+                });
+        }
+    </script>
+}

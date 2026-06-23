@@ -1,0 +1,116 @@
+﻿@model DurjoyBDNews24.Admin.Models.DashboardViewModel
+@{
+    ViewData["Title"] = "ড্যাশবোর্ড";
+}
+
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-icon red"><i class="fas fa-newspaper"></i></div>
+        <div class="stat-body">
+            <h3>@Model.TotalArticles</h3>
+            <p>মোট নিউজ</p>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon green"><i class="fas fa-check-circle"></i></div>
+        <div class="stat-body">
+            <h3>@Model.PublishedArticles</h3>
+            <p>প্রকাশিত</p>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon blue"><i class="fas fa-list"></i></div>
+        <div class="stat-body">
+            <h3>@Model.TotalCategories</h3>
+            <p>বিভাগ</p>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon orange"><i class="fas fa-eye"></i></div>
+        <div class="stat-body">
+            <h3>@Model.TotalViews.ToString("N0")</h3>
+            <p>মোট ভিউ</p>
+        </div>
+    </div>
+    
+
+
+    <div class="stat-card">
+        <div class="stat-icon" style="background:#8e44ad;">
+            <i class="fas fa-comments"></i>
+        </div>
+        <div class="stat-body">
+            <h3>@ViewBag.PendingComments</h3>
+            <p>অপেক্ষমান মন্তব্য</p>
+        </div>
+    </div>
+</div>
+
+<div class="recent-section">
+    <div class="section-header">
+        <h2>সাম্প্রতিক নিউজ</h2>
+        <a asp-controller="News" asp-action="Create" class="btn-primary">
+            + নতুন নিউজ
+        </a>
+    </div>
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>শিরোনাম</th>
+                <th>বিভাগ</th>
+                <th>লেখক</th>
+                <th>স্ট্যাটাস</th>
+                <th>তারিখ</th>
+                <th>একশন</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var article in Model.RecentArticles)
+            {
+                <tr>
+                    <td>
+                        <strong>@article.TitleBn</strong>
+                        @if (article.IsBreaking)
+                        {
+                            <span class="badge red">ব্রেকিং</span>
+                        }
+                        @if (article.IsFeatured)
+                        {
+                            <span class="badge blue">ফিচার</span>
+                        }
+                    </td>
+                    <td>@article.CategoryNameBn</td>
+                    <td>@article.AuthorNameBn</td>
+                    <td>
+                        @if (article.IsPublished)
+                        {
+                            <span class="badge green">প্রকাশিত</span>
+                        }
+                        else
+                        {
+                            <span class="badge gray">ড্রাফট</span>
+                        }
+                    </td>
+                    <td>@article.PublishedAt?.ToString("dd/MM/yyyy")</td>
+                    <td class="action-buttons">
+                        <a asp-controller="News"
+                           asp-action="Edit"
+                           asp-route-id="@article.Id"
+                           class="btn-sm blue">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <form asp-controller="News"
+                              asp-action="Delete"
+                              asp-route-id="@article.Id"
+                              method="post"
+                              onsubmit="return confirm('মুছে ফেলবেন?')">
+                            <button type="submit" class="btn-sm red">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

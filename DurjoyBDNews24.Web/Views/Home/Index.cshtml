@@ -1,0 +1,1130 @@
+﻿@model DurjoyBDNews24.Web.Models.HomeViewModel
+@{
+    ViewData["Title"] = "প্রচ্ছদ";
+}
+
+<style>
+    /* ==================== Root & Reset ==================== */
+    :root {
+        --primary-color: #c00;
+        --primary-dark: #a00000;
+        --text-dark: #1a1a1a;
+        --text-gray: #4a5568;
+        --text-light: #718096;
+        --border-light: #e9ecef;
+        --bg-light: #f8f9fa;
+        --shadow-sm: 0 5px 15px rgba(0,0,0,0.05);
+        --shadow-md: 0 10px 30px rgba(0,0,0,0.08);
+        --shadow-lg: 0 20px 40px rgba(0,0,0,0.12);
+        --transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    /* ==================== Featured Grid ==================== */
+    .featured-grid {
+        display: grid;
+        grid-template-columns: 1.1fr 2fr 1.1fr;
+        gap: 24px;
+        margin-bottom: 48px;
+    }
+
+    /* ==================== Side News Cards (Improved) ==================== */
+    .side-news {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .side-news-card {
+        background: #fff;
+        border-radius: 16px;
+        overflow: hidden;
+        transition: var(--transition);
+        border: 1px solid var(--border-light);
+        position: relative;
+    }
+
+        .side-news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+            border-color: transparent;
+        }
+
+    .side-news-link {
+        display: flex;
+        text-decoration: none;
+        padding: 16px;
+        gap: 16px;
+    }
+
+    .side-news-img {
+        width: 110px;
+        height: 90px;
+        object-fit: cover;
+        border-radius: 12px;
+        flex-shrink: 0;
+        transition: var(--transition);
+        background: #f4f4f4;
+    }
+
+    .side-news-card:hover .side-news-img {
+        transform: scale(1.02);
+    }
+
+    .side-news-img-placeholder {
+        width: 110px;
+        height: 90px;
+        background: linear-gradient(145deg, #1a1a2e, #16213e);
+        border-radius: 12px;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 12px;
+        font-weight: 600;
+        text-align: center;
+        padding: 8px;
+        line-height: 1.3;
+    }
+
+    .side-news-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .side-news-category {
+        display: inline-block;
+        background: rgba(204, 0, 0, 0.08);
+        color: var(--primary-color);
+        padding: 4px 10px;
+        border-radius: 30px;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+        margin-bottom: 8px;
+        width: fit-content;
+        border: 1px solid rgba(204, 0, 0, 0.1);
+    }
+
+    .side-news-title {
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--text-dark);
+        line-height: 1.45;
+        margin-bottom: 8px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .side-news-meta {
+        font-size: 11px;
+        color: var(--text-light);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        border-top: 1px dashed var(--border-light);
+        padding-top: 8px;
+        margin-top: 4px;
+    }
+
+        .side-news-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .side-news-meta i {
+            color: var(--primary-color);
+            font-size: 12px;
+        }
+
+    /* ==================== Center Carousel (Premium Look) ==================== */
+    .carousel-container {
+        position: relative;
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: var(--shadow-lg);
+        height: fit-content;
+        background: #fff;
+        border: 1px solid var(--border-light);
+    }
+
+    .carousel-slides {
+        position: relative;
+        background: #000; /* fallback */
+    }
+
+    .carousel-slide {
+        display: none;
+        text-decoration: none;
+        color: inherit;
+    }
+
+        .carousel-slide.active {
+            display: block;
+        }
+
+    .center-news-img-wrapper {
+        position: relative;
+        height: 380px;
+        overflow: hidden;
+        background: #1a1a1a;
+    }
+
+    .center-news-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 6s ease;
+        opacity: 0.9;
+    }
+
+    .carousel-slide.active .center-news-img {
+        transform: scale(1.02);
+    }
+
+    .carousel-container:hover .carousel-slide.active .center-news-img {
+        transform: scale(1.06);
+    }
+
+    .center-news-img-placeholder {
+        width: 100%;
+        height: 380px;
+        background: linear-gradient(135deg, #1e1e2f, #2a2a40);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 22px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+
+    .center-news-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 50px 30px 25px;
+        background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 60%, transparent 100%);
+        pointer-events: none;
+    }
+
+    .center-news-category {
+        display: inline-block;
+        background: var(--primary-color);
+        color: white;
+        padding: 6px 20px;
+        border-radius: 50px;
+        font-size: 13px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 16px;
+        box-shadow: 0 4px 12px rgba(204,0,0,0.3);
+        border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .center-news-content {
+        padding: 24px 28px 28px;
+        background: #fff;
+    }
+
+    .center-news-title {
+        font-size: 26px;
+        font-weight: 800;
+        color: var(--text-dark);
+        line-height: 1.4;
+        margin-bottom: 18px;
+        font-family: 'Noto Serif Bengali', serif;
+    }
+
+    .center-news-summary {
+        font-size: 15px;
+        color: var(--text-gray);
+        line-height: 1.7;
+        margin-bottom: 20px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .center-news-meta {
+        display: flex;
+        gap: 24px;
+        font-size: 14px;
+        color: var(--text-light);
+        border-top: 1px solid var(--border-light);
+        padding-top: 20px;
+        margin-top: 5px;
+    }
+
+        .center-news-meta span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .center-news-meta i {
+            color: var(--primary-color);
+            font-size: 15px;
+        }
+
+    /* Carousel Navigation (Refined) */
+    .carousel-nav {
+        position: absolute;
+        top: 40%;
+        transform: translateY(-50%);
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 20px;
+        z-index: 20;
+        pointer-events: none;
+    }
+
+    .carousel-btn {
+        width: 48px;
+        height: 48px;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(4px);
+        border: 1px solid rgba(255,255,255,0.5);
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        color: var(--primary-color);
+        transition: var(--transition);
+        pointer-events: auto;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    }
+
+        .carousel-btn:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: scale(1.1);
+            border-color: var(--primary-color);
+            box-shadow: 0 8px 20px rgba(204,0,0,0.3);
+        }
+
+    .carousel-indicators-bottom {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 12px;
+        z-index: 20;
+    }
+
+    .indicator {
+        width: 10px;
+        height: 10px;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.6);
+        backdrop-filter: blur(4px);
+        cursor: pointer;
+        transition: var(--transition);
+        border: 1px solid rgba(0,0,0,0.1);
+    }
+
+        .indicator.active {
+            background: var(--primary-color);
+            width: 32px;
+            box-shadow: 0 2px 8px rgba(204,0,0,0.5);
+            border-color: white;
+        }
+
+    /* ==================== Section Headers ==================== */
+    .section-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 28px;
+        padding-bottom: 14px;
+        border-bottom: 3px solid var(--primary-color);
+        position: relative;
+    }
+
+        .section-header::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 80px;
+            height: 3px;
+            background: #000;
+        }
+
+    .section-title {
+        font-size: 26px;
+        font-weight: 800;
+        color: var(--text-dark);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        letter-spacing: -0.5px;
+    }
+
+        .section-title i {
+            color: var(--primary-color);
+            font-size: 24px;
+            background: rgba(204,0,0,0.1);
+            padding: 8px;
+            border-radius: 12px;
+        }
+
+    .view-all {
+        color: var(--primary-color);
+        text-decoration: none;
+        font-size: 15px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: gap 0.2s;
+        background: rgba(204,0,0,0.05);
+        padding: 8px 18px;
+        border-radius: 40px;
+    }
+
+        .view-all:hover {
+            gap: 14px;
+            background: var(--primary-color);
+            color: white;
+        }
+
+    /* ==================== Latest Grid (Refined) ==================== */
+    .latest-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 28px;
+    }
+
+    .latest-card {
+        background: #fff;
+        border-radius: 20px;
+        overflow: hidden;
+        transition: var(--transition);
+        border: 1px solid var(--border-light);
+        box-shadow: var(--shadow-sm);
+    }
+
+        .latest-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-md);
+            border-color: transparent;
+        }
+
+    .latest-link {
+        display: flex;
+        text-decoration: none;
+        padding: 0;
+        gap: 0;
+        flex-direction: column;
+    }
+
+    .latest-img {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+        background: #f4f4f4;
+    }
+
+    .latest-card:hover .latest-img {
+        transform: scale(1.03);
+    }
+
+    .latest-img-placeholder {
+        width: 100%;
+        height: 220px;
+        background: linear-gradient(145deg, #2c3e50, #34495e);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 18px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .latest-content {
+        padding: 22px 24px 24px;
+        flex: 1;
+        background: #fff;
+    }
+
+    .latest-category {
+        display: inline-block;
+        background: rgba(204,0,0,0.1);
+        color: var(--primary-color);
+        padding: 5px 14px;
+        border-radius: 30px;
+        font-size: 12px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 14px;
+        border: 1px solid rgba(204,0,0,0.15);
+    }
+
+    .latest-title {
+        font-size: 20px;
+        font-weight: 800;
+        color: var(--text-dark);
+        line-height: 1.45;
+        margin-bottom: 14px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .latest-summary {
+        font-size: 15px;
+        color: var(--text-gray);
+        line-height: 1.7;
+        margin-bottom: 18px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .latest-meta {
+        display: flex;
+        gap: 20px;
+        font-size: 13px;
+        color: var(--text-light);
+        border-top: 1px solid var(--border-light);
+        padding-top: 16px;
+        margin-top: 6px;
+    }
+
+        .latest-meta span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .latest-meta i {
+            color: var(--primary-color);
+        }
+
+    /* ==================== Pagination ==================== */
+    .pagination {
+        display: flex;
+        gap: 10px;
+        margin-top: 48px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .page-link {
+        padding: 10px 20px;
+        border: 1px solid var(--border-light);
+        border-radius: 12px;
+        text-decoration: none;
+        color: var(--text-gray);
+        font-size: 15px;
+        font-weight: 600;
+        transition: var(--transition);
+        background: white;
+        min-width: 48px;
+        text-align: center;
+        box-shadow: var(--shadow-sm);
+    }
+
+        .page-link:hover {
+            background: var(--bg-light);
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .page-link.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+            box-shadow: 0 4px 12px rgba(204,0,0,0.3);
+        }
+
+    /* ==================== Responsive ==================== */
+    @@media (max-width: 1100px) {
+        .featured-grid {
+            grid-template-columns: 1fr 1.8fr;
+        }
+
+            .featured-grid .side-news:last-child {
+                grid-column: span 2;
+                flex-direction: row;
+            }
+    }
+
+    @@media (max-width: 900px) {
+        .featured-grid {
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+            .featured-grid .side-news:last-child {
+                grid-column: span 1;
+                flex-direction: column;
+            }
+
+        .center-news-img-wrapper {
+            height: 320px;
+        }
+    }
+
+    @@media (max-width: 768px) {
+        .latest-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .side-news-link {
+            flex-direction: column;
+        }
+
+        .side-news-img, .side-news-img-placeholder {
+            width: 100%;
+            height: 160px;
+        }
+
+        .center-news-title {
+            font-size: 22px;
+        }
+
+        .center-news-content {
+            padding: 20px;
+        }
+
+        .carousel-btn {
+            width: 40px;
+            height: 40px;
+        }
+    }
+
+    @@media (max-width: 480px) {
+        .center-news-img-wrapper {
+            height: 260px;
+        }
+
+        .section-title {
+            font-size: 20px;
+        }
+
+        .pagination .page-link {
+            padding: 8px 14px;
+            font-size: 14px;
+        }
+    }
+</style>
+
+@if (Model.FeaturedArticles.Any())
+{
+    var mainFeature = Model.FeaturedArticles.First();
+    var leftSideNews = Model.FeaturedArticles.Skip(1).Take(3).ToList();
+    var rightSideNews = Model.FeaturedArticles.Skip(4).Take(3).ToList();
+
+    <div class="featured-grid">
+        <!-- Left Side News (Improved) -->
+        <div class="side-news">
+            @foreach (var article in leftSideNews)
+            {
+                <div class="side-news-card">
+                    <a href="/news/@article.Slug" class="side-news-link">
+                        @if (!string.IsNullOrEmpty(article.ThumbnailUrl))
+                        {
+                            <img src="@article.ThumbnailUrl" alt="@article.TitleBn" class="side-news-img" loading="lazy" />
+                        }
+                        else
+                        {
+                            <div class="side-news-img-placeholder">@article.CategoryNameBn</div>
+                        }
+                        <div class="side-news-content">
+                            <span class="side-news-category">@article.CategoryNameBn</span>
+                            <h3 class="side-news-title">@article.TitleBn</h3>
+                            <div class="side-news-meta">
+                                <span><i class="far fa-clock"></i> @(article.PublishedAt?.ToString("hh:mm tt") ?? "সম্প্রতি")</span>
+                                <span><i class="far fa-eye"></i> @article.ViewCount</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+
+        <!-- Center Carousel (Premium) -->
+        <div class="carousel-container" id="featuredCarousel">
+            <div class="carousel-slides">
+                @foreach (var article in Model.FeaturedArticles.Take(5))
+                {
+                    <a href="/news/@article.Slug" class="carousel-slide @(article == Model.FeaturedArticles.First() ? "active" : "")" data-index="@Model.FeaturedArticles.ToList().IndexOf(article)">
+                        <div class="center-news-img-wrapper">
+                            @if (!string.IsNullOrEmpty(article.ThumbnailUrl))
+                            {
+                                <img src="@article.ThumbnailUrl" alt="@article.TitleBn" class="center-news-img" />
+                            }
+                            else
+                            {
+                                <div class="center-news-img-placeholder">@article.CategoryNameBn</div>
+                            }
+                            <div class="center-news-overlay">
+                                <span class="center-news-category">@article.CategoryNameBn</span>
+                            </div>
+                        </div>
+                        <div class="center-news-content">
+                            <h2 class="center-news-title">@article.TitleBn</h2>
+                            @if (!string.IsNullOrEmpty(article.SummaryBn))
+                            {
+                                <p class="center-news-summary">@article.SummaryBn</p>
+                            }
+                            <div class="center-news-meta">
+                                <span><i class="fas fa-user-circle"></i> @article.AuthorNameBn</span>
+                                <span><i class="far fa-calendar-alt"></i> @(article.PublishedAt?.ToString("dd MMMM yyyy") ?? "তারিখ উপলব্ধ নয়")</span>
+                                <span><i class="far fa-eye"></i> @article.ViewCount বার পঠিত</span>
+                            </div>
+                        </div>
+                    </a>
+                }
+            </div>
+
+            <div class="carousel-nav">
+                <button class="carousel-btn" onclick="prevCarouselSlide()" aria-label="পূর্ববর্তী">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="carousel-btn" onclick="nextCarouselSlide()" aria-label="পরবর্তী">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+
+            <div class="carousel-indicators-bottom">
+                @for (int i = 0; i < Math.Min(5, Model.FeaturedArticles.Count()); i++)
+                {
+                    <span class="indicator @(i == 0 ? "active" : "")" onclick="goToCarouselSlide(@i)"></span>
+                }
+            </div>
+        </div>
+
+        
+
+        <aside class="sidebar">
+
+            <div style="background:white;border-radius:8px;padding:14px 16px;margin-bottom:16px;border:0.5px solid #e0e0e0;">
+                <div style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;"
+                     onclick="toggleDateFilter()">
+                    <h3 style="font-size:14px;font-weight:500;margin:0;color:#555;display:flex;align-items:center;gap:8px;">
+                        <i class="fas fa-calendar-alt" style="color:#c0392b;"></i>
+                        তারিখ ফিল্টার
+                        @if (!string.IsNullOrEmpty(ViewBag.SelectedDate as string))
+                        {
+                            <span style="background:#fde8e8;color:#c0392b;font-size:11px;padding:1px 8px;border-radius:10px;">
+                                Active
+                            </span>
+                        }
+                    </h3>
+                    <i class="fas fa-chevron-down" id="date-filter-arrow"
+                       style="color:#888;font-size:12px;transition:transform .2s;"></i>
+                </div>
+
+                <div id="date-filter-panel"
+                     style="display:none;margin-top:12px;border-top:0.5px solid #f0f0f0;padding-top:12px;">
+                    <input type="date"
+                           id="date-picker"
+                           style="width:100%;padding:8px 10px;border:0.5px solid #ddd;border-radius:6px;font-size:14px;font-family:inherit;outline:none;box-sizing:border-box;"
+                           onchange="applyDateFilter(this.value)" />
+
+                    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;">
+                        <button onclick="applyDateFilter('today')"
+                                style="padding:5px 12px;border-radius:20px;border:0.5px solid #ddd;background:#f9f9f9;font-size:12px;cursor:pointer;font-family:inherit;">
+                            আজ
+                        </button>
+                        <button onclick="applyDateFilter('yesterday')"
+                                style="padding:5px 12px;border-radius:20px;border:0.5px solid #ddd;background:#f9f9f9;font-size:12px;cursor:pointer;font-family:inherit;">
+                            গতকাল
+                        </button>
+                        <button onclick="applyDateFilter('week')"
+                                style="padding:5px 12px;border-radius:20px;border:0.5px solid #ddd;background:#f9f9f9;font-size:12px;cursor:pointer;font-family:inherit;">
+                            এই সপ্তাহ
+                        </button>
+                        <button onclick="applyDateFilter('month')"
+                                style="padding:5px 12px;border-radius:20px;border:0.5px solid #ddd;background:#f9f9f9;font-size:12px;cursor:pointer;font-family:inherit;">
+                            এই মাস
+                        </button>
+                        @if (!string.IsNullOrEmpty(ViewBag.SelectedDate as string))
+                        {
+                            <button onclick="applyDateFilter('')"
+                                    style="padding:5px 12px;border-radius:20px;border:0.5px solid #fde8e8;background:#fde8e8;color:#c0392b;font-size:12px;cursor:pointer;font-family:inherit;">
+                                <i class="fas fa-times"></i> সব দেখাও
+                            </button>
+                        }
+                    </div>
+                </div>
+            </div>
+
+           
+
+            @* other widgets *@
+        </aside>
+
+        <!-- Right Side News (Improved) -->
+        <div class="side-news">
+            @foreach (var article in rightSideNews)
+            {
+                <div class="side-news-card">
+                    <a href="/news/@article.Slug" class="side-news-link">
+                        @if (!string.IsNullOrEmpty(article.ThumbnailUrl))
+                        {
+                            <img src="@article.ThumbnailUrl" alt="@article.TitleBn" class="side-news-img" loading="lazy" />
+                        }
+                        else
+                        {
+                            <div class="side-news-img-placeholder">@article.CategoryNameBn</div>
+                        }
+                        <div class="side-news-content">
+                            <span class="side-news-category">@article.CategoryNameBn</span>
+                            <h3 class="side-news-title">@article.TitleBn</h3>
+                            <div class="side-news-meta">
+                                <span><i class="far fa-clock"></i> @(article.PublishedAt?.ToString("hh:mm tt") ?? "সম্প্রতি")</span>
+                                <span><i class="far fa-eye"></i> @article.ViewCount</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+}
+
+
+
+
+<div id="video-section" style="margin-bottom:28px;display:none;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid #c0392b;">
+        <h2 style="font-size:18px;margin:0;display:flex;align-items:center;gap:8px;color:#1a1a1a;">
+            <i class="fas fa-play-circle" style="color:#c0392b;"></i>
+            ভিডিও নিউজ
+        </h2>
+        <a href="/video"
+           style="font-size:13px;color:#c0392b;text-decoration:none;display:flex;align-items:center;gap:4px;">
+            সব ভিডিও
+            <i class="fas fa-arrow-right" style="font-size:11px;"></i>
+        </a>
+    </div>
+    <div id="home-video-grid"
+         style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;">
+    </div>
+</div>
+
+<!-- Latest News Section -->
+@if (Model.LatestArticles.Any())
+{
+    <div class="section-header">
+        <h2 class="section-title">
+            <i class="fas fa-clock"></i>
+            সর্বশেষ সংবাদ
+        </h2>
+        <a href="/latest" class="view-all">
+            সকল সংবাদ
+            <i class="fas fa-arrow-left"></i>
+        </a>
+    </div>
+
+    <div class="latest-grid">
+        <div style="display:flex;flex-direction:column;gap:0;">
+            @foreach (var item in Model.LatestArticles)
+            {
+                <a href="/news/@item.Slug"
+                   style="display:flex;gap:14px;padding:16px 0;text-decoration:none;border-bottom:0.5px solid #f0f0f0;align-items:flex-start;">
+                    @if (!string.IsNullOrEmpty(item.ThumbnailUrl))
+                    {
+                        <img src="@item.ThumbnailUrl"
+                             alt="@item.TitleBn"
+                             loading="lazy"
+                             style="width:130px;height:85px;object-fit:cover;border-radius:6px;flex-shrink:0;" />
+                    }
+                    else
+                    {
+                        <div style="width:130px;height:85px;background:#f0f0f0;border-radius:6px;flex-shrink:0;display:flex;align-items:center;justify-content:center;">
+                            <i class="fas fa-newspaper" style="color:#ccc;font-size:20px;"></i>
+                        </div>
+                    }
+                    <div style="flex:1;">
+                        <span style="background:#fde8e8;color:#c0392b;font-size:11px;padding:2px 8px;border-radius:10px;display:inline-block;margin-bottom:6px;">
+                            <span data-bn="@item.CategoryNameBn"
+                                  data-en="@item.CategoryName">
+                                @item.CategoryNameBn
+                            </span>
+                        </span>
+                        <h3 style="font-size:16px;font-weight:600;color:#1a1a1a;line-height:1.5;margin:0 0 8px;"
+                            data-title-bn="@item.TitleBn"
+                            data-title-en="@(string.IsNullOrEmpty(item.Title) ? item.TitleBn : item.Title)">
+                            @item.TitleBn
+                        </h3>
+                        @if (!string.IsNullOrEmpty(item.SummaryBn))
+                        {
+                            <p style="font-size:13px;color:#666;margin:0 0 8px;line-height:1.6;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden;"
+                               data-bn="@item.SummaryBn"
+                               data-en="@(item.Summary ?? item.SummaryBn)">
+                                @item.SummaryBn
+                            </p>
+                        }
+                        <div style="display:flex;gap:12px;font-size:12px;color:#999;">
+                            <span>@item.PublishedAt?.ToString("dd MMM yyyy")</span>
+                            <span>
+                                <i class="fas fa-eye" style="font-size:10px;"></i>
+                                @item.ViewCount
+                            </span>
+                        </div>
+                    </div>
+                </a>
+            }
+        </div>
+        }
+    </div>
+
+    <!-- Pagination -->
+    @if (Model.TotalPages > 1)
+    {
+        <div class="pagination">
+            @if (Model.CurrentPage > 1)
+            {
+                <a asp-action="Index" asp-route-page="@(Model.CurrentPage - 1)" class="page-link" aria-label="পূর্ববর্তী পৃষ্ঠা">
+                    <i class="fas fa-chevron-right"></i>
+                </a>
+            }
+
+            @for (int i = Math.Max(1, Model.CurrentPage - 2); i <= Math.Min(Model.TotalPages, Model.CurrentPage + 2); i++)
+            {
+                <a asp-action="Index" asp-route-page="@i" class="page-link @(i == Model.CurrentPage ? "active" : "")">
+                    @i
+                </a>
+            }
+
+            @if (Model.CurrentPage < Model.TotalPages)
+            {
+                <a asp-action="Index" asp-route-page="@(Model.CurrentPage + 1)" class="page-link" aria-label="পরবর্তী পৃষ্ঠা">
+                    <i class="fas fa-chevron-left"></i>
+                </a>
+            }
+        </div>
+    }
+}
+
+<div id="video-section" style="margin-top:32px;display:none;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;border-bottom:2px solid #c0392b;padding-bottom:10px;">
+        <h2 style="font-size:18px;margin:0;display:flex;align-items:center;gap:8px;">
+            <i class="fas fa-play-circle" style="color:#c0392b;"></i>
+            ভিডিও নিউজ
+        </h2>
+        <a href="/video"
+           style="font-size:13px;color:#c0392b;text-decoration:none;">
+            সব ভিডিও →
+        </a>
+    </div>
+    <div id="video-grid"
+         style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;">
+    </div>
+</div>
+
+
+<script>
+    (function(){
+        // Carousel Module
+        let currentCarouselSlide = 0;
+        let carouselSlides = [];
+        let carouselIndicators = [];
+        let carouselInterval = null;
+
+        function initCarousel() {
+            carouselSlides = document.querySelectorAll('#featuredCarousel .carousel-slide');
+            carouselIndicators = document.querySelectorAll('#featuredCarousel .indicator');
+            if (carouselSlides.length > 0) {
+                startCarouselAutoSlide();
+            }
+        }
+
+        function showCarouselSlide(index) {
+            if (!carouselSlides.length) return;
+            if (index >= carouselSlides.length) index = 0;
+            if (index < 0) index = carouselSlides.length - 1;
+
+            carouselSlides.forEach(slide => slide.classList.remove('active'));
+            carouselIndicators.forEach(ind => ind.classList.remove('active'));
+
+            carouselSlides[index].classList.add('active');
+            if (carouselIndicators[index]) {
+                carouselIndicators[index].classList.add('active');
+            }
+            currentCarouselSlide = index;
+        }
+
+        window.nextCarouselSlide = function() {
+            showCarouselSlide(currentCarouselSlide + 1);
+            resetCarouselTimer();
+        };
+
+        window.prevCarouselSlide = function() {
+            showCarouselSlide(currentCarouselSlide - 1);
+            resetCarouselTimer();
+        };
+
+        window.goToCarouselSlide = function(index) {
+            showCarouselSlide(index);
+            resetCarouselTimer();
+        };
+
+        function startCarouselAutoSlide() {
+            if (carouselInterval) clearInterval(carouselInterval);
+            if (carouselSlides.length > 1) {
+                carouselInterval = setInterval(() => window.nextCarouselSlide(), 4500);
+            }
+        }
+
+        function resetCarouselTimer() {
+            if (carouselInterval) {
+                clearInterval(carouselInterval);
+                startCarouselAutoSlide();
+            }
+        }
+
+        // Touch Swipe
+        let touchStartX = 0;
+        function setupTouchSwipe() {
+            const carousel = document.getElementById('featuredCarousel');
+            if (!carousel) return;
+            carousel.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+            }, {passive: true});
+            carousel.addEventListener('touchend', (e) => {
+                const touchEndX = e.changedTouches[0].screenX;
+                if (touchEndX < touchStartX - 50) window.nextCarouselSlide();
+                if (touchEndX > touchStartX + 50) window.prevCarouselSlide();
+            }, {passive: true});
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            initCarousel();
+            setupTouchSwipe();
+
+            const carouselContainer = document.getElementById('featuredCarousel');
+            if (carouselContainer) {
+                carouselContainer.addEventListener('mouseenter', () => {
+                    if (carouselInterval) clearInterval(carouselInterval);
+                });
+                carouselContainer.addEventListener('mouseleave', () => {
+                    if (carouselSlides.length > 1) startCarouselAutoSlide();
+                });
+            }
+        });
+    })();
+
+        async function loadHomeVideos() {
+        try {
+            const res = await fetch(`${apiBase}video/featured?count=4`);
+            const data = await res.json();
+
+            const section = document.getElementById('video-section');
+            const grid = document.getElementById('video-grid');
+
+            if (!section || !grid) return;
+            if (!data.success || !data.data?.length) return;
+
+            section.style.display = 'block';
+            grid.innerHTML = data.data.map(v => `
+                <a href="/video/watch/${v.id}"
+                   style="display:block;text-decoration:none;background:white;border-radius:8px;overflow:hidden;border:0.5px solid #e0e0e0;">
+                    <div style="position:relative;">
+                        <img src="${v.thumbnailUrl || ''}"
+                             alt="${v.titleBn}"
+                             style="width:100%;height:120px;object-fit:cover;display:block;"
+                             onerror="this.style.background='#1a1a2e';this.src=''"/>
+                        <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:32px;height:32px;background:rgba(192,57,43,0.85);border-radius:50%;display:flex;align-items:center;justify-content:center;">
+                            <i class="fas fa-play" style="color:white;font-size:10px;margin-left:2px;"></i>
+                        </div>
+                    </div>
+                    <div style="padding:8px;">
+                        <p style="font-size:12px;font-weight:500;color:#1a1a1a;margin:0;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">
+                            ${v.titleBn}
+                        </p>
+                        <span style="font-size:11px;color:#aaa;margin-top:4px;display:block;">
+                            <i class="fas fa-eye" style="font-size:9px;"></i>
+                            ${v.viewCount} ভিউ
+                        </span>
+                    </div>
+                </a>
+            `).join('');
+        } catch {}
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        loadHomeVideos();
+        loadComments();
+    });
+
+
+     
+                function toggleDateFilter() {
+                    const panel = document.getElementById('date-filter-panel');
+                    const arrow = document.getElementById('date-filter-arrow');
+                    const isOpen = panel.style.display === 'block';
+                    panel.style.display = isOpen ? 'none' : 'block';
+                    arrow.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(180deg)';
+                }
+
+                function applyDateFilter(value) {
+                    let date = value;
+                    const today = new Date();
+
+                    if (value === 'today') {
+                        date = today.toISOString().split('T')[0];
+                    } else if (value === 'yesterday') {
+                        const y = new Date(today);
+                        y.setDate(y.getDate() - 1);
+                        date = y.toISOString().split('T')[0];
+                    } else if (value === 'week') {
+                        const w = new Date(today);
+                        w.setDate(w.getDate() - 7);
+                        date = w.toISOString().split('T')[0];
+                    } else if (value === 'month') {
+                        const m = new Date(today);
+                        m.setMonth(m.getMonth() - 1);
+                        date = m.toISOString().split('T')[0];
+                    }
+
+                    const url = new URL(window.location.href);
+                    if (date) {
+                        url.searchParams.set('date', date);
+                    } else {
+                        url.searchParams.delete('date');
+                    }
+                    url.searchParams.set('page', '1');
+                    window.location.href = url.toString();
+                }
+
+                @if (!string.IsNullOrEmpty(ViewBag.SelectedDate as string))
+                {
+                            <text>
+                            document.addEventListener('DOMContentLoaded', () => {
+                                const panel = document.getElementById('date-filter-panel');
+                                const arrow = document.getElementById('date-filter-arrow');
+                                if (panel) panel.style.display = 'block';
+                                if (arrow) arrow.style.transform = 'rotate(180deg)';
+                            });
+                            </text>
+                }
+
+
+</script>

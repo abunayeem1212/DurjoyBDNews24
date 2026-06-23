@@ -1,0 +1,102 @@
+﻿@model IEnumerable<DurjoyBDNews24.Domain.Entities.Advertisement>
+@{
+    ViewData["Title"] = "বিজ্ঞাপন ম্যানেজমেন্ট";
+}
+
+<div class="page-header">
+    <h2>বিজ্ঞাপন</h2>
+    <div style="display:flex;gap:8px;">
+        <a asp-action="Zones" class="btn-sm blue">
+            <i class="fas fa-map-marker"></i> Ad Zones
+        </a>
+        <a asp-action="Create" class="btn-primary">
+            + নতুন বিজ্ঞাপন
+        </a>
+    </div>
+</div>
+
+@if (!Model.Any())
+{
+    <div style="background:white;border-radius:8px;padding:60px;text-align:center;border:0.5px solid #e0e0e0;color:#888;">
+        <i class="fas fa-ad" style="font-size:40px;opacity:0.2;display:block;margin-bottom:12px;"></i>
+        <p style="font-size:16px;margin:0;">কোনো বিজ্ঞাপন নেই</p>
+    </div>
+}
+else
+{
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>বিজ্ঞাপন</th>
+                <th>Advertiser</th>
+                <th>Zone</th>
+                <th>মূল্য</th>
+                <th>Impression</th>
+                <th>Click</th>
+                <th>মেয়াদ</th>
+                <th>Status</th>
+                <th>একশন</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var ad in Model)
+            {
+                <tr>
+                    <td>
+                        <div style="display:flex;align-items:center;gap:10px;">
+                            <img src="@ad.ImageUrl"
+                                 style="width:60px;height:40px;object-fit:cover;border-radius:4px;"
+                                 onerror="this.style.display='none'" />
+                            <span style="font-size:13px;font-weight:500;">
+                                @ad.Title
+                            </span>
+                        </div>
+                    </td>
+                    <td style="font-size:13px;">@ad.AdvertiserName</td>
+                    <td style="font-size:13px;">@ad.Zone?.Name</td>
+                    <td style="font-size:13px;">৳@ad.DailyRate/দিন</td>
+                    <td style="font-size:13px;">@ad.ImpressionCount.ToString("N0")</td>
+                    <td style="font-size:13px;">@ad.ClickCount.ToString("N0")</td>
+                    <td style="font-size:12px;color:#888;">
+                        @ad.StartDate.ToString("dd/MM/yy") —
+                        @ad.EndDate.ToString("dd/MM/yy")
+                    </td>
+                    <td>
+                        <button onclick="toggleAd(@ad.Id, this)"
+                                style="padding:3px 10px;border-radius:20px;border:none;cursor:pointer;font-size:12px;font-weight:500;background:@(ad.IsApproved ? "#d4edda" : "#fde8e8");color:@(ad.IsApproved ? "#155724" : "#c0392b");">
+                            @(ad.IsApproved ? "Active" : "Inactive")
+                        </button>
+                    </td>
+                    <td>
+                        <form asp-action="Delete"
+                              asp-route-id="@ad.Id"
+                              method="post"
+                              onsubmit="return confirm('মুছে ফেলবেন?')">
+                            <button type="submit" class="btn-sm red">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@section Scripts {
+    <script>
+        async function toggleAd(id, btn) {
+            const res = await fetch(`/Ad/Toggle`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id })
+            });
+            const data = await res.json();
+            if (data.success) {
+                btn.textContent = data.isActive ? 'Active' : 'Inactive';
+                btn.style.background = data.isActive ? '#d4edda' : '#fde8e8';
+                btn.style.color = data.isActive ? '#155724' : '#c0392b';
+            }
+        }
+    </script>
+}

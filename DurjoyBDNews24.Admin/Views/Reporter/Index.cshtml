@@ -1,0 +1,96 @@
+﻿@model DurjoyBDNews24.Admin.Models.ArticleListViewModel
+@{
+    var role = Context.Session.GetString("AdminRole");
+    ViewData["Title"] = role == "Reporter" ? "আমার নিউজ" : "Reporter নিউজ";
+}
+
+<div class="page-header">
+    <h2>@ViewData["Title"]</h2>
+    <a asp-action="Write" class="btn-primary">
+        <i class="fas fa-plus"></i> নতুন নিউজ লিখুন
+    </a>
+</div>
+
+@if (!Model.Articles.Any())
+{
+    <div style="background:white;border-radius:8px;padding:60px;text-align:center;border:0.5px solid #e0e0e0;">
+        <i class="fas fa-pen" style="font-size:40px;opacity:0.2;display:block;margin-bottom:12px;"></i>
+        <p style="font-size:16px;color:#888;margin:0;">
+            এখনো কোনো নিউজ লেখা হয়নি
+        </p>
+        <a asp-action="Write"
+           class="btn-primary"
+           style="display:inline-block;margin-top:16px;">
+            প্রথম নিউজ লিখুন
+        </a>
+    </div>
+}
+else
+{
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>শিরোনাম</th>
+                <th>বিভাগ</th>
+                <th>স্ট্যাটাস</th>
+                <th>তারিখ</th>
+                <th>একশন</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var article in Model.Articles)
+            {
+                <tr>
+                    <td>
+                        <strong>@article.TitleBn</strong>
+                    </td>
+                    <td>@article.CategoryNameBn</td>
+                    <td>
+                        @if (article.IsPublished)
+                        {
+                            <span class="badge green">প্রকাশিত</span>
+                        }
+                        else if (article.Status == "PendingReview")
+                        {
+                            <span class="badge" style="background:#fff3cd;color:#856404;">
+                                অনুমোদন বাকি
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="badge gray">ড্রাফট</span>
+                        }
+                    </td>
+                    <td>@article.PublishedAt?.ToString("dd/MM/yyyy")</td>
+                    <td class="action-buttons">
+                        @if (!article.IsPublished ||
+                                        Context.Session.GetString("AdminRole") != "Reporter")
+                        {
+                            <a asp-action="Edit"
+                               asp-route-id="@article.Id"
+                               class="btn-sm blue">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                        }
+                        @if (Context.Session.GetString("AdminRole")
+                                        is "SuperAdmin" or "Editor")
+                        {
+                            <form asp-controller="News"
+                                  asp-action="Publish"
+                                  asp-route-id="@article.Id"
+                                  method="post"
+                                  style="display:inline">
+                                @if (!article.IsPublished)
+                                {
+                                    <button type="submit" class="btn-sm green">
+                                        প্রকাশ করুন
+                                    </button>
+                                }
+                            </form>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

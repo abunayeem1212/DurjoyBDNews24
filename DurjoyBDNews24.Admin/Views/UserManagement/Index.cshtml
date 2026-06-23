@@ -1,0 +1,139 @@
+﻿@model IEnumerable<DurjoyBDNews24.Domain.Entities.AppUser>
+@{
+    ViewData["Title"] = "User Management";
+    var userRoles = ViewBag.UserRoles as Dictionary<string, IList<string>>;
+    var allRoles = ViewBag.AllRoles as List<string>;
+}
+
+<div class="page-header">
+    <h2>User Management</h2>
+    <span class="badge gray">মোট @Model.Count() জন</span>
+</div>
+
+<table class="data-table">
+    <thead>
+        <tr>
+            <th>নাম</th>
+            <th>ইমেইল</th>
+            <th>ফোন</th>
+            <th>Role</th>
+            <th>Status</th>
+            <th>একশন</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            var roles = userRoles?[user.Id] ?? new List<string>();
+            var currentRole = roles.FirstOrDefault() ?? "Reader";
+
+            <tr id="user-row-@user.Id">
+                <td>
+                    <div style="display:flex;align-items:center;gap:10px;">
+                        <div style="width:36px;height:36px;border-radius:50%;background:#c0392b;color:white;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;flex-shrink:0;">
+                            @(user.FullNameBn?.Length > 0
+                                                    ? user.FullNameBn[0].ToString() : "?")
+                    </div>
+                    <div>
+                        <p style="font-size:14px;font-weight:500;margin:0;">
+                            @user.FullNameBn
+                        </p>
+                        <p style="font-size:12px;color:#888;margin:0;">
+                            @user.FullName
+                        </p>
+                    </div>
+                </div>
+            </td>
+            <td style="font-size:13px;">@user.Email</td>
+            <td style="font-size:13px;">@user.PhoneNumber</td>
+            <td>
+                <select onchange="changeRole('@user.Id', this.value)"
+                        style="padding:4px 8px;border:0.5px solid #ddd;border-radius:4px;font-size:13px;font-family:inherit;cursor:pointer;">
+                    @foreach (var role in allRoles ?? new List<string>())
+                        {
+                            <option value="@role"
+                                    selected="@(role == currentRole)">
+                                @role
+                            </option>
+                        }
+                    </select>
+                </td>
+                <td>
+                    <button onclick="toggleActive('@user.Id', this)"
+                            id="status-btn-@user.Id"
+                            style="padding:4px 12px;border-radius:20px;border:none;cursor:pointer;font-size:12px;font-weight:500;background:@(user.IsActive ? "#d4edda" : "#fde8e8");color:@(user.IsActive ? "#155724" : "#c0392b");">
+                        @(user.IsActive ? "সক্রিয়" : "নিষ্ক্রিয়")
+                    </button>
+                </td>
+                <td>
+                    @if (user.Email != "admin@durjoybdnews24.com")
+                    {
+                        <form asp-action="Delete"
+                              asp-route-userId="@user.Id"
+                              method="post"
+                              onsubmit="return confirm('এই user মুছে ফেলবেন?')">
+                            <button type="submit" class="btn-sm red">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </form>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script>
+        async function changeRole(userId, newRole) {
+            try {
+                const res = await fetch(`/UserManagement/ChangeRole`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ userId, newRole })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    showToast(data.message, 'success');
+                }
+            } catch {
+                showToast('Role পরিবর্তন করা যায়নি', 'error');
+            }
+        }
+
+        async function toggleActive(userId, btn) {
+            try {
+                const res = await fetch(`/UserManagement/ToggleActive`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ userId })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    btn.textContent = data.isActive ? 'সক্রিয়' : 'নিষ্ক্রিয়';
+                    btn.style.background = data.isActive ? '#d4edda' : '#fde8e8';
+                    btn.style.color = data.isActive ? '#155724' : '#c0392b';
+                    showToast(data.isActive ? 'সক্রিয় করা হয়েছে' : 'নিষ্ক্রিয় করা হয়েছে', 'success');
+                }
+            } catch {
+                showToast('পরিবর্তন করা যায়নি', 'error');
+            }
+        }
+
+        function showToast(msg, type) {
+            const toast = document.createElement('div');
+            toast.style.cssText = `
+                position:fixed;bottom:20px;right:20px;
+                padding:12px 20px;border-radius:6px;
+                font-size:14px;z-index:9999;
+                background:${type === 'success' ? '#d4edda' : '#fde8e8'};
+                color:${type === 'success' ? '#155724' : '#c0392b'};
+                border:0.5px solid ${type === 'success' ? '#c3e6cb' : '#f5c6cb'};
+                box-shadow:0 4px 12px rgba(0,0,0,0.1);
+            `;
+            toast.textContent = msg;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+    </script>
+}

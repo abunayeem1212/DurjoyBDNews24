@@ -1,0 +1,1907 @@
+﻿<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+
+    <title>@ViewData["Title"] — দুর্জয় বিডি নিউজ ২৪</title>
+
+    @if (ViewData["MetaDescription"] != null)
+    {
+        <meta name="description" content="@ViewData["MetaDescription"]" />
+    }
+    else
+    {
+        <meta name="description" content="দুর্জয় বিডি নিউজ ২৪ — সত্যের সন্ধানে নির্ভীক। বাংলাদেশের সর্বশেষ সংবাদ, ব্রেকিং নিউজ ও বিশ্লেষণ।" />
+    }
+
+    @if (ViewData["MetaKeywords"] != null)
+    {
+        <meta name="keywords" content="@ViewData["MetaKeywords"]" />
+    }
+
+    <meta name="author" content="DurjoyBDNews24" />
+    <meta name="robots" content="index, follow" />
+
+    <meta property="og:site_name" content="দুর্জয় বিডি নিউজ ২৪" />
+    <meta property="og:type" content="@(ViewData["OgType"] ?? "website")" />
+    <meta property="og:title" content="@ViewData["Title"] — দুর্জয় বিডি নিউজ ২৪" />
+    <meta property="og:description" content="@(ViewData["MetaDescription"] ?? "দুর্জয় বিডি নিউজ ২৪ — সত্যের সন্ধানে নির্ভীক")" />
+    <meta property="og:url" content="@Context.Request.Scheme://@Context.Request.Host@Context.Request.Path" />
+
+    @if (ViewData["OgImage"] != null)
+    {
+        <meta property="og:image" content="@ViewData["OgImage"]" />
+    }
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="@ViewData["Title"]" />
+    <meta name="twitter:description" content="@(ViewData["MetaDescription"] ?? "")" />
+
+    <link rel="canonical" href="@Context.Request.Scheme://@Context.Request.Host@Context.Request.Path" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+    <link rel="alternate" type="application/rss+xml"
+          title="দুর্জয় বিডি নিউজ ২৪ RSS"
+          href="https://localhost:7001/rss.xml" />
+
+    <script type="application/ld+json">
+        {
+            "@@context": "https://schema.org",
+            "@@type": "NewsMediaOrganization",
+            "name": "দুর্জয় বিডি নিউজ ২৪",
+            "url": "@Context.Request.Scheme://@Context.Request.Host",
+            "logo": "@Context.Request.Scheme://@Context.Request.Host/images/logo.png"
+        }
+    </script>
+
+    <style>
+        /* ========== CSS VARIABLES ========== */
+        :root {
+            --bg-primary: #f5f7fb;
+            --bg-secondary: #ffffff;
+            --bg-dark: #1a1a2e;
+            --bg-darker: #0f1420;
+            --bg-card: #ffffff;
+            --text-primary: #2d3748;
+            --text-secondary: #4a5568;
+            --text-muted: #718096;
+            --text-light: #b8c1d4;
+            --border-light: #e2e8f0;
+            --border-dark: #2a2a42;
+            --accent-primary: #e74c3c;
+            --accent-hover: #c0392b;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+            --shadow-md: 0 4px 20px rgba(0,0,0,0.08);
+            --shadow-lg: 0 10px 30px rgba(0,0,0,0.12);
+            --nav-bg: #1a1a2e;
+            --footer-bg: #0f1420;
+        }
+
+        /* ========== NIGHT MODE ========== */
+        body.night-mode {
+            --bg-primary: #121212;
+            --bg-secondary: #1e1e1e;
+            --bg-dark: #0a0a0a;
+            --bg-darker: #000000;
+            --bg-card: #1e1e1e;
+            --text-primary: #e4e4e4;
+            --text-secondary: #b0b0b0;
+            --text-muted: #888888;
+            --text-light: #a0a0a0;
+            --border-light: #2a2a2a;
+            --border-dark: #333333;
+            --nav-bg: #0d0d0d;
+            --footer-bg: #000000;
+        }
+
+            body.night-mode .header,
+            body.night-mode .breaking-news,
+            body.night-mode .nav-main__list li a,
+            body.night-mode .top-bar {
+                background: var(--bg-secondary);
+                border-color: var(--border-light);
+            }
+
+            body.night-mode .nav-main {
+                background: var(--nav-bg);
+            }
+
+            body.night-mode .footer {
+                background: var(--footer-bg);
+            }
+
+            body.night-mode .header__search input {
+                background: #2a2a2a;
+                border-color: #3a3a3a;
+                color: var(--text-primary);
+            }
+
+            body.night-mode .user-profile__info {
+                background: #2a2a2a;
+                border-color: #3a3a3a;
+            }
+
+            body.night-mode .btn-login {
+                border-color: #3a3a3a;
+                color: var(--text-secondary);
+            }
+
+                body.night-mode .btn-login:hover {
+                    background: #2a2a2a;
+                }
+
+            body.night-mode .btn-logout {
+                background: #2a2a2a;
+                border-color: #3a3a3a;
+                color: var(--text-muted);
+            }
+
+        /* ========== BASE STYLES ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+            background: var(--bg-primary);
+            line-height: 1.5;
+            color: var(--text-primary);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .container {
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ========== TOP BAR ========== */
+        .top-bar {
+            background: var(--bg-dark);
+            color: var(--text-light);
+            font-size: 13px;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border-dark);
+        }
+
+        .top-bar__inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .top-bar__left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .top-bar__date {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+            .top-bar__date i {
+                color: var(--accent-primary);
+                font-size: 13px;
+            }
+
+        .top-bar__social {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+
+            .top-bar__social a {
+                color: var(--text-light);
+                text-decoration: none;
+                font-size: 14px;
+                transition: all 0.2s ease;
+            }
+
+                .top-bar__social a:hover {
+                    color: var(--accent-primary);
+                    transform: translateY(-1px);
+                }
+
+        .top-bar__divider {
+            color: #3a3a5a;
+            margin: 0 4px;
+        }
+
+        .top-bar__link {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: color 0.2s;
+        }
+
+            .top-bar__link:hover {
+                color: var(--accent-primary);
+            }
+
+            .top-bar__link i {
+                font-size: 12px;
+            }
+
+        /* Night Mode Toggle Button */
+        .night-mode-toggle {
+            background: transparent;
+            border: 1px solid var(--border-dark);
+            color: var(--text-light);
+            padding: 4px 10px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.2s;
+            margin-left: 10px;
+        }
+
+            .night-mode-toggle:hover {
+                background: var(--accent-primary);
+                color: white;
+                border-color: var(--accent-primary);
+            }
+
+            .night-mode-toggle i {
+                font-size: 12px;
+            }
+
+        /* ========== HEADER ========== */
+        .header {
+            background: var(--bg-secondary);
+            padding: 18px 0;
+            box-shadow: var(--shadow-md);
+            position: relative;
+        }
+
+        .header__inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            text-decoration: none;
+        }
+
+        .logo__icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-hover));
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 28px;
+            font-weight: 900;
+            box-shadow: 0 6px 15px rgba(231, 76, 60, 0.25);
+            transition: transform 0.2s;
+            overflow: hidden;
+        }
+
+            .logo__icon img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                display: none;
+            }
+
+            .logo__icon.has-logo {
+                background: none;
+                padding: 0;
+            }
+
+                .logo__icon.has-logo img {
+                    display: block;
+                }
+
+                .logo__icon.has-logo span {
+                    display: none;
+                }
+
+        .logo:hover .logo__icon {
+            transform: scale(1.03);
+        }
+
+        .logo__text {
+            line-height: 1.3;
+        }
+
+        .logo__title {
+            font-size: 26px;
+            font-weight: 800;
+            color: var(--text-primary);
+            letter-spacing: -0.3px;
+        }
+
+            .logo__title span {
+                color: var(--accent-primary);
+            }
+
+        .logo__subtitle {
+            font-size: 11px;
+            color: var(--text-muted);
+            letter-spacing: 0.8px;
+            font-weight: 500;
+        }
+
+        .header__search {
+            flex: 1;
+            max-width: 380px;
+            position: relative;
+        }
+
+            .header__search input {
+                width: 100%;
+                padding: 13px 50px 13px 18px;
+                border: 2px solid var(--border-light);
+                border-radius: 40px;
+                font-size: 14px;
+                outline: none;
+                transition: all 0.3s;
+                font-family: inherit;
+                background: var(--bg-primary);
+                color: var(--text-primary);
+            }
+
+                .header__search input:focus {
+                    border-color: var(--accent-primary);
+                    background: var(--bg-secondary);
+                    box-shadow: 0 0 0 4px rgba(231, 76, 60, 0.1);
+                }
+
+            .header__search button {
+                position: absolute;
+                right: 6px;
+                top: 50%;
+                transform: translateY(-50%);
+                background: var(--accent-primary);
+                border: none;
+                color: white;
+                width: 42px;
+                height: 42px;
+                border-radius: 50%;
+                cursor: pointer;
+                font-size: 15px;
+                transition: all 0.2s;
+                box-shadow: 0 3px 10px rgba(231, 76, 60, 0.3);
+            }
+
+                .header__search button:hover {
+                    background: var(--accent-hover);
+                    transform: translateY(-50%) scale(1.05);
+                }
+
+        .header__auth {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-login {
+            padding: 10px 20px;
+            background: transparent;
+            border: 2px solid var(--border-light);
+            border-radius: 30px;
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 600;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+
+            .btn-login:hover {
+                border-color: var(--accent-primary);
+                color: var(--accent-primary);
+                background: #fff5f5;
+            }
+
+        .btn-register {
+            padding: 10px 22px;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-hover));
+            border-radius: 30px;
+            text-decoration: none;
+            color: white;
+            font-weight: 600;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
+        }
+
+            .btn-register:hover {
+                background: var(--accent-hover);
+                transform: translateY(-2px);
+                box-shadow: 0 6px 18px rgba(231, 76, 60, 0.35);
+            }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .user-profile__info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 6px 14px 6px 10px;
+            background: var(--bg-primary);
+            border-radius: 40px;
+            text-decoration: none;
+            border: 1px solid var(--border-light);
+            transition: all 0.2s;
+        }
+
+            .user-profile__info:hover {
+                background: var(--bg-secondary);
+                border-color: #cbd5e0;
+            }
+
+        .user-profile__avatar {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-hover));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 15px;
+        }
+
+        .user-profile__name {
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 14px;
+            max-width: 100px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .btn-logout {
+            padding: 9px 16px;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-light);
+            border-radius: 30px;
+            text-decoration: none;
+            color: var(--text-muted);
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.2s;
+        }
+
+            .btn-logout:hover {
+                background: #fed7d7;
+                border-color: #fc8181;
+                color: var(--accent-hover);
+            }
+
+        /* ========== NAVIGATION ========== */
+        .nav-main {
+            background: var(--nav-bg);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+
+        .nav-main__container {
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-main__list {
+            display: flex;
+            list-style: none;
+            gap: 2px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+            .nav-main__list::-webkit-scrollbar {
+                display: none;
+            }
+
+            .nav-main__list li a {
+                display: flex;
+                align-items: center;
+                gap: 7px;
+                padding: 15px 20px;
+                color: #e2e8f0;
+                text-decoration: none;
+                font-weight: 600;
+                font-size: 14px;
+                white-space: nowrap;
+                transition: all 0.25s;
+                border-bottom: 3px solid transparent;
+            }
+
+                .nav-main__list li a i {
+                    font-size: 13px;
+                    opacity: 0.8;
+                }
+
+                .nav-main__list li a:hover {
+                    background: rgba(255,255,255,0.05);
+                    color: white;
+                    border-bottom-color: var(--accent-primary);
+                }
+
+                .nav-main__list li a.active {
+                    background: var(--accent-primary);
+                    color: white;
+                    border-bottom-color: var(--accent-primary);
+                }
+
+        .nav-main__right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-trending {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #fbbf24;
+            font-size: 13px;
+            padding: 6px 14px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 30px;
+        }
+
+            .nav-trending i {
+                color: var(--accent-primary);
+            }
+
+        .live-time-nav {
+            background: rgba(231, 76, 60, 0.2);
+            border-left: 1px solid var(--border-dark);
+            padding-left: 18px;
+            margin-left: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #fbbf24;
+        }
+
+            .live-time-nav i {
+                color: var(--accent-primary);
+                font-size: 12px;
+                animation: pulse 1.5s infinite;
+            }
+
+        #liveClockNav {
+            font-family: monospace;
+            letter-spacing: 1px;
+            background: #0f0f1a;
+            padding: 4px 10px;
+            border-radius: 40px;
+            font-size: 13px;
+        }
+
+        /* Special Menu Items */
+        .live-menu {
+            color: #ff6b6b !important;
+        }
+
+        .live-dot {
+            width: 7px;
+            height: 7px;
+            background: #ff6b6b;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 6px;
+            animation: pulse 1.5s infinite;
+        }
+
+        /* ========== BREAKING NEWS ========== */
+        .breaking-news {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .breaking-news__inner {
+            display: flex;
+            align-items: center;
+        }
+
+        .breaking-news__label {
+            background: var(--accent-primary);
+            color: white;
+            padding: 10px 24px;
+            font-weight: 700;
+            font-size: 14px;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            clip-path: polygon(0 0, 100% 0, 90% 100%, 0 100%);
+        }
+
+            .breaking-news__label i {
+                animation: pulse 1.5s infinite;
+            }
+
+        .breaking-news__ticker {
+            flex: 1;
+            overflow: hidden;
+            padding: 0 20px;
+        }
+
+        .ticker-track {
+            display: inline-flex;
+            gap: 60px;
+            white-space: nowrap;
+            padding: 10px 0;
+            animation: tickerMove 50s linear infinite;
+        }
+
+            .ticker-track:hover {
+                animation-play-state: paused;
+            }
+
+            .ticker-track a {
+                color: var(--text-primary);
+                text-decoration: none;
+                font-size: 14px;
+                font-weight: 500;
+                display: inline-flex;
+                align-items: center;
+                gap: 10px;
+                transition: color 0.2s;
+            }
+
+                .ticker-track a:hover {
+                    color: var(--accent-primary);
+                }
+
+                .ticker-track a i {
+                    color: var(--accent-primary);
+                    font-size: 8px;
+                }
+
+        /* ========== MAIN CONTENT ========== */
+        .main-content {
+            background: var(--bg-primary);
+            min-height: 60vh;
+            padding: 32px 0;
+        }
+
+        /* ========== NEWSLETTER SECTION ========== */
+        .newsletter-section {
+            background: var(--accent-hover);
+            padding: 40px 0;
+        }
+
+        .newsletter-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 16px;
+            text-align: center;
+        }
+
+        .newsletter-title {
+            color: white;
+            font-size: 22px;
+            margin: 0 0 8px;
+        }
+
+        .newsletter-desc {
+            color: rgba(255,255,255,0.8);
+            font-size: 14px;
+            margin: 0 0 20px;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 0;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 12px 16px;
+            border: none;
+            border-radius: 6px 0 0 6px;
+            font-size: 14px;
+            font-family: inherit;
+            outline: none;
+        }
+
+        .newsletter-btn {
+            padding: 12px 20px;
+            background: #922b21;
+            color: white;
+            border: none;
+            border-radius: 0 6px 6px 0;
+            cursor: pointer;
+            font-size: 14px;
+            font-family: inherit;
+            white-space: nowrap;
+            transition: background 0.2s;
+        }
+
+            .newsletter-btn:hover {
+                background: #7a241b;
+            }
+
+        .newsletter-msg {
+            margin-top: 10px;
+            font-size: 13px;
+            color: rgba(255,255,255,0.9);
+            min-height: 20px;
+        }
+
+        /* ========== FOOTER ========== */
+        .footer {
+            background: var(--footer-bg);
+            color: #b8c5d6;
+            padding: 60px 0 0;
+            margin-top: 0;
+        }
+
+        .footer__grid {
+            display: grid;
+            grid-template-columns: 2.2fr 1.2fr 1.2fr 1.5fr;
+            gap: 40px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid #1e2433;
+        }
+
+        .footer__about {
+            max-width: 350px;
+        }
+
+        .footer__logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .footer__logo-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-hover));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 22px;
+            color: white;
+            overflow: hidden;
+        }
+
+            .footer__logo-icon img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                display: none;
+            }
+
+            .footer__logo-icon.has-logo {
+                background: none;
+                padding: 0;
+            }
+
+                .footer__logo-icon.has-logo img {
+                    display: block;
+                }
+
+                .footer__logo-icon.has-logo span {
+                    display: none;
+                }
+
+        .footer__logo-text {
+            font-size: 22px;
+            font-weight: 800;
+            color: white;
+            letter-spacing: -0.2px;
+        }
+
+            .footer__logo-text span {
+                color: var(--accent-primary);
+            }
+
+        .footer__desc {
+            font-size: 14px;
+            line-height: 1.8;
+            color: #8a9bb5;
+            margin-bottom: 24px;
+        }
+
+        .footer__social {
+            display: flex;
+            gap: 12px;
+        }
+
+            .footer__social a {
+                width: 40px;
+                height: 40px;
+                background: #1a2133;
+                border-radius: 10px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                text-decoration: none;
+                font-size: 18px;
+                transition: all 0.25s;
+                border: 1px solid #2a3448;
+            }
+
+                .footer__social a:hover {
+                    background: var(--accent-primary);
+                    transform: translateY(-3px);
+                    border-color: var(--accent-primary);
+                }
+
+        .footer__title {
+            color: white;
+            font-size: 17px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 12px;
+        }
+
+            .footer__title::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 40px;
+                height: 3px;
+                background: var(--accent-primary);
+                border-radius: 2px;
+            }
+
+        .footer__links {
+            list-style: none;
+        }
+
+            .footer__links li {
+                margin-bottom: 12px;
+            }
+
+            .footer__links a {
+                color: #8a9bb5;
+                text-decoration: none;
+                font-size: 14px;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                transition: all 0.25s;
+            }
+
+                .footer__links a i {
+                    font-size: 10px;
+                    color: var(--accent-primary);
+                    transition: transform 0.2s;
+                }
+
+                .footer__links a:hover {
+                    color: white;
+                    transform: translateX(5px);
+                }
+
+                    .footer__links a:hover i {
+                        transform: translateX(3px);
+                    }
+
+        .footer__contact {
+            list-style: none;
+        }
+
+            .footer__contact li {
+                display: flex;
+                align-items: flex-start;
+                gap: 12px;
+                margin-bottom: 16px;
+                color: #8a9bb5;
+                font-size: 14px;
+            }
+
+                .footer__contact li i {
+                    color: var(--accent-primary);
+                    font-size: 16px;
+                    margin-top: 3px;
+                    min-width: 20px;
+                }
+
+        .footer__newsletter {
+            margin-top: 20px;
+        }
+
+            .footer__newsletter p {
+                font-size: 13px;
+                color: #8a9bb5;
+                margin-bottom: 12px;
+            }
+
+        .footer__newsletter-box {
+            display: flex;
+            gap: 8px;
+        }
+
+            .footer__newsletter-box input {
+                flex: 1;
+                padding: 12px 15px;
+                background: #1a2133;
+                border: 1px solid #2a3448;
+                border-radius: 8px;
+                color: white;
+                font-size: 13px;
+                outline: none;
+                font-family: inherit;
+            }
+
+                .footer__newsletter-box input:focus {
+                    border-color: var(--accent-primary);
+                }
+
+                .footer__newsletter-box input::placeholder {
+                    color: #5a6a84;
+                }
+
+            .footer__newsletter-box button {
+                padding: 12px 18px;
+                background: var(--accent-primary);
+                border: none;
+                border-radius: 8px;
+                color: white;
+                font-weight: 600;
+                font-size: 13px;
+                cursor: pointer;
+                transition: all 0.2s;
+                font-family: inherit;
+            }
+
+                .footer__newsletter-box button:hover {
+                    background: var(--accent-hover);
+                }
+
+        .footer__rss-link {
+            color: #888;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+            .footer__rss-link:hover {
+                color: var(--accent-hover);
+            }
+
+        .footer__bottom {
+            padding: 24px 0;
+        }
+
+        .footer__copyright {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .footer__copyright-text {
+            color: #6a7c94;
+            font-size: 14px;
+        }
+
+        .footer__copyright-links {
+            display: flex;
+            gap: 25px;
+        }
+
+            .footer__copyright-links a {
+                color: #6a7c94;
+                text-decoration: none;
+                font-size: 13px;
+                transition: color 0.2s;
+            }
+
+                .footer__copyright-links a:hover {
+                    color: var(--accent-primary);
+                }
+
+        .footer__developer {
+            text-align: center;
+            padding: 20px 0;
+            background: #0a0e18;
+            margin-top: 0;
+        }
+
+        .developer-credit {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            color: #8a9bb5;
+            font-size: 15px;
+        }
+
+        .developer-name {
+            color: var(--accent-primary);
+            font-weight: 700;
+            font-size: 16px;
+            letter-spacing: 0.3px;
+        }
+
+        .developer-title {
+            color: #5a6a84;
+            font-size: 13px;
+            margin-left: 5px;
+        }
+
+        .heart-icon {
+            color: var(--accent-primary);
+            animation: heartbeat 1.5s ease infinite;
+            margin: 0 3px;
+        }
+
+        .separator-dot {
+            color: var(--accent-primary);
+            margin: 0 8px;
+            font-size: 8px;
+        }
+
+        /* ========== BACK TO TOP ========== */
+        #back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 48px;
+            height: 48px;
+            background: var(--accent-primary);
+            color: white;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            border: none;
+            font-size: 18px;
+        }
+
+            #back-to-top.show {
+                opacity: 1;
+                visibility: visible;
+            }
+
+            #back-to-top:hover {
+                background: var(--accent-hover);
+                transform: translateY(-3px);
+                box-shadow: 0 8px 25px rgba(231, 76, 60, 0.5);
+            }
+
+        /* ========== ANIMATIONS ========== */
+        @@keyframes tickerMove {
+            0%
+
+        {
+            transform: translateX(100vw);
+        }
+
+        100% {
+            transform: translateX(-100%);
+        }
+
+        }
+
+        @@keyframes pulse {
+            0%, 100%
+
+        {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        50% {
+            opacity: 0.6;
+            transform: scale(1.1);
+        }
+
+        }
+
+        @@keyframes heartbeat {
+            0%, 100%
+
+        {
+            transform: scale(1);
+        }
+
+        50% {
+            transform: scale(1.15);
+        }
+
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @@media (max-width: 1024px) {
+            .footer__grid
+
+        {
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        }
+
+        @@media (max-width: 768px) {
+            .top-bar__inner
+
+        {
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .header__inner {
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .header__search {
+            max-width: 100%;
+            width: 100%;
+        }
+
+        .nav-main__container {
+            flex-direction: column;
+            padding: 0;
+        }
+
+        .nav-main__list {
+            width: 100%;
+            padding: 0 10px;
+        }
+
+        .nav-main__right {
+            display: none;
+        }
+
+        .breaking-news__label {
+            clip-path: none;
+            padding: 10px 16px;
+        }
+
+        .footer__grid {
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        .footer__copyright {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .footer__copyright-links {
+            justify-content: center;
+        }
+
+        .logo__title {
+            font-size: 20px;
+        }
+
+        .logo__icon {
+            width: 46px;
+            height: 46px;
+            font-size: 22px;
+        }
+
+        }
+
+        @@media (max-width: 480px) {
+            .header__auth
+
+        {
+            width: 100%;
+            justify-content: center;
+        }
+
+        .btn-login, .btn-register {
+            padding: 8px 16px;
+            font-size: 13px;
+        }
+
+        .breaking-news__inner {
+            flex-direction: column;
+        }
+
+        .breaking-news__label {
+            width: 100%;
+            justify-content: center;
+        }
+
+        .footer__newsletter-box {
+            flex-direction: column;
+        }
+
+        .developer-credit {
+            font-size: 13px;
+        }
+
+        .newsletter-form {
+            flex-direction: column;
+        }
+
+        .newsletter-input {
+            border-radius: 6px;
+        }
+
+        .newsletter-btn {
+            border-radius: 6px;
+        }
+
+        }
+    </style>
+</head>
+<body>
+    <!-- ========== TOP BAR ========== -->
+    <div class="top-bar">
+        <div class="container top-bar__inner">
+            <div class="top-bar__left">
+                <div class="top-bar__date">
+                    <i class="far fa-calendar-alt"></i>
+                    <span id="live-date"></span>
+                </div>
+                <span class="top-bar__divider">|</span>
+                <div class="top-bar__date">
+                    <i class="far fa-clock"></i>
+                    <span id="bangla-date"></span>
+                </div>
+            </div>
+
+            
+            <div style="display:flex;background:#f5f5f5;border-radius:20px;padding:3px;flex-shrink:0;">
+                <button id="lang-bn"
+                        onclick="setGlobalLang('bn')"
+                        style="padding:5px 14px;border-radius:16px;border:none;cursor:pointer;font-size:13px;font-family:inherit;background:#c0392b;color:white;transition:all .2s;">
+                    বাংলা
+                </button>
+                <button id="lang-en"
+                        onclick="setGlobalLang('en')"
+                        style="padding:5px 14px;border-radius:16px;border:none;cursor:pointer;font-size:13px;font-family:inherit;background:transparent;color:#888;transition:all .2s;">
+                    English
+                </button>
+            </div>
+
+            <div class="top-bar__social">
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <span class="top-bar__divider">|</span>
+                <a asp-controller="Account" asp-action="Login" class="top-bar__link">
+                    <i class="fas fa-sign-in-alt"></i> লগইন
+                </a>
+                <button class="night-mode-toggle" id="nightModeToggle" onclick="toggleNightMode()">
+                    <i class="fas fa-moon"></i>
+                    <span>নাইট মোড</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== HEADER ========== -->
+    <header class="header">
+        <div class="container header__inner">
+            <a asp-controller="Home" asp-action="Index" class="logo">
+                <div class="logo__icon" id="mainLogoIcon">
+                    <span>দু</span>
+                    <img id="mainLogoImg" src="/images/logo.png" alt="DurjoyBD News 24 Logo" onerror="this.style.display='none'; document.getElementById('mainLogoIcon').classList.remove('has-logo');">
+                </div>
+                <div class="logo__text">
+                    <div class="logo__title">দুর্জয় <span>বিডি</span> নিউজ ২৪</div>
+                    <div class="logo__subtitle">DURJOY BD NEWS 24</div>
+                </div>
+            </a>
+
+            <div class="header__search">
+                <input type="text" id="live-search-input" placeholder="আপনি কি খুঁজছেন?" autocomplete="off" />
+                <button type="button" id="search-btn" aria-label="Search">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+
+            <div class="header__auth">
+                @if (Context.Session.GetString("UserToken") != null)
+                {
+                    <div class="user-profile">
+                        <a asp-controller="Account" asp-action="Profile" class="user-profile__info">
+                            <div class="user-profile__avatar">
+                                @(Context.Session.GetString("UserNameBn")?[0].ToString() ?? "প")
+                            </div>
+                            <span class="user-profile__name">
+                                @Context.Session.GetString("UserNameBn")
+                            </span>
+                        </a>
+                        <a asp-controller="Account" asp-action="Logout" class="btn-logout">
+                            <i class="fas fa-sign-out-alt"></i>
+                        </a>
+                    </div>
+                }
+                else
+                {
+                    <a asp-controller="Account" asp-action="Login" class="btn-login">
+                        <i class="far fa-user"></i> লগইন
+                    </a>
+                    <a asp-controller="Account" asp-action="Register" class="btn-register">
+                        <i class="fas fa-user-plus"></i> রেজিস্টার
+                    </a>
+                }
+            </div>
+
+
+            <span id="weather-widget" style="display:none;align-items:center;gap:6px;font-size:12px;">
+                <i class="fas fa-cloud-sun" id="weather-icon"></i>
+                <span id="weather-temp"></span>
+                <span id="weather-city"></span>
+            </span>
+
+            <script>
+                async function loadWeather() {
+                    try {
+                        if (!navigator.geolocation) return;
+                        navigator.geolocation.getCurrentPosition(async pos => {
+                            const { latitude: lat, longitude: lon } = pos.coords;
+                            const res = await fetch(
+                                `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`);
+                            const data = await res.json();
+                            const temp = Math.round(
+                                data.current_weather.temperature);
+                            const widget = document.getElementById(
+                                'weather-widget');
+                            const tempEl = document.getElementById(
+                                'weather-temp');
+
+                            if (widget && tempEl) {
+                                tempEl.textContent = `${temp}°C`;
+                                widget.style.display = 'flex';
+                            }
+                        }, () => {});
+                    } catch {}
+                }
+
+                loadWeather();
+            </script>
+
+        </div>
+    </header>
+
+    <!-- ========== NAVIGATION ========== -->
+    <nav class="nav-main">
+        <div class="nav-main__container">
+            <ul class="nav-main__list">
+                <li><a asp-controller="Home" asp-action="Index" class="active"><i class="fas fa-home"></i> প্রচ্ছদ</a></li>
+                @if (ViewBag.Categories != null)
+                {
+                    foreach (var cat in ViewBag.Categories)
+                    {
+                        <li>
+                            <a asp-controller="Category" asp-action="Index" asp-route-slug="@cat.Slug">
+                                <i class="fas fa-circle" style="font-size: 6px;"></i> @cat.NameBn
+                            </a>
+                        </li>
+                    }
+                }
+                <!-- Fixed positions for Video and Live -->
+                <li>
+                    <a asp-controller="Video" asp-action="Index">
+                        <i class="fas fa-video"></i> ভিডিও
+                    </a>
+                </li>
+
+                <li>
+                    <a asp-controller="EPaper" asp-action="Index">
+                        <i class="fas fa-newspaper"></i> ই-পেপার
+                    </a>
+                </li>
+
+                <li>
+                    <a asp-controller="Video" asp-action="Live" class="live-menu">
+                        <span class="live-dot"></span> লাইভ
+                    </a>
+                </li>
+            </ul>
+            <div class="nav-main__right">
+                @* div class="nav-trending">
+                    <i class="fas fa-fire"></i>
+                    <span>ট্রেন্ডিং</span>
+                </div> *@
+                <div class="live-time-nav">
+                    <i class="fas fa-clock"></i>
+                    <span id="liveClockNav">--:--:--</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========== BREAKING NEWS ========== -->
+    <div class="breaking-news">
+        <div class="container breaking-news__inner">
+            <div class="breaking-news__label">
+                <i class="fas fa-circle"></i>
+                ব্রেকিং নিউজ
+            </div>
+            <div class="breaking-news__ticker">
+                <div id="breaking-ticker" class="ticker-track">
+                    @if (ViewBag.BreakingNews != null && ((IEnumerable<dynamic>)ViewBag.BreakingNews).Any())
+                    {
+                        foreach (var news in ViewBag.BreakingNews)
+                        {
+                            <a href="/news/@news.Slug"><i class="fas fa-circle"></i> @news.TitleBn</a>
+                        }
+                        foreach (var news in ViewBag.BreakingNews)
+                        {
+                            <a href="/news/@news.Slug"><i class="fas fa-circle"></i> @news.TitleBn</a>
+                        }
+                    }
+                    else
+                    {
+                        <a href="#"><i class="fas fa-circle"></i> স্বাগতম দুর্জয় বিডি নিউজ ২৪ এ</a>
+                        <a href="#"><i class="fas fa-circle"></i> সর্বশেষ সংবাদ পেতে আমাদের সাথে থাকুন</a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== MAIN CONTENT ========== -->
+    <main class="main-content">
+        <div class="container">
+            @RenderBody()
+        </div>
+    </main>
+
+    <!-- ========== NEWSLETTER SECTION ========== -->
+    <div class="newsletter-section">
+        <div class="newsletter-container">
+            <h3 class="newsletter-title">নিউজলেটার সাবস্ক্রাইব করুন</h3>
+            <p class="newsletter-desc">সর্বশেষ সংবাদ সরাসরি আপনার ইমেইলে পাবেন</p>
+            <div class="newsletter-form">
+                <input type="email"
+                       id="newsletter-email"
+                       class="newsletter-input"
+                       placeholder="আপনার ইমেইল দিন" />
+                <button onclick="subscribeNewsletter()"
+                        id="newsletter-btn"
+                        class="newsletter-btn">
+                    সাবস্ক্রাইব
+                </button>
+            </div>
+            <div id="newsletter-msg" class="newsletter-msg"></div>
+        </div>
+    </div>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__grid">
+                <div class="footer__about">
+                    <div class="footer__logo">
+                        <div class="footer__logo-icon" id="footerLogoIcon">
+                            <span>দু</span>
+                            <img id="footerLogoImg" src="/images/logo.png" alt="Logo" onerror="this.style.display='none'; document.getElementById('footerLogoIcon').classList.remove('has-logo');">
+                        </div>
+                        <div class="footer__logo-text">দুর্জয় <span>বিডি</span> নিউজ ২৪</div>
+                    </div>
+                    <p class="footer__desc">
+                        সত্যের সন্ধানে নির্ভীক। বাংলাদেশের অন্যতম বিশ্বস্ত অনলাইন নিউজ পোর্টাল। সর্বশেষ সংবাদ, ব্রেকিং নিউজ এবং গভীর বিশ্লেষণ পেতে আমাদের সাথে থাকুন।
+                    </p>
+                    <div class="footer__social">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="footer__title">গুরুত্বপূর্ণ লিংক</h4>
+                    <ul class="footer__links">
+                        <li><a href="#"><i class="fas fa-angle-right"></i> আমাদের সম্পর্কে</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> যোগাযোগ করুন</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> গোপনীয়তা নীতি</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> শর্তাবলী</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> বিজ্ঞাপন</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="footer__title">জনপ্রিয় ক্যাটাগরি</h4>
+                    <ul class="footer__links">
+                        @if (ViewBag.Categories != null)
+                        {
+                            int count = 0;
+                            foreach (var cat in ViewBag.Categories)
+                            {
+                                if (count >= 5) break;
+                                <li>
+                                    <a asp-controller="Category" asp-action="Index" asp-route-slug="@cat.Slug">
+                                        <i class="fas fa-angle-right"></i> @cat.NameBn
+                                    </a>
+                                </li>
+                                count++;
+                            }
+                        }
+                    </ul>
+                    <a href="https://localhost:7001/rss.xml" target="_blank" class="footer__rss-link" style="display: inline-block; margin-top: 20px;">
+                        <i class="fas fa-rss"></i> RSS Feed
+                    </a>
+                </div>
+
+                <div>
+                    <h4 class="footer__title">যোগাযোগ</h4>
+                    <ul class="footer__contact">
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>১২৩/এ, নিউজ কমপ্লেক্স, পুরানা পল্টন, ঢাকা-১০০০</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone-alt"></i>
+                            <span>01839 31 34 20<br>01866 228064</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <span>news@durjoybdnews24.com<br>info@durjoybdnews24.com</span>
+                        </li>
+                    </ul>
+                    <div class="footer__newsletter">
+                        <p>নিউজলেটার সাবস্ক্রাইব করুন</p>
+                        <div class="footer__newsletter-box">
+                            <input type="email" placeholder="আপনার ইমেইল" id="footer-newsletter-email" />
+                            <button type="button" onclick="subscribeFooterNewsletter()">সাবস্ক্রাইব</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer__bottom">
+                <div class="footer__copyright">
+                    <div class="footer__copyright-text">
+                        © @DateTime.Now.Year দুর্জয় বিডি নিউজ ২৪। সর্বস্বত্ব সংরক্ষিত।
+                    </div>
+                    <div class="footer__copyright-links">
+                        <a href="#">প্রাইভেসি পলিসি</a>
+                        <a href="#">টার্মস অফ ইউজ</a>
+                        <a href="#">সাইটম্যাপ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer__developer">
+            <div class="container">
+                <div class="developer-credit">
+                    
+                    <i class="fas fa-heart heart-icon"></i>
+                    <span class="developer-name">MD Abu Nayeem Salahi</span>
+                    <span class="separator-dot">●</span>
+                    <span class="developer-title">Software Developer</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div id="breaking-popup"
+         style="display:none;position:fixed;bottom:80px;left:20px;max-width:320px;background:white;border-radius:10px;border-left:4px solid #e74c3c;box-shadow:0 8px 32px rgba(0,0,0,0.15);z-index:9998;overflow:hidden;">
+        <div style="background:#e74c3c;padding:8px 14px;display:flex;justify-content:space-between;align-items:center;">
+            <span style="color:white;font-size:13px;font-weight:600;display:flex;align-items:center;gap:6px;">
+                <span style="width:8px;height:8px;background:white;border-radius:50%;animation:pulse 1.5s infinite;"></span>
+                ব্রেকিং নিউজ
+            </span>
+            <button onclick="closeBreakingPopup()"
+                    style="background:none;border:none;color:white;cursor:pointer;font-size:16px;padding:0;line-height:1;">
+                ×
+            </button>
+        </div>
+        <div style="padding:14px;">
+            <p id="breaking-popup-text"
+               style="font-size:14px;color:#1a1a1a;margin:0 0 10px;line-height:1.5;"></p>
+            <a id="breaking-popup-link"
+               href="#"
+               style="font-size:13px;color:#c0392b;text-decoration:none;font-weight:500;">
+                বিস্তারিত পড়ুন →
+            </a>
+        </div>
+    </div>
+
+    <script>
+        let popupShown = false;
+
+        connection.on('ReceiveBreakingNews', (news) => {
+            if (!popupShown) return;
+            showBreakingPopup(news.titleBn, `/news/${news.slug}`);
+        });
+
+        function showBreakingPopup(title, url) {
+            const popup = document.getElementById('breaking-popup');
+            const text = document.getElementById('breaking-popup-text');
+            const link = document.getElementById('breaking-popup-link');
+
+            if (!popup || !text || !link) return;
+
+            text.textContent = title;
+            link.href = url;
+            popup.style.display = 'block';
+
+            setTimeout(closeBreakingPopup, 8000);
+        }
+
+        function closeBreakingPopup() {
+            const popup = document.getElementById('breaking-popup');
+            if (popup) popup.style.display = 'none';
+        }
+
+        setTimeout(() => { popupShown = true; }, 3000);
+    </script>
+
+    <!-- ========== BACK TO TOP ========== -->
+    <button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.0/signalr.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <script>
+        // Night Mode Toggle
+        function toggleNightMode() {
+            document.body.classList.toggle('night-mode');
+            const isNightMode = document.body.classList.contains('night-mode');
+            localStorage.setItem('nightMode', isNightMode ? 'enabled' : 'disabled');
+
+            const toggleBtn = document.getElementById('nightModeToggle');
+            if (toggleBtn) {
+                const icon = toggleBtn.querySelector('i');
+                const span = toggleBtn.querySelector('span');
+                if (isNightMode) {
+                    icon.className = 'fas fa-sun';
+                    span.textContent = 'ডে মোড';
+                } else {
+                    icon.className = 'fas fa-moon';
+                    span.textContent = 'নাইট মোড';
+                }
+            }
+        }
+
+        // Check saved night mode preference
+        function initNightMode() {
+            const savedMode = localStorage.getItem('nightMode');
+            const toggleBtn = document.getElementById('nightModeToggle');
+
+            if (savedMode === 'enabled') {
+                document.body.classList.add('night-mode');
+                if (toggleBtn) {
+                    toggleBtn.querySelector('i').className = 'fas fa-sun';
+                    toggleBtn.querySelector('span').textContent = 'ডে মোড';
+                }
+            }
+        }
+
+        // Date display
+        const now = new Date();
+        const banglaMonths = ['জানুয়ারি','ফেব্রুয়ারি','মার্চ','এপ্রিল','মে','জুন','জুলাই','আগস্ট','সেপ্টেম্বর','অক্টোবর','নভেম্বর','ডিসেম্বর'];
+        const banglaWeekdays = ['রবিবার','সোমবার','মঙ্গলবার','বুধবার','বৃহস্পতিবার','শুক্রবার','শনিবার'];
+
+        const weekday = banglaWeekdays[now.getDay()];
+        const day = now.getDate();
+        const month = banglaMonths[now.getMonth()];
+        const year = now.getFullYear();
+
+        const banglaDateElem = document.getElementById('bangla-date');
+        if(banglaDateElem) banglaDateElem.innerText = `${weekday}, ${day} ${month} ${year}`;
+
+        const liveDateElem = document.getElementById('live-date');
+        if(liveDateElem) liveDateElem.innerText = now.toLocaleDateString('bn-BD', { year: 'numeric', month: 'short', day: 'numeric' });
+
+        // LIVE CLOCK in navigation
+        function updateLiveClock() {
+            const clockElem = document.getElementById('liveClockNav');
+            if(clockElem) {
+                const nowTime = new Date();
+                let hours = nowTime.getHours();
+                const minutes = nowTime.getMinutes().toString().padStart(2,'0');
+                const seconds = nowTime.getSeconds().toString().padStart(2,'0');
+                const ampm = hours >= 12 ? 'PM' : 'AM';
+                hours = hours % 12 || 12;
+                clockElem.innerText = `${hours.toString().padStart(2,'0')}:${minutes}:${seconds} ${ampm}`;
+            }
+        }
+        updateLiveClock();
+        setInterval(updateLiveClock, 1000);
+
+        // Back to top
+        const backBtn = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => {
+            if(window.scrollY > 400) backBtn.classList.add('show');
+            else backBtn.classList.remove('show');
+        });
+
+        // Search
+        const searchBtn = document.getElementById('search-btn');
+        const searchInput = document.getElementById('live-search-input');
+
+        if(searchBtn && searchInput) {
+            searchBtn.addEventListener('click', () => {
+                const searchTerm = searchInput.value.trim();
+                if(searchTerm) {
+                    window.location.href = `/search?q=${encodeURIComponent(searchTerm)}`;
+                } else {
+                    alert('অনুগ্রহ করে অনুসন্ধান শব্দ লিখুন');
+                }
+            });
+
+            searchInput.addEventListener('keypress', (e) => {
+                if(e.key === 'Enter') {
+                    searchBtn.click();
+                }
+            });
+        }
+
+        // Logo check and display
+        function checkAndDisplayLogo() {
+            const mainLogoImg = document.getElementById('mainLogoImg');
+            const mainLogoIcon = document.getElementById('mainLogoIcon');
+            const footerLogoImg = document.getElementById('footerLogoImg');
+            const footerLogoIcon = document.getElementById('footerLogoIcon');
+
+            if(mainLogoImg && mainLogoImg.complete && mainLogoImg.naturalWidth > 0) {
+                mainLogoIcon.classList.add('has-logo');
+            }
+
+            if(footerLogoImg && footerLogoImg.complete && footerLogoImg.naturalWidth > 0) {
+                footerLogoIcon.classList.add('has-logo');
+            }
+        }
+
+        setTimeout(checkAndDisplayLogo, 100);
+
+        // Newsletter subscription functions
+        function subscribeNewsletter() {
+            const emailInput = document.getElementById('newsletter-email');
+            const msgDiv = document.getElementById('newsletter-msg');
+
+            if (!emailInput || !emailInput.value.trim()) {
+                if (msgDiv) msgDiv.textContent = 'অনুগ্রহ করে আপনার ইমেইল দিন';
+                return;
+            }
+
+            const email = emailInput.value.trim();
+            const emailRegex = /^[^\s@@]+@@[^\s@@]+\.[^\s@@]+$/;
+            if (!emailRegex.test(email)) {
+                if (msgDiv) msgDiv.textContent = 'একটি বৈধ ইমেইল ঠিকানা দিন';
+                return;
+            }
+
+            // Here you would typically send to server
+            if (msgDiv) {
+                msgDiv.textContent = 'ধন্যবাদ! আপনি সফলভাবে সাবস্ক্রাইব করেছেন।';
+                msgDiv.style.color = '#4ade80';
+            }
+            emailInput.value = '';
+        }
+
+        function subscribeFooterNewsletter() {
+            const emailInput = document.getElementById('footer-newsletter-email');
+
+            if (!emailInput || !emailInput.value.trim()) {
+                alert('অনুগ্রহ করে আপনার ইমেইল দিন');
+                return;
+            }
+
+            const email = emailInput.value.trim();
+            const emailRegex = /^[^\s@@]+@@[^\s@@]+\.[^\s@@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('একটি বৈধ ইমেইল ঠিকানা দিন');
+                return;
+            }
+
+            alert('ধন্যবাদ! আপনি সফলভাবে সাবস্ক্রাইব করেছেন।');
+            emailInput.value = '';
+        }
+
+        // Session storage
+        @if (Context.Session.GetString("UserToken") != null)
+        {
+                <text>
+                sessionStorage.setItem('userToken', '@Context.Session.GetString("UserToken")');
+                sessionStorage.setItem('userName', '@Context.Session.GetString("UserNameBn")');
+                </text>
+        }
+
+        // Ensure live ticker duplication for seamless loop
+        const ticker = document.getElementById('breaking-ticker');
+        if(ticker && ticker.children.length > 2) {
+            const cloneItems = Array.from(ticker.children).slice(0, Math.ceil(ticker.children.length/2));
+            cloneItems.forEach(el => ticker.appendChild(el.cloneNode(true)));
+        }
+
+        // Initialize night mode on page load
+        initNightMode();
+    </script>
+
+    <script>
+        function setGlobalLang(lang) {
+            localStorage.setItem('lang', lang);
+
+            const btnBn = document.getElementById('lang-bn');
+            const btnEn = document.getElementById('lang-en');
+
+            if (lang === 'bn') {
+                if (btnBn) { btnBn.style.background = '#c0392b'; btnBn.style.color = 'white'; }
+                if (btnEn) { btnEn.style.background = 'transparent'; btnEn.style.color = '#888'; }
+            } else {
+                if (btnEn) { btnEn.style.background = '#c0392b'; btnEn.style.color = 'white'; }
+                if (btnBn) { btnBn.style.background = 'transparent'; btnBn.style.color = '#888'; }
+            }
+
+            document.querySelectorAll('[data-bn]').forEach(el => {
+                el.textContent = lang === 'bn'
+                    ? el.getAttribute('data-bn')
+                    : el.getAttribute('data-en') || el.getAttribute('data-bn');
+            });
+
+            document.querySelectorAll('[data-title-bn]').forEach(el => {
+                el.textContent = lang === 'bn'
+                    ? el.getAttribute('data-title-bn')
+                    : el.getAttribute('data-title-en') || el.getAttribute('data-title-bn');
+            });
+        }
+
+        const savedLang = localStorage.getItem('lang') || 'bn';
+        document.addEventListener('DOMContentLoaded', () => {
+            setGlobalLang(savedLang);
+        });
+    </script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

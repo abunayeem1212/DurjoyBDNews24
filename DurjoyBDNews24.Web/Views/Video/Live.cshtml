@@ -1,0 +1,111 @@
+﻿@{
+    ViewData["Title"] = "লাইভ টিভি";
+    var channels = ViewBag.Channels as IEnumerable<DurjoyBDNews24.Application.DTOs.Video.LiveTVDto>;
+    var liveChannel = ViewBag.LiveChannel as DurjoyBDNews24.Application.DTOs.Video.LiveTVDto;
+}
+
+<div style="margin-bottom:24px;">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:20px;">
+        <span style="width:4px;height:24px;background:#e74c3c;display:inline-block;border-radius:2px;"></span>
+        <h1 style="font-size:22px;margin:0;">লাইভ টিভি</h1>
+        <span style="display:flex;align-items:center;gap:6px;padding:4px 12px;background:#fde8e8;border-radius:20px;font-size:13px;color:#c0392b;font-weight:500;">
+            <span style="width:8px;height:8px;background:#e74c3c;border-radius:50%;animation:pulse 1.5s infinite;"></span>
+            LIVE
+        </span>
+    </div>
+
+    @if (liveChannel != null)
+    {
+        <div style="background:#000;border-radius:10px;overflow:hidden;margin-bottom:20px;position:relative;padding-top:56.25%;">
+            <iframe src="@liveChannel.EmbedUrl"
+                    title="@liveChannel.NameBn"
+                    style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;"
+                    allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"
+                    allowfullscreen>
+            </iframe>
+        </div>
+
+        <div style="background:white;border-radius:8px;padding:16px 20px;border:0.5px solid #e0e0e0;margin-bottom:20px;display:flex;align-items:center;gap:12px;">
+            <div style="width:10px;height:10px;background:#e74c3c;border-radius:50%;animation:pulse 1.5s infinite;flex-shrink:0;"></div>
+            <div>
+                <h2 style="font-size:18px;margin:0;color:#1a1a1a;">
+                    @liveChannel.NameBn
+                </h2>
+                @if (!string.IsNullOrEmpty(liveChannel.Description))
+                {
+                    <p style="font-size:13px;color:#888;margin:4px 0 0;">
+                        @liveChannel.Description
+                    </p>
+                }
+            </div>
+        </div>
+    }
+    else
+    {
+        <div style="background:#1a1a2e;border-radius:10px;padding:80px;text-align:center;margin-bottom:20px;">
+            <i class="fas fa-tv" style="font-size:48px;color:#444;display:block;margin-bottom:16px;"></i>
+            <p style="font-size:18px;color:#666;margin:0;">
+                এই মুহূর্তে কোনো লাইভ সম্প্রচার নেই
+            </p>
+            <p style="font-size:14px;color:#444;margin:8px 0 0;">
+                পরে আবার চেক করুন
+            </p>
+        </div>
+    }
+
+    @if (channels?.Any() == true)
+    {
+        <h3 style="font-size:17px;margin-bottom:14px;border-bottom:2px solid #c0392b;padding-bottom:8px;display:inline-block;">
+            সব Channel
+        </h3>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;">
+            @foreach (var channel in channels)
+            {
+                <div style="background:white;border-radius:8px;overflow:hidden;border:@(channel.IsLive ? "2px solid #e74c3c" : "0.5px solid #e0e0e0");cursor:pointer;transition:transform .2s;"
+                     onclick="switchChannel('@channel.EmbedUrl', '@channel.NameBn')"
+                     onmouseover="this.style.transform='translateY(-2px)'"
+                     onmouseout="this.style.transform='translateY(0)'">
+                    @if (!string.IsNullOrEmpty(channel.ThumbnailUrl))
+                    {
+                        <img src="@channel.ThumbnailUrl"
+                             alt="@channel.NameBn"
+                             style="width:100%;height:80px;object-fit:cover;display:block;" />
+                    }
+                    else
+                    {
+                        <div style="height:80px;background:linear-gradient(135deg,#1a1a2e,#2a2a4e);display:flex;align-items:center;justify-content:center;">
+                            <i class="fas fa-tv" style="font-size:24px;color:#444;"></i>
+                        </div>
+                    }
+                    <div style="padding:10px;">
+                        <div style="display:flex;align-items:center;justify-content:space-between;">
+                            <p style="font-size:13px;font-weight:500;color:#1a1a1a;margin:0;">
+                                @channel.NameBn
+                            </p>
+                            @if (channel.IsLive)
+                            {
+                                <span style="background:#e74c3c;color:white;font-size:10px;padding:1px 6px;border-radius:3px;font-weight:600;">
+                                    LIVE
+                                </span>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        function switchChannel(embedUrl, name) {
+            const iframe = document.querySelector('iframe');
+            if (!iframe) return;
+
+            iframe.src = embedUrl + '?autoplay=1';
+
+            const title = document.querySelector('h2');
+            if (title) title.textContent = name;
+        }
+    </script>
+}

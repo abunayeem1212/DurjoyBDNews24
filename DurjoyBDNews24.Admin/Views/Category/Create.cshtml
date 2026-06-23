@@ -1,0 +1,27 @@
+﻿@model DurjoyBDNews24.Application.DTOs.Category.CreateCategoryDto
+@{
+    ViewData["Title"] = "নতুন বিভাগ";
+}
+
+<div class="form-card" style="max-width:600px">
+    <form asp-action="Create" method="post">
+        <div class="form-group">
+            <label>বাংলা নাম *</label>
+            <input asp-for="NameBn" placeholder="যেমন: জাতীয়" />
+        </div>
+        <div class="form-group">
+            <label>English Name *</label>
+            <input asp-for="Name" placeholder="e.g. National" />
+        </div>
+        <div class="form-group">
+            <label>বিবরণ</label>
+            <textarea asp-for="Description" rows="3"></textarea>
+        </div>
+        <div class="form-group">
+            <label>Sort Order</label>
+            <input asp-for="SortOrder" type="number" value="0" />
+        </div>
+        <button type="submit" class="btn-primary">বিভাগ তৈরি করুন</button>
+        <a asp-action="Index" class="btn-sm" style="margin-left:8px">বাতিল</a>
+    </form>
+</div>

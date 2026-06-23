@@ -1,0 +1,77 @@
+﻿@{
+    ViewData["Title"] = "নতুন ই-পেপার";
+}
+
+<div style="max-width:600px;">
+    <div class="form-card">
+        <h3>নতুন সংখ্যা যোগ করুন</h3>
+        <form asp-action="Create" method="post">
+            <div class="form-group">
+                <label>বাংলা শিরোনাম *</label>
+                <input type="text" name="titleBn" required
+                       placeholder="দুর্জয় বিডি নিউজ ২৪" />
+            </div>
+            <div class="form-group">
+                <label>English Title</label>
+                <input type="text" name="title"
+                       placeholder="DurjoyBDNews24" />
+            </div>
+            <div class="form-group">
+                <label>PDF URL *</label>
+                <input type="url" name="pdfUrl" required
+                       placeholder="https://...pdf" />
+                <small style="font-size:12px;color:#888;margin-top:4px;display:block;">
+                    Google Drive, Dropbox বা যেকোনো PDF link
+                </small>
+            </div>
+            <div class="form-group">
+                <label>Thumbnail URL</label>
+                <input type="url" name="thumbnailUrl"
+                       id="thumb-url"
+                       placeholder="https://...jpg" />
+                <div id="thumb-preview" style="margin-top:8px;"></div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+                <div class="form-group">
+                    <label>প্রকাশের তারিখ *</label>
+                    <input type="date" name="publishDate" required
+                           value="@DateTime.Today.ToString("yyyy-MM-dd")" />
+                </div>
+                <div class="form-group">
+                    <label>সংখ্যা</label>
+                    <input type="text" name="edition"
+                           placeholder="যেমন: ৩৫৬৫" />
+                </div>
+            </div>
+            <div style="display:flex;gap:16px;margin-bottom:16px;">
+                <label style="display:flex;align-items:center;gap:8px;font-size:14px;cursor:pointer;">
+                    <input type="checkbox" name="isPublished"
+                           value="true" checked />
+                    প্রকাশ করুন
+                </label>
+                <label style="display:flex;align-items:center;gap:8px;font-size:14px;cursor:pointer;">
+                    <input type="checkbox" name="isPremiumOnly"
+                           value="true" />
+                    <i class="fas fa-crown" style="color:#f39c12;"></i>
+                    Premium Only
+                </label>
+            </div>
+            <button type="submit" class="btn-primary btn-block">
+                সংখ্যা যোগ করুন
+            </button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.getElementById('thumb-url')
+            ?.addEventListener('input', function() {
+            const preview = document.getElementById('thumb-preview');
+            preview.innerHTML = this.value
+                ? `<img src="${this.value}"
+                        style="width:100%;height:120px;object-fit:cover;border-radius:6px;"/>`
+                : '';
+        });
+    </script>
+}

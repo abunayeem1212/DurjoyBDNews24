@@ -1,0 +1,29 @@
+﻿@{
+    ViewData["Title"] = "Newsletter পাঠান";
+}
+
+<div style="max-width:600px;">
+    <div class="form-card">
+        <h3>Newsletter পাঠান</h3>
+        <form asp-action="Send" method="post">
+            <div class="form-group">
+                <label>Subject *</label>
+                <input type="text" name="subject" required
+                       placeholder="Newsletter এর বিষয়" />
+            </div>
+            <div class="form-group">
+                <label>বার্তা *</label>
+                <textarea name="body" rows="10" required
+                          placeholder="Newsletter এর বিষয়বস্তু লিখুন..."></textarea>
+            </div>
+            <div style="background:#fff3cd;padding:12px;border-radius:6px;font-size:13px;color:#856404;margin-bottom:16px;">
+                <i class="fas fa-info-circle"></i>
+                সব active subscriber দের email এ পাঠানো হবে।
+            </div>
+            <button type="submit" class="btn-primary"
+                    onclick="return confirm('সব subscriber দের পাঠাবেন?')">
+                <i class="fas fa-paper-plane"></i> পাঠান
+            </button>
+        </form>
+    </div>
+</div>

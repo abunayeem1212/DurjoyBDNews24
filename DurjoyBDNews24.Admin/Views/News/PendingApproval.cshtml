@@ -1,0 +1,95 @@
+﻿@model IEnumerable<DurjoyBDNews24.Application.DTOs.Article.ArticleDto>
+@{
+    ViewData["Title"] = "অনুমোদন বাকি";
+}
+
+<div class="page-header">
+    <h2>
+        অনুমোদন বাকি
+        @if (Model.Any())
+        {
+            <span class="badge red" style="margin-left:8px;">
+                @Model.Count()
+            </span>
+        }
+    </h2>
+</div>
+
+@if (!Model.Any())
+{
+    <div style="background:white;border-radius:8px;padding:60px;text-align:center;border:0.5px solid #e0e0e0;color:#888;">
+        <i class="fas fa-check-circle" style="font-size:40px;opacity:0.2;display:block;margin-bottom:12px;color:green;"></i>
+        <p style="font-size:16px;margin:0;">সব নিউজ অনুমোদিত হয়েছে</p>
+    </div>
+}
+else
+{
+    <div style="display:flex;flex-direction:column;gap:12px;">
+        @foreach (var article in Model)
+        {
+            <div style="background:white;border-radius:8px;padding:20px;border:0.5px solid #e0e0e0;">
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;">
+                    <div style="flex:1;">
+                        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+                            <span class="badge" style="background:#fff3cd;color:#856404;">
+                                অনুমোদন বাকি
+                            </span>
+                            <span style="font-size:12px;color:#aaa;">
+                                @article.CategoryNameBn
+                            </span>
+                        </div>
+                        <h3 style="font-size:16px;margin:0 0 8px;color:#1a1a1a;">
+                            @article.TitleBn
+                        </h3>
+                        @if (!string.IsNullOrEmpty(article.SummaryBn))
+                        {
+                            <p style="font-size:13px;color:#666;margin:0 0 8px;line-height:1.6;">
+                                @article.SummaryBn
+                            </p>
+                        }
+                        <div style="font-size:12px;color:#aaa;display:flex;gap:12px;">
+                            <span>
+                                <i class="fas fa-user"></i>
+                                @article.AuthorNameBn
+                            </span>
+                            <span>
+                                <i class="fas fa-calendar"></i>
+                                @article.PublishedAt?.ToString("dd MMM yyyy")
+                            </span>
+                        </div>
+                    </div>
+
+                    <div style="display:flex;flex-direction:column;gap:8px;flex-shrink:0;">
+                        <a asp-controller="Reporter"
+                           asp-action="Edit"
+                           asp-route-id="@article.Id"
+                           class="btn-sm blue">
+                            <i class="fas fa-eye"></i> দেখুন
+                        </a>
+                        <form asp-controller="News"
+                              asp-action="Publish"
+                              asp-route-id="@article.Id"
+                              method="post">
+                            <button type="submit"
+                                    class="btn-sm green"
+                                    style="width:100%;">
+                                <i class="fas fa-check"></i> প্রকাশ করুন
+                            </button>
+                        </form>
+                        <form asp-controller="News"
+                              asp-action="Delete"
+                              asp-route-id="@article.Id"
+                              method="post"
+                              onsubmit="return confirm('বাতিল করবেন?')">
+                            <button type="submit"
+                                    class="btn-sm red"
+                                    style="width:100%;">
+                                <i class="fas fa-times"></i> বাতিল
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

@@ -1,0 +1,92 @@
+﻿@model DurjoyBDNews24.Admin.Models.ArticleListViewModel
+@{
+    ViewData["Title"] = "নিউজ ম্যানেজমেন্ট";
+}
+
+<div class="page-header">
+    <form method="get" class="search-form">
+        <input type="text" name="search"
+               value="@Model.SearchTerm"
+               placeholder="নিউজ খুঁজুন..." />
+        <button type="submit" class="btn-primary">খুঁজুন</button>
+    </form>
+    <a asp-action="Create" class="btn-primary">+ নতুন নিউজ</a>
+</div>
+
+<table class="data-table">
+    <thead>
+        <tr>
+            <th>শিরোনাম</th>
+            <th>বিভাগ</th>
+            <th>স্ট্যাটাস</th>
+            <th>ভিউ</th>
+            <th>তারিখ</th>
+            <th>একশন</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var article in Model.Articles)
+        {
+            <tr>
+                <td>
+                    @article.TitleBn
+                    @if (article.IsBreaking)
+                    {
+                        <span class="badge red">ব্রেকিং</span>
+                    }
+                </td>
+                <td>@article.CategoryNameBn</td>
+                <td>
+                    @if (article.IsPublished)
+                    {
+                        <span class="badge green">প্রকাশিত</span>
+                    }
+                    else
+                    {
+                        <span class="badge gray">ড্রাফট</span>
+                    }
+                </td>
+                <td>@article.ViewCount</td>
+                <td>@article.PublishedAt?.ToString("dd/MM/yy")</td>
+                <td class="action-buttons">
+                    @if (!article.IsPublished)
+                    {
+                        <form asp-action="Publish"
+                              asp-route-id="@article.Id"
+                              method="post" style="display:inline">
+                            <button type="submit" class="btn-sm green">
+                                প্রকাশ করুন
+                            </button>
+                        </form>
+                    }
+                    <a asp-action="Edit"
+                       asp-route-id="@article.Id"
+                       class="btn-sm blue">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    <form asp-action="Delete"
+                          asp-route-id="@article.Id"
+                          method="post" style="display:inline"
+                          onsubmit="return confirm('মুছে ফেলবেন?')">
+                        <button type="submit" class="btn-sm red">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@if (Model.TotalPages > 1)
+{
+    <div class="pagination">
+        @for (int i = 1; i <= Model.TotalPages; i++)
+        {
+            <a asp-action="Index"
+               asp-route-page="@i"
+               asp-route-search="@Model.SearchTerm"
+               class="@(i == Model.CurrentPage ? "active" : "")">@i</a>
+        }
+    </div>
+}

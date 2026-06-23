@@ -1,0 +1,146 @@
+﻿@{
+    ViewData["Title"] = "ই-পেপার";
+    var epapers = ViewBag.EPapers as DurjoyBDNews24.Application.DTOs.Common.PagedResult<DurjoyBDNews24.Application.DTOs.EPaper.EPaperDto>;
+    var today = ViewBag.TodayEPaper as DurjoyBDNews24.Application.DTOs.EPaper.EPaperDto;
+}
+
+<div style="margin-bottom:32px;">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:20px;">
+        <span style="width:4px;height:24px;background:#c0392b;display:inline-block;border-radius:2px;"></span>
+        <h1 style="font-size:22px;margin:0;">ই-পেপার আর্কাইভ</h1>
+    </div>
+
+    @if (today != null)
+    {
+        <div style="background:white;border-radius:12px;padding:24px;border:2px solid #c0392b;margin-bottom:28px;display:flex;gap:24px;align-items:center;">
+            @if (!string.IsNullOrEmpty(today.ThumbnailUrl))
+            {
+                <img src="@today.ThumbnailUrl"
+                     alt="@today.TitleBn"
+                     style="width:160px;height:220px;object-fit:cover;border-radius:8px;box-shadow:0 4px 20px rgba(0,0,0,0.15);flex-shrink:0;" />
+            }
+            else
+            {
+                <div style="width:160px;height:220px;background:linear-gradient(135deg,#c0392b,#922b21);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                    <div style="text-align:center;color:white;">
+                        <i class="fas fa-newspaper" style="font-size:40px;opacity:0.7;display:block;margin-bottom:8px;"></i>
+                        <span style="font-size:13px;opacity:0.8;">আজকের পত্রিকা</span>
+                    </div>
+                </div>
+            }
+            <div>
+                <span style="background:#fde8e8;color:#c0392b;font-size:12px;padding:3px 10px;border-radius:20px;font-weight:500;">
+                    আজকের সংখ্যা
+                </span>
+                <h2 style="font-size:24px;margin:10px 0 8px;color:#1a1a1a;">
+                    @today.TitleBn
+                </h2>
+                <p style="font-size:15px;color:#888;margin:0 0 6px;">
+                    <i class="fas fa-calendar" style="margin-right:6px;"></i>
+                    @today.PublishDateBn
+                </p>
+                @if (!string.IsNullOrEmpty(today.Edition))
+                {
+                    <p style="font-size:14px;color:#888;margin:0 0 16px;">
+                        সংখ্যা: @today.Edition
+                    </p>
+                }
+                <div style="display:flex;gap:10px;flex-wrap:wrap;">
+                    <a href="/epaper/read/@today.Id"
+                       style="display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:#c0392b;color:white;border-radius:6px;text-decoration:none;font-size:14px;">
+                        <i class="fas fa-eye"></i> পড়ুন
+                    </a>
+                    @if (!today.IsPremiumOnly)
+                    {
+                        <a href="@today.PdfUrl"
+                           target="_blank"
+                           style="display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:#27ae60;color:white;border-radius:6px;text-decoration:none;font-size:14px;">
+                            <i class="fas fa-download"></i> ডাউনলোড
+                        </a>
+                    }
+                    else
+                    {
+                        <span style="display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:#f39c12;color:white;border-radius:6px;font-size:14px;">
+                            <i class="fas fa-crown"></i> Premium Only
+                        </span>
+                    }
+                </div>
+                <div style="display:flex;gap:16px;margin-top:12px;font-size:13px;color:#aaa;">
+                    <span><i class="fas fa-eye"></i> @today.ViewCount ভিউ</span>
+                    <span><i class="fas fa-download"></i> @today.DownloadCount ডাউনলোড</span>
+                </div>
+            </div>
+        </div>
+    }
+
+    <h2 style="font-size:18px;margin-bottom:16px;border-bottom:2px solid #c0392b;padding-bottom:8px;display:inline-block;">
+        পুরানো সংখ্যা
+    </h2>
+
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:16px;">
+        @if (epapers?.Items.Any() == true)
+        {
+            @foreach (var ep in epapers.Items)
+            {
+                <a href="/epaper/read/@ep.Id"
+                   style="display:block;text-decoration:none;background:white;border-radius:8px;overflow:hidden;border:0.5px solid #e0e0e0;transition:transform .2s;"
+                   onmouseover="this.style.transform='translateY(-3px)'"
+                   onmouseout="this.style.transform='translateY(0)'">
+                    @if (!string.IsNullOrEmpty(ep.ThumbnailUrl))
+                    {
+                        <img src="@ep.ThumbnailUrl"
+                             alt="@ep.TitleBn"
+                             loading="lazy"
+                             style="width:100%;height:180px;object-fit:cover;display:block;" />
+                    }
+                    else
+                    {
+                        <div style="height:180px;background:linear-gradient(135deg,#1a1a2e,#c0392b);display:flex;align-items:center;justify-content:center;">
+                            <div style="text-align:center;color:white;">
+                                <i class="fas fa-newspaper" style="font-size:32px;opacity:0.6;display:block;margin-bottom:8px;"></i>
+                                <span style="font-size:12px;opacity:0.7;">পত্রিকা</span>
+                            </div>
+                        </div>
+                    }
+                    <div style="padding:10px;">
+                        <p style="font-size:13px;font-weight:500;color:#1a1a1a;margin:0 0 4px;line-height:1.4;">
+                            @ep.PublishDateBn
+                        </p>
+                        @if (!string.IsNullOrEmpty(ep.Edition))
+                        {
+                            <span style="font-size:11px;color:#888;">
+                                @ep.Edition
+                            </span>
+                        }
+                        @if (ep.IsPremiumOnly)
+                        {
+                            <span style="display:block;margin-top:4px;font-size:11px;color:#f39c12;font-weight:500;">
+                                <i class="fas fa-crown"></i> Premium
+                            </span>
+                        }
+                    </div>
+                </a>
+            }
+        }
+        else
+        {
+            <div style="grid-column:span 5;text-align:center;padding:60px;color:#888;">
+                <i class="fas fa-newspaper" style="font-size:40px;opacity:0.2;display:block;margin-bottom:12px;"></i>
+                <p style="font-size:16px;margin:0;">কোনো ই-পেপার নেই</p>
+            </div>
+        }
+    </div>
+
+    @if (epapers?.TotalPages > 1)
+    {
+        <div style="display:flex;gap:6px;margin-top:24px;justify-content:center;">
+            @for (int i = 1; i <= epapers.TotalPages; i++)
+            {
+                <a href="/epaper?page=@i"
+                   style="padding:8px 14px;border-radius:6px;text-decoration:none;font-size:13px;@(i == ViewBag.CurrentPage ? "background:#c0392b;color:white;" : "border:0.5px solid #ddd;color:#444;")">
+                    @i
+                </a>
+            }
+        </div>
+    }
+</div>
